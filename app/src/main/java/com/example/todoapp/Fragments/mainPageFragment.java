@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.todoapp.Adapters.ToDoAdapter;
 import com.example.todoapp.Models.ToDoModel;
 import com.example.todoapp.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -155,7 +156,7 @@ public class mainPageFragment extends Fragment {
   //  }
 
     public void floatingAction(View view) {
-        Dialog dialog = new Dialog(getContext());
+        BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetStyleTheme);
         dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         dialog.setContentView(R.layout.bottom_sheet_main_page);
 
@@ -197,6 +198,57 @@ public class mainPageFragment extends Fragment {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
+
+
+
+
+    /* public void floatingAction(View view){
+  public void floatingAction(View view) {
+        Dialog dialog = new Dialog(getContext(), R.style.BottomSheetStyleTheme);
+        dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        dialog.setContentView(R.layout.bottom_sheet_main_page);
+
+        EditText editTextTaskTitle = dialog.findViewById(R.id.editTextTaskTitle);
+        final String[] spinnerDate = new String[1];
+        Spinner spinner = dialog.findViewById(R.id.spinnerDate);
+        String [] dates = getResources().getStringArray(R.array.dates);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, dates);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerDate[0] = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerDate[0] = "Select date";
+            }
+        });
+
+        Button btnAddNewTask = dialog.findViewById(R.id.btnAddNewTask);
+        btnAddNewTask.setOnClickListener(view1 -> {
+            String toDoTitle = editTextTaskTitle.getText().toString();
+            if (!toDoTitle.isEmpty() && !spinnerDate[0].equals("Select date")){
+                addNewTask(toDoTitle, spinnerDate[0]);
+            }else{
+                Toast.makeText(getContext(), "Please fill the fields", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        TextView txtBackToList = dialog.findViewById(R.id.txtBackToList);
+        txtBackToList.setOnClickListener(view1 -> dialog.dismiss());
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+
+    }
+*/
     public void addNewTask(String toDoTitle,String  spinnerDate){
        DatabaseReference reference = FirebaseDatabase.getInstance(instance).getReference(FirebaseAuth.getInstance().getUid()+"/"+spinnerDate+"/").push();
        reference.setValue(new ToDoModel(reference.getKey(), toDoTitle, false)).addOnCompleteListener(task -> {
