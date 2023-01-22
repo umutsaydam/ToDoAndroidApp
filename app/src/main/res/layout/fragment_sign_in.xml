@@ -72,7 +72,7 @@
             android:ems="12"
             android:text="SIgn In"
             android:textColor="@color/white"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout

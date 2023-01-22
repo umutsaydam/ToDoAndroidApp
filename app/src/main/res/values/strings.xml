@@ -10,7 +10,9 @@
     <string name="deleteToDoTitle">Delete To Do</string>
     <string name="deleteToDoMessage">This will delete. Are you sure this ?</string>
     <string name="deleteToDoPossitiveMessage">Delete</string>
-    <string name="deleteToDoMessageNegativeMessage">Cancel</string>
+    <string name="toDoMessageNegativeMessage">Cancel</string>
+    <string name="editToDoTitle">Edit To Do</string>
+    <string name="editToDoPositiveMessage">Save</string>
 
     <string-array name="dates">
         <item>Select date</item>
