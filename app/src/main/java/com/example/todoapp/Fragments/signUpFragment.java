@@ -46,9 +46,6 @@ public class signUpFragment extends Fragment {
             }
         });
 
-
-
-
         txtSignIn = view.findViewById(R.id.txtSignIn);
         txtSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

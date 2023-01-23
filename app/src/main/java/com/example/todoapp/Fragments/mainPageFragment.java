@@ -1,6 +1,5 @@
 package com.example.todoapp.Fragments;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import android.widget.Toast;
 import com.example.todoapp.Adapters.ToDoAdapter;
 import com.example.todoapp.Models.ToDoModel;
 import com.example.todoapp.R;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +38,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class mainPageFragment extends Fragment {
     private TextView txtCompletedToday, txtCompletedTomorrow, txtCompletedLater;
@@ -77,7 +83,6 @@ public class mainPageFragment extends Fragment {
         getData(recyclerLater,"Later", progressLater);
 
 
-
         RelativeLayout relativeLayoutExpandableToday = view.findViewById(R.id.relativeLayoutExpandableToday);
         RelativeLayout relativeLayoutExpandableTomorrow = view.findViewById(R.id.relativeLayoutExpandableTomorrow);
         RelativeLayout relativeLayoutExpandableLater = view.findViewById(R.id.relativeLayoutExpandableLater);
@@ -114,7 +119,7 @@ public class mainPageFragment extends Fragment {
         recycler.setAdapter(adapter);
 
         if (mAuth.getUid() != null){
-            FirebaseDatabase.getInstance(instance).getReference(mAuth.getUid()).child(timePeriod).addValueEventListener(new ValueEventListener() {
+            FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()).child(timePeriod).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if(snapshot.getKey().equals("Today")){
@@ -129,8 +134,16 @@ public class mainPageFragment extends Fragment {
                         models.clear();
                         int counter = 0;
                         for(DataSnapshot data: snapshot.getChildren()){
-                            models.add(data.getValue(ToDoModel.class));
-                            counter += data.getValue(ToDoModel.class).isSelected() ? 1 : 0;
+                            System.out.println(timePeriod+" "+data.getValue(ToDoModel.class).getDate());
+                            if (isOutOfDate(data.getValue(ToDoModel.class).getDate())){
+                                models.add(data.getValue(ToDoModel.class));
+                                counter += data.getValue(ToDoModel.class).isSelected() ? 1 : 0;
+                            }else{
+                                Task<Void> deleteToDo = FirebaseDatabase
+                                        .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
+                                        .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child(timePeriod)
+                                        .child(data.getValue(ToDoModel.class).getId()).removeValue();
+                            }
                         }
                         ScaleAnimation scaleAnimation = new ScaleAnimation((int)(((double) counter/(double) snapshot.getChildrenCount())*100), 100, 0,0);
                         scaleAnimation.setDuration(10);
@@ -151,7 +164,28 @@ public class mainPageFragment extends Fragment {
         }
     }
 
-  //  private void setProgress(View view, int completed, int totalToDO, String  timePeriod){
+    private boolean isOutOfDate(String toDoDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        try {
+            String [] toDosDate = toDoDate.split("/");
+            String [] currentDate = getDate().split("/");
+            if (format.parse(currentDate[0]).after(format.parse(toDosDate[0]))){
+                System.out.println("false");
+                return false;
+            }
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("true");
+        return true;
+    }
+
+    private String getDate(){
+        Date date = Calendar.getInstance().getTime();
+        String formattedDate = (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
+        return formattedDate;
+    }
+    //  private void setProgress(View view, int completed, int totalToDO, String  timePeriod){
 
   //  }
 
@@ -198,60 +232,11 @@ public class mainPageFragment extends Fragment {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-
-
-
-
-    /* public void floatingAction(View view){
-  public void floatingAction(View view) {
-        Dialog dialog = new Dialog(getContext(), R.style.BottomSheetStyleTheme);
-        dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        dialog.setContentView(R.layout.bottom_sheet_main_page);
-
-        EditText editTextTaskTitle = dialog.findViewById(R.id.editTextTaskTitle);
-        final String[] spinnerDate = new String[1];
-        Spinner spinner = dialog.findViewById(R.id.spinnerDate);
-        String [] dates = getResources().getStringArray(R.array.dates);
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, dates);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerDate[0] = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                spinnerDate[0] = "Select date";
-            }
-        });
-
-        Button btnAddNewTask = dialog.findViewById(R.id.btnAddNewTask);
-        btnAddNewTask.setOnClickListener(view1 -> {
-            String toDoTitle = editTextTaskTitle.getText().toString();
-            if (!toDoTitle.isEmpty() && !spinnerDate[0].equals("Select date")){
-                addNewTask(toDoTitle, spinnerDate[0]);
-            }else{
-                Toast.makeText(getContext(), "Please fill the fields", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        TextView txtBackToList = dialog.findViewById(R.id.txtBackToList);
-        txtBackToList.setOnClickListener(view1 -> dialog.dismiss());
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-    }
-
-
-    }
-*/
     public void addNewTask(String toDoTitle,String  spinnerDate){
-       DatabaseReference reference = FirebaseDatabase.getInstance(instance).getReference(FirebaseAuth.getInstance().getUid()+"/"+spinnerDate+"/").push();
-       reference.setValue(new ToDoModel(reference.getKey(), toDoTitle, false)).addOnCompleteListener(task -> {
+       DatabaseReference reference = FirebaseDatabase.getInstance(instance)
+               .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance()
+                       .getUid()+"/"+spinnerDate+"/").push();
+       reference.setValue(new ToDoModel(reference.getKey(), toDoTitle, false, getDate())).addOnCompleteListener(task -> {
            if (task.isSuccessful())
                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
            else

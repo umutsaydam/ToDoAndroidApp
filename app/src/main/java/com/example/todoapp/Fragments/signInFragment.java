@@ -21,19 +21,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import javax.security.auth.callback.Callback;
 
 public class signInFragment extends Fragment {
     private EditText editTxtEmail, editTxtPassword;
     private TextView txtForgotMyPassword, txtSignUp;
     private Button btnSignInToMainPage;
     private FirebaseAuth auth;
-
-    public signInFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
