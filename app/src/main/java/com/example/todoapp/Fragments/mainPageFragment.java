@@ -39,7 +39,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -185,9 +184,6 @@ public class mainPageFragment extends Fragment {
         String formattedDate = (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
         return formattedDate;
     }
-    //  private void setProgress(View view, int completed, int totalToDO, String  timePeriod){
-
-  //  }
 
     public void floatingAction(View view) {
         BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetStyleTheme);
