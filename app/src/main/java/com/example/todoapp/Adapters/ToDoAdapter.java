@@ -32,10 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
-    private ArrayList<ToDoModel> models;
-    private Context context;
-    private String timePeriod;
-    private Activity activity;
+    private final ArrayList<ToDoModel> models;
+    private final Context context;
+    private final String timePeriod;
+    private final Activity activity;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
 
     public ToDoAdapter(ArrayList<ToDoModel> models, Context context, String timePeriod, Activity activity) {
@@ -72,7 +72,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             super(itemView);
             toDoCheckBox = itemView.findViewById(R.id.toDoCheckBox);
             toDoPopup = itemView.findViewById(R.id.toDoPopup);
-
             toDoCheckBox.setOnClickListener(view -> {
                 ToDoModel model = models.get(getAdapterPosition());
                 model.setSelected(!model.isSelected());
