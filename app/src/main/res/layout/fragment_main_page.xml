@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:padding="15dp"/>
+        android:padding="10dp"/>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
