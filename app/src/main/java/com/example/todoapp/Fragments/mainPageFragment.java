@@ -16,32 +16,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todoapp.Adapters.ToDoLayerAdapter;
-import com.example.todoapp.Models.ToDoLayerModel;
 import com.example.todoapp.Models.ToDoModel;
 import com.example.todoapp.R;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-<<<<<<< HEAD
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-=======
->>>>>>> test
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class mainPageFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -73,92 +62,6 @@ public class mainPageFragment extends Fragment {
         listLayersRecycler.setAdapter(adapter);
     }
 
-<<<<<<< HEAD
-    private void setVisibilityAndArrow(RelativeLayout relativeLayout, ImageView view) {
-        relativeLayout.setVisibility(relativeLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-        Animation  animation = AnimationUtils.loadAnimation(getContext(), relativeLayout.getVisibility() == View.VISIBLE ? R.anim.look_arrow_down : R.anim.look_arrow_right);
-
-        view.setAnimation(animation);
-        view.startAnimation(animation);
-        view.setRotation(relativeLayout.getVisibility() == View.VISIBLE ? 90 : 0);
-    }
-
-    private void getData(RecyclerView recycler, String timePeriod, ProgressBar progressBar){
-        ArrayList<ToDoModel> models = new ArrayList<>();
-        recycler.setHasFixedSize(false);
-        ToDoAdapter adapter = new ToDoAdapter(models, getContext(), timePeriod, getActivity());
-        recycler.setAdapter(adapter);
-
-        if (mAuth.getUid() != null){
-            FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()).child(timePeriod).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.getKey().equals("Today")){
-                        txtCompletedToday.setText(snapshot.getChildrenCount() == 0 ? "" : String.valueOf(snapshot.getChildrenCount()));
-                    } else if (snapshot.getKey().equals("Tomorrow")) {
-                        txtCompletedTomorrow.setText(snapshot.getChildrenCount() == 0 ? "" : String.valueOf(snapshot.getChildrenCount()));
-                    }else if(snapshot.getKey().equals("Later")){
-                        txtCompletedLater.setText(snapshot.getChildrenCount() == 0 ? "" : String.valueOf(snapshot.getChildrenCount()));
-                    }
-                    progressBar.setVisibility(snapshot.getChildrenCount()==0 ? View.GONE : View.VISIBLE);
-                    if (snapshot.exists()){
-                        models.clear();
-                        int counter = 0;
-                        for(DataSnapshot data: snapshot.getChildren()){
-                            System.out.println(timePeriod+" "+data.getValue(ToDoModel.class).getDate());
-                            if (isOutOfDate(data.getValue(ToDoModel.class).getDate())){
-                                models.add(data.getValue(ToDoModel.class));
-                                counter += data.getValue(ToDoModel.class).isSelected() ? 1 : 0;
-                            }else{
-                                Task<Void> deleteToDo = FirebaseDatabase
-                                        .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                                        .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child(timePeriod)
-                                        .child(data.getValue(ToDoModel.class).getId()).removeValue();
-                            }
-                        }
-                        ScaleAnimation scaleAnimation = new ScaleAnimation((int)(((double) counter/(double) snapshot.getChildrenCount())*100), 100, 0,0);
-                        scaleAnimation.setDuration(10);
-                        progressBar.setAnimation(scaleAnimation);
-                        progressBar.setProgress( (int)(((double) counter/(double) snapshot.getChildrenCount())*100));
-                        adapter.notifyDataSetChanged();
-                    }else{
-                        models.clear();
-                        Toast.makeText(getContext(), timePeriod+": no data ", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
-
-    private boolean isOutOfDate(String toDoDate) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
-        try {
-            String [] toDosDate = toDoDate.split("/");
-            String [] currentDate = getDate().split("/");
-            if (format.parse(currentDate[0]).after(format.parse(toDosDate[0]))){
-                System.out.println("false");
-                return false;
-            }
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("true");
-        return true;
-    }
-
-    private String getDate(){
-        Date date = Calendar.getInstance().getTime();
-        String formattedDate = (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
-        return formattedDate;
-    }
-
-=======
->>>>>>> test
     public void floatingAction(View view) {
         BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetStyleTheme);
         dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
@@ -204,7 +107,7 @@ public class mainPageFragment extends Fragment {
     public void addNewTask(String toDoTitle, String  spinnerDate){
         DatabaseReference reference = FirebaseDatabase.getInstance(instance)
                 .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance()
-                        .getUid()+"/"+spinnerDate+"/").push();
+                        .getUid()+"/ToDo/"+spinnerDate+"/").push();
         reference.setValue(new ToDoModel(reference.getKey(), toDoTitle, false, getDate())).addOnCompleteListener(task -> {
             if (task.isSuccessful())
                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();

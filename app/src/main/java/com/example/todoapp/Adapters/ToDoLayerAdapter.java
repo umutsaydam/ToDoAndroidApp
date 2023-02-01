@@ -105,7 +105,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
             recyclerToDoList.setAdapter(adapter);
 
             if (mAuth.getUid() != null){
-                FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()).child(timePeriod).addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/ToDo/").child(timePeriod).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         txtCompleted.setText(snapshot.getChildrenCount() == 0 ? "" : String.valueOf(snapshot.getChildrenCount()));
@@ -121,7 +121,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                                 }else{
                                     Task<Void> deleteToDo = FirebaseDatabase
                                             .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                                            .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid()).child(timePeriod)
+                                            .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod)
                                             .child(data.getValue(ToDoModel.class).getId()).removeValue();
                                 }
                             }

@@ -77,7 +77,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                 model.setSelected(!model.isSelected());
 
                 assert FirebaseAuth.getInstance().getUid() !=null;
-                DatabaseReference reference = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child(timePeriod);
+                DatabaseReference reference = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod);
 
                 reference.child(model.getId()).setValue(model);
                 toDoCheckBox.setChecked(model.isSelected());
@@ -112,7 +112,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Task<Void> delete = firebaseDatabase
-                            .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid())
+                            .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
                             .child(timePeriod)
                             .child(models.get(getAdapterPosition()).getId()).removeValue();
                     delete.addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -150,7 +150,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                     ToDoModel model = models.get(getAdapterPosition());
                     model.setContent(editTxtFormToDo.getText().toString());
                     if (model.getId() != null){
-                        Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child(timePeriod)
+                        Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod)
                                 .child(models.get(getAdapterPosition()).getId()).setValue(model);
                         performUpdate.addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
