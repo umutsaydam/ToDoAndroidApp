@@ -28,7 +28,7 @@
             android:layout_height="729dp"
             android:layout_below="@+id/mainPageToolbar"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/mainpage_graph"
+            app:navGraph="@navigation/activity_main_page"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="1dp" />
 
