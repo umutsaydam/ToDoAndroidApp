@@ -33,6 +33,7 @@ public class mainPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_page);
 
         toolbar = findViewById(R.id.mainPageToolbar);
+        toolbar.setTitle(R.string.todo);
         setSupportActionBar(toolbar);
 
 

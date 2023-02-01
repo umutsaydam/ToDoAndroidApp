@@ -13,6 +13,8 @@
     <string name="toDoMessageNegativeMessage">Cancel</string>
     <string name="editToDoTitle">Edit To Do</string>
     <string name="editToDoPositiveMessage">Save</string>
+    <string name="challenge">Challenges</string>
+    <string name="add_challenge">Add A New Challenge !</string>
 
     <string-array name="dates">
         <item>Select date</item>
