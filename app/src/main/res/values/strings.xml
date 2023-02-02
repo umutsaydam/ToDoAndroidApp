@@ -22,4 +22,9 @@
         <item>Tomorrow</item>
         <item>Later</item>
     </string-array>
+
+    <string-array name="challengeCategory">
+        <item>self-improvement</item>
+        <item>Sport</item>
+    </string-array>
 </resources>

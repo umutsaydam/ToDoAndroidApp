@@ -55,6 +55,7 @@ public class mainPageActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(mainPageActivity.this, MainActivity.class));
             }
+            drawer.close();
             return false;
         });
     }
