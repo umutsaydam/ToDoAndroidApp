@@ -21,15 +21,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.todoapp.Models.ChallengeModel;
 import com.example.todoapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ChallengesFragment extends Fragment {
+    private FirebaseAuth mAuth;
+    private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -40,6 +45,7 @@ public class ChallengesFragment extends Fragment {
         ((Toolbar) getActivity().findViewById(R.id.mainPageToolbar)).setTitle(R.string.challenge);
         FloatingActionButton addChallengeFloatingBtn = view.findViewById(R.id.addChallengeFloatingBtn);
         addChallengeFloatingBtn.setOnClickListener(this::newChallenge);
+        mAuth = FirebaseAuth.getInstance();
         return view;
     }
 
@@ -94,6 +100,17 @@ public class ChallengesFragment extends Fragment {
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private void addNewChallenge(String challengeTitle, String challengeCategory, String challengeDay, String challengeDescription) {
+    private void addNewChallenge(String title, String category, String day, String description) {
+        DatabaseReference reference = FirebaseDatabase.getInstance(instance)
+                .getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/"+category+"/").push();
+
+        reference.setValue(new ChallengeModel(reference.getKey(), title, category, Integer.parseInt(day), description))
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        Toast.makeText(getContext(), "Challange added", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getContext(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
