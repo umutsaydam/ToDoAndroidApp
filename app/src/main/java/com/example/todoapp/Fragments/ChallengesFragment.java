@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -106,7 +105,7 @@ public class ChallengesFragment extends Fragment {
 
         reference.setValue(new ChallengeModel(reference.getKey(), title, category, Integer.parseInt(day), description))
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
+                    if(task.isSuccessful()){
                         Toast.makeText(getContext(), "Challange added", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getContext(), ""+task.getException(), Toast.LENGTH_SHORT).show();
