@@ -2,10 +2,10 @@ package com.example.todoapp.Models;
 
 
 
-public class ToDoLayerModel {
+public class ExtendableLayerModel {
    private final String timePeriod;
 
-    public ToDoLayerModel(String timePeriod) {
+    public ExtendableLayerModel(String timePeriod) {
         this.timePeriod = timePeriod;
     }
 

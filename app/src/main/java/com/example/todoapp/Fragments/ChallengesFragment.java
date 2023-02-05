@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -21,12 +22,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todoapp.Models.ChallengeModel;
+import com.example.todoapp.Models.ExtendableLayerModel;
 import com.example.todoapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class ChallengesFragment extends Fragment {
     private FirebaseAuth mAuth;
@@ -45,7 +52,35 @@ public class ChallengesFragment extends Fragment {
         FloatingActionButton addChallengeFloatingBtn = view.findViewById(R.id.addChallengeFloatingBtn);
         addChallengeFloatingBtn.setOnClickListener(this::newChallenge);
         mAuth = FirebaseAuth.getInstance();
+
+        fetchChallenges();
+
         return view;
+    }
+
+    private void fetchChallenges() {
+        ArrayList<ChallengeModel> list = new ArrayList<>();
+        FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot data : snapshot.getChildren()){
+                        ChallengeModel challengeModel = data.getValue(ChallengeModel.class);
+                        System.out.println(challengeModel.getChallengeTitle());
+                        System.out.println(challengeModel.getChallangeStatus());
+                        System.out.println(challengeModel.getChallengeCategory());
+                        System.out.println(challengeModel.getChallengeDescription());
+                    }
+                }else{
+                    System.out.println("no data");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println(error.getMessage());
+            }
+        });
     }
 
     public void newChallenge(View view) {
@@ -101,7 +136,7 @@ public class ChallengesFragment extends Fragment {
 
     private void addNewChallenge(String title, String category, String day, String description) {
         DatabaseReference reference = FirebaseDatabase.getInstance(instance)
-                .getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/"+category+"/").push();
+                .getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").push();
 
         reference.setValue(new ChallengeModel(reference.getKey(), title, category, Integer.parseInt(day), description))
                 .addOnCompleteListener(task -> {

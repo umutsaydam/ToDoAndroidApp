@@ -8,6 +8,8 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/background.xml" value="0.1185" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/bottom_sheet_style.xml" value="0.239" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/button_style.xml" value="0.177" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/challange_status_box.xml" value="0.2475" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/challange_status_box_active.xml" value="0.2475" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/check_box.xml" value="0.1955" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/ic_android.xml" value="0.1235" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/ic_arrow_right.xml" value="0.1955" />
@@ -19,6 +21,7 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/logo_background_shape.xml" value="0.1185" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/main_activity_buttons_background.xml" value="0.1185" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/splash.xml" value="0.144" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/status_box.xml" value="0.2475" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_main_page.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
@@ -33,6 +36,7 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/fragment_sign_in.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/row_to_do.xml" value="0.4" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/status_box.xml" value="0.4" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/time_card_view.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/to_do_layer.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/to_do_layout.xml" value="0.264" />

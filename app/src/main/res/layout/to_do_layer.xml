@@ -71,7 +71,7 @@
                     android:id="@+id/recyclerToDoList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/progress"
+                    android:layout_below="@+id/progressBar"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
                     android:padding="20dp"
