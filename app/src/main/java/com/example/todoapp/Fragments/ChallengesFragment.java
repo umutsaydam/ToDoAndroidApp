@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,8 +22,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.todoapp.Adapters.ChallengeLayerAdapter;
 import com.example.todoapp.Models.ChallengeModel;
-import com.example.todoapp.Models.ExtendableLayerModel;
 import com.example.todoapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ChallengesFragment extends Fragment {
+    private RecyclerView challangeLayerRecycler;
+    private ArrayList<ChallengeModel> challengeModels;
     private FirebaseAuth mAuth;
     private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
     @Override
@@ -55,21 +58,21 @@ public class ChallengesFragment extends Fragment {
 
         fetchChallenges();
 
+        challangeLayerRecycler = view.findViewById(R.id.challangeLayerRecycler);
+        ChallengeLayerAdapter adapter = new ChallengeLayerAdapter(challengeModels, getContext());
+        challangeLayerRecycler.setAdapter(adapter);
+
         return view;
     }
 
     private void fetchChallenges() {
-        ArrayList<ChallengeModel> list = new ArrayList<>();
+        challengeModels = new ArrayList<>();
         FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot data : snapshot.getChildren()){
-                        ChallengeModel challengeModel = data.getValue(ChallengeModel.class);
-                        System.out.println(challengeModel.getChallengeTitle());
-                        System.out.println(challengeModel.getChallangeStatus());
-                        System.out.println(challengeModel.getChallengeCategory());
-                        System.out.println(challengeModel.getChallengeDescription());
+                        challengeModels.add(data.getValue(ChallengeModel.class));
                     }
                 }else{
                     System.out.println("no data");
