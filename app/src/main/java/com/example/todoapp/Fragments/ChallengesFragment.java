@@ -40,6 +40,7 @@ public class ChallengesFragment extends Fragment {
     private RecyclerView challangeLayerRecycler;
     private ArrayList<ChallengeModel> challengeModels;
     private FirebaseAuth mAuth;
+    private ChallengeLayerAdapter adapter;
     private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,27 +57,31 @@ public class ChallengesFragment extends Fragment {
         addChallengeFloatingBtn.setOnClickListener(this::newChallenge);
         mAuth = FirebaseAuth.getInstance();
 
-        fetchChallenges();
-
+        challengeModels = new ArrayList<>();
         challangeLayerRecycler = view.findViewById(R.id.challangeLayerRecycler);
-        ChallengeLayerAdapter adapter = new ChallengeLayerAdapter(challengeModels, getContext());
+        adapter = new ChallengeLayerAdapter(challengeModels, getContext());
+        challangeLayerRecycler.setHasFixedSize(false);
         challangeLayerRecycler.setAdapter(adapter);
-
+        fetchChallenges();
         return view;
     }
 
     private void fetchChallenges() {
-        challengeModels = new ArrayList<>();
+        challengeModels.clear();
         FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    System.out.println("data exist");
                     for(DataSnapshot data : snapshot.getChildren()){
-                        challengeModels.add(data.getValue(ChallengeModel.class));
+                        ChallengeModel challengeModel = data.getValue(ChallengeModel.class);
+                        System.out.println(challengeModel.getChallengeTitle()+" "+ challengeModel.getChallengeCategory()+" "+ challengeModel.getChallangeStatus().get(2));
+                        challengeModels.add(challengeModel);
                     }
                 }else{
                     System.out.println("no data");
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -144,10 +149,14 @@ public class ChallengesFragment extends Fragment {
         reference.setValue(new ChallengeModel(reference.getKey(), title, category, Integer.parseInt(day), description))
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
+                        System.out.println("addded");
                         Toast.makeText(getContext(), "Challange added", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(getContext(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        System.out.println("hata");
+                        System.out.println(task.getException().getMessage());
                     }
                 });
+        fetchChallenges();
+        System.out.println(challengeModels.size()+" size");
     }
 }
