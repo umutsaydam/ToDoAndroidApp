@@ -5,6 +5,5 @@
     <ImageView
         android:id="@+id/imgStatus"
         android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/challange_status_box_passive"/>
+        android:layout_height="20dp"/>
 </RelativeLayout>

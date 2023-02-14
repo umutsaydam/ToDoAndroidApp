@@ -67,16 +67,14 @@ public class ChallengesFragment extends Fragment {
     }
 
     private void fetchChallenges() {
-        challengeModels.clear();
         FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    challengeModels.clear();
                     System.out.println("data exist");
                     for(DataSnapshot data : snapshot.getChildren()){
-                        ChallengeModel challengeModel = data.getValue(ChallengeModel.class);
-                        System.out.println(challengeModel.getChallengeTitle()+" "+ challengeModel.getChallengeCategory()+" "+ challengeModel.getChallangeStatus().get(2));
-                        challengeModels.add(challengeModel);
+                        challengeModels.add(data.getValue(ChallengeModel.class));
                     }
                 }else{
                     System.out.println("no data");

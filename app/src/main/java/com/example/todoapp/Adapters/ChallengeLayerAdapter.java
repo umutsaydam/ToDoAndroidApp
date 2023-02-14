@@ -19,6 +19,7 @@ import com.example.todoapp.Models.ChallengeModel;
 import com.example.todoapp.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAdapter.ChallengeLayerHolder> {
     private ArrayList<ChallengeModel> challengeModels;
@@ -32,13 +33,14 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
     @NonNull
     @Override
     public ChallengeLayerAdapter.ChallengeLayerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.to_do_layer, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.challenge_layer, parent, false);
         return new ChallengeLayerHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChallengeLayerAdapter.ChallengeLayerHolder holder, int position) {
         holder.layerTitle.setText(challengeModels.get(position).getChallengeTitle());
+        holder.setStatus(challengeModels.get(position).getChallangeStatus());
     }
 
     @Override
@@ -52,7 +54,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         ImageView imgArrow;
         RelativeLayout relativeLayout;
         ProgressBar progressBar;
-        RecyclerView recyclerToDoList;
+        RecyclerView recyclerChallengeStatus;
         public ChallengeLayerHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -62,7 +64,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             imgArrow = itemView.findViewById(R.id.imgArrow);
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
             progressBar = itemView.findViewById(R.id.progressBar);
-            recyclerToDoList = itemView.findViewById(R.id.recyclerToDoList);
+            recyclerChallengeStatus = itemView.findViewById(R.id.recyclerChallengeStatus);
 
             linearLayoutShell.setOnClickListener(view -> setVisibilityAndArrow());
         }
@@ -74,6 +76,12 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             imgArrow.setAnimation(animation);
             imgArrow.startAnimation(animation);
             imgArrow.setRotation(relativeLayout.getVisibility() == View.VISIBLE ? 90 : 0);
+        }
+
+        public void setStatus(List<Boolean> status){
+            ChallengeAdapter adapter = new ChallengeAdapter(status, context);
+            recyclerChallengeStatus.setHasFixedSize(false);
+            recyclerChallengeStatus.setAdapter(adapter);
         }
     }
 }
