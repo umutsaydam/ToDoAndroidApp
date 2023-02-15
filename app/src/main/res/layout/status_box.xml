@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/imgStatus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_margin="3dp"/>
 </RelativeLayout>

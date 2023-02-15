@@ -41,6 +41,8 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
     public void onBindViewHolder(@NonNull ChallengeLayerAdapter.ChallengeLayerHolder holder, int position) {
         holder.layerTitle.setText(challengeModels.get(position).getChallengeTitle());
         holder.setStatus(challengeModels.get(position).getChallangeStatus());
+        holder.txtInfoCategory.setText(challengeModels.get(position).getChallengeCategory());
+        holder.txtInfoDescription.setText(challengeModels.get(position).getChallengeDescription());
     }
 
     @Override
@@ -50,14 +52,13 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
 
     public class ChallengeLayerHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayoutShell;
-        TextView txtCompleted, layerTitle;
+        TextView txtCompleted, layerTitle, txtInfoDescription, txtInfoCategory;
         ImageView imgArrow;
         RelativeLayout relativeLayout;
         ProgressBar progressBar;
         RecyclerView recyclerChallengeStatus;
         public ChallengeLayerHolder(@NonNull View itemView) {
             super(itemView);
-
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
             txtCompleted = itemView.findViewById(R.id.txtCompleted);
             layerTitle = itemView.findViewById(R.id.layerTitle);
@@ -65,6 +66,8 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
             progressBar = itemView.findViewById(R.id.progressBar);
             recyclerChallengeStatus = itemView.findViewById(R.id.recyclerChallengeStatus);
+            txtInfoDescription = itemView.findViewById(R.id.txtInfoDescription);
+            txtInfoCategory = itemView.findViewById(R.id.txtInfoCategory);
 
             linearLayoutShell.setOnClickListener(view -> setVisibilityAndArrow());
         }
@@ -72,7 +75,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         public void setVisibilityAndArrow() {
             relativeLayout.setVisibility(relativeLayout.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
             Animation animation = AnimationUtils.loadAnimation(context, relativeLayout.getVisibility() == View.VISIBLE ? R.anim.look_arrow_down : R.anim.look_arrow_right);
-
             imgArrow.setAnimation(animation);
             imgArrow.startAnimation(animation);
             imgArrow.setRotation(relativeLayout.getVisibility() == View.VISIBLE ? 90 : 0);
