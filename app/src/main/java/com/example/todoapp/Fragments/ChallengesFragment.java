@@ -144,7 +144,7 @@ public class ChallengesFragment extends Fragment {
         DatabaseReference reference = FirebaseDatabase.getInstance(instance)
                 .getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").push();
 
-        reference.setValue(new ChallengeModel(reference.getKey(), title, category, Integer.parseInt(day), description))
+        reference.setValue(new ChallengeModel(reference.getKey(), title, category, "16/02/2023", "19/02/2023", description))
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         System.out.println("addded");

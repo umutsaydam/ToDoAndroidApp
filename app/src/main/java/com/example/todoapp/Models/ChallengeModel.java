@@ -36,14 +36,13 @@ public class ChallengeModel {
             Date e = sdf.parse(endDay);
             long diff = e.getTime() - s.getTime();
             this.challengeDay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            boolean [] tmp = new boolean[challengeDay];
+            Boolean [] tmp = new Boolean[challengeDay];
             Arrays.fill(tmp, false);
             this.challangeStatus = new ArrayList<Boolean>(Arrays.asList(tmp));
+            System.out.println(this.challengeDay);
         } catch (ParseException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage()+" try*****");
         }
-
-
     }
 
     public String getId() {
