@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -113,9 +114,9 @@ public class ChallengesFragment extends Fragment {
         });
 
         Button btnChallengeStartDay = bottomDialog.findViewById(R.id.btnChallengeStartDay);
-        btnChallengeStartDay.setOnClickListener(this::getDate);
+        btnChallengeStartDay.setOnClickListener(this::getChallengeDateInfo);
         Button btnChallengeEndDay = bottomDialog.findViewById(R.id.btnChallengeEndDay);
-        btnChallengeEndDay.setOnClickListener(this::getDate);
+        btnChallengeEndDay.setOnClickListener(this::getChallengeDateInfo);
         EditText editTxtChallengeDescription = bottomDialog.findViewById(R.id.editTxtChallengeDescription);
         Button btnAddNewChallenge = bottomDialog.findViewById(R.id.btnAddNewChallenge);
         TextView txtBackToChallenges = bottomDialog.findViewById(R.id.txtBackToChallenges);
@@ -130,11 +131,18 @@ public class ChallengesFragment extends Fragment {
             String challengeTitle = editTxtChallengeTitle.getText().toString();
             String challengeDescription = editTxtChallengeDescription.getText().toString();
 
-            if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() && !btnChallengeStartDay.getText().equals(String.valueOf(R.string.select_a_date))&&
-                    !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
-                addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(), challengeCategory[0], challengeDescription);
+            String startChallengeDate = btnChallengeStartDay.getText().toString();
+            String endChallengeDate = btnChallengeEndDay.getText().toString();
+
+            if(startChallengeDate.compareTo(endChallengeDate) < 0){
+                if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() && !btnChallengeStartDay.getText().equals(String.valueOf(R.string.select_a_date))&&
+                        !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
+                    addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(), challengeCategory[0], challengeDescription);
+                }else{
+                    Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
+                }
             }else{
-                Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -146,7 +154,7 @@ public class ChallengesFragment extends Fragment {
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private void getDate(View view) {
+    private void getChallengeDateInfo(View view) {
         Button button = (Button) view;
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -158,10 +166,9 @@ public class ChallengesFragment extends Fragment {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 date[0] = day+"/"+(month+1)+"/"+year;
                 button.setText(date[0]);
-                System.out.println(date[0]);
             }
         }, year, month, day);
-        System.out.println(date[0] + " Secildi");
+
         datePickerDialog.show();
     }
 

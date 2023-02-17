@@ -39,7 +39,7 @@ public class ChallengeModel {
             Date e = sdf.parse(challengeEndDay);
             long diff = e.getTime() - s.getTime();
             this.challengeDay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            Boolean [] tmp = new Boolean[challengeDay];
+            Boolean [] tmp = new Boolean[challengeDay+1];
             Arrays.fill(tmp, false);
             this.challangeStatus = new ArrayList<Boolean>(Arrays.asList(tmp));
             System.out.println(this.challengeDay);
