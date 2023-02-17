@@ -16,6 +16,8 @@
     <string name="challenge">Challenges</string>
     <string name="add_challenge">Add A New Challenge !</string>
     <string name="check_today">Check Today</string>
+    <string name="select_a_date">Select a date</string>
+    <string name="category">Category</string>
 
     <string-array name="dates">
         <item>Select date</item>

@@ -5,20 +5,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ChallengeModel {
-    String id;
-    String challengeTitle;
-    String challengeCategory;
-    String startDay;
-    String endDay;
-    String challengeDescription;
-    int challengeDay;
-    List<Boolean> challangeStatus;
+   private String id;
+   private String challengeTitle;
+   private String challengeCategory;
+   private String challengeStartDay;
+   private String challengeEndDay;
+   private String challengeDescription;
+   private int challengeDay;
+   private List<Boolean> challangeStatus;
 
     public ChallengeModel() {
     }
@@ -27,13 +26,17 @@ public class ChallengeModel {
         this.id = id;
         this.challengeTitle = challengeTitle;
         this.challengeCategory = challengeCategory;
-        this.startDay = startDay;
-        this.endDay = endDay;
+        this.challengeStartDay = startDay;
+        this.challengeEndDay = endDay;
         this.challengeDescription = challengeDescription;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        setStatus();
+    }
+
+    private void setStatus() {
         try {
-            Date s = sdf.parse(startDay);
-            Date e = sdf.parse(endDay);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date s = sdf.parse(challengeStartDay);
+            Date e = sdf.parse(challengeEndDay);
             long diff = e.getTime() - s.getTime();
             this.challengeDay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
             Boolean [] tmp = new Boolean[challengeDay];
@@ -69,20 +72,20 @@ public class ChallengeModel {
         this.challengeCategory = challengeCategory;
     }
 
-    public String getStartDay() {
-        return startDay;
+    public String getChallengeStartDay() {
+        return challengeStartDay;
     }
 
-    public void setStartDay(String startDay) {
-        this.startDay = startDay;
+    public void setChallengeStartDay(String challengeStartDay) {
+        this.challengeStartDay = challengeStartDay;
     }
 
-    public String getEndDay() {
-        return endDay;
+    public String getChallengeEndDay() {
+        return challengeEndDay;
     }
 
-    public void setEndDay(String endDay) {
-        this.endDay = endDay;
+    public void setChallengeEndDay(String challengeEndDay) {
+        this.challengeEndDay = challengeEndDay;
     }
 
     public String getChallengeDescription() {
@@ -91,6 +94,14 @@ public class ChallengeModel {
 
     public void setChallengeDescription(String challengeDescription) {
         this.challengeDescription = challengeDescription;
+    }
+
+    public int getChallengeDay() {
+        return challengeDay;
+    }
+
+    public void setChallengeDay(int challengeDay) {
+        this.challengeDay = challengeDay;
     }
 
     public List<Boolean> getChallangeStatus() {

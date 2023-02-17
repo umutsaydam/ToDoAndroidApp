@@ -1,5 +1,6 @@
 package com.example.todoapp.Fragments;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ChallengesFragment extends Fragment {
     private RecyclerView challangeLayerRecycler;
@@ -96,7 +99,7 @@ public class ChallengesFragment extends Fragment {
 
         EditText editTxtChallengeTitle = bottomDialog.findViewById(R.id.editTxtChallengeTitle);
         Spinner spinnerChallengeCategory = bottomDialog.findViewById(R.id.spinnerChallengeCategory);
-        String [] challengeCategory = {""};
+        String [] challengeCategory = {String.valueOf(R.string.category)};
         spinnerChallengeCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -105,11 +108,14 @@ public class ChallengesFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                challengeCategory[0] = "Choose a category";
+                challengeCategory[0] = String.valueOf(R.string.category);
             }
         });
 
-        EditText editTxtChallengeDay = bottomDialog.findViewById(R.id.editTxtChallengeDay);
+        Button btnChallengeStartDay = bottomDialog.findViewById(R.id.btnChallengeStartDay);
+        btnChallengeStartDay.setOnClickListener(this::getDate);
+        Button btnChallengeEndDay = bottomDialog.findViewById(R.id.btnChallengeEndDay);
+        btnChallengeEndDay.setOnClickListener(this::getDate);
         EditText editTxtChallengeDescription = bottomDialog.findViewById(R.id.editTxtChallengeDescription);
         Button btnAddNewChallenge = bottomDialog.findViewById(R.id.btnAddNewChallenge);
         TextView txtBackToChallenges = bottomDialog.findViewById(R.id.txtBackToChallenges);
@@ -122,11 +128,11 @@ public class ChallengesFragment extends Fragment {
 
         btnAddNewChallenge.setOnClickListener(view1 -> {
             String challengeTitle = editTxtChallengeTitle.getText().toString();
-            String challengeDay = editTxtChallengeDay.getText().toString();
             String challengeDescription = editTxtChallengeDescription.getText().toString();
 
-            if(!challengeTitle.isEmpty() && !challengeDay.isEmpty() && !challengeDescription.isEmpty() && !challengeCategory[0].equals("Choose a category")){
-                addNewChallenge(challengeTitle, challengeCategory[0], challengeDay, challengeDescription);
+            if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() && !btnChallengeStartDay.getText().equals(String.valueOf(R.string.select_a_date))&&
+                    !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
+                addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(), challengeCategory[0], challengeDescription);
             }else{
                 Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
             }
@@ -140,15 +146,34 @@ public class ChallengesFragment extends Fragment {
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private void addNewChallenge(String title, String category, String day, String description) {
+    private void getDate(View view) {
+        Button button = (Button) view;
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String[] date = {""};
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                date[0] = day+"/"+(month+1)+"/"+year;
+                button.setText(date[0]);
+                System.out.println(date[0]);
+            }
+        }, year, month, day);
+        System.out.println(date[0] + " Secildi");
+        datePickerDialog.show();
+    }
+
+    private void addNewChallenge(String title, String challengeStartDate, String challengeEndDate, String category, String description) {
         DatabaseReference reference = FirebaseDatabase.getInstance(instance)
                 .getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").push();
 
-        reference.setValue(new ChallengeModel(reference.getKey(), title, category, "16/02/2023", "19/02/2023", description))
+        reference.setValue(new ChallengeModel(reference.getKey(), title, category, challengeStartDate, challengeEndDate, description))
                 .addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        System.out.println("addded");
-                        Toast.makeText(getContext(), "Challange added", Toast.LENGTH_SHORT).show();
+                        System.out.println("added");
+                        Toast.makeText(getContext(), "Challenge added", Toast.LENGTH_SHORT).show();
                     }else{
                         System.out.println("hata");
                         System.out.println(task.getException().getMessage());

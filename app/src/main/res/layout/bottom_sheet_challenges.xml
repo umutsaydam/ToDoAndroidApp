@@ -36,7 +36,7 @@
             android:minHeight="50dp"
             android:minWidth="230dp"
             android:layout_marginTop="25dp"
-            android:contentDescription="Chose a category"
+            android:contentDescription="@string/category"
             android:background="@drawable/input_shape"/>
 
         <LinearLayout
@@ -50,20 +50,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set day"
+                android:text="From"
                 android:textSize="18sp"
                 android:layout_marginHorizontal="15dp"/>
 
-            <EditText
-                android:id="@+id/editTxtChallengeDay"
+            <Button
+                android:id="@+id/btnChallengeStartDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_shape"
-                android:hint="0"
-                android:minWidth="120dp"
-                android:minHeight="50dp"
-                android:inputType="number"
-                android:textAlignment="center" />
+                android:text="@string/select_a_date"
+                style="?spinnerStyle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="to"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="15dp"/>
+
+            <Button
+                android:id="@+id/btnChallengeEndDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select a date"
+                style="?spinnerStyle"/>
         </LinearLayout>
 
         <EditText
