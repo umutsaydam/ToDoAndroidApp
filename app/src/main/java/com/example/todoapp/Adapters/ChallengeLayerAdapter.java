@@ -6,24 +6,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.Models.ChallengeModel;
 import com.example.todoapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAdapter.ChallengeLayerHolder> {
     private ArrayList<ChallengeModel> challengeModels;
     private Context context;
+    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
+
 
     public ChallengeLayerAdapter(ArrayList<ChallengeModel> challengeModels, Context context) {
         this.challengeModels = challengeModels;
@@ -57,6 +67,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         RelativeLayout relativeLayout;
         ProgressBar progressBar;
         RecyclerView recyclerChallengeStatus;
+        Button btnCheckChallangeStatus;
         public ChallengeLayerHolder(@NonNull View itemView) {
             super(itemView);
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
@@ -68,8 +79,41 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             recyclerChallengeStatus = itemView.findViewById(R.id.recyclerChallengeStatus);
             txtInfoDescription = itemView.findViewById(R.id.txtInfoDescription);
             txtInfoCategory = itemView.findViewById(R.id.txtInfoCategory);
+            btnCheckChallangeStatus = itemView.findViewById(R.id.btnCheckChallangeStatus);
 
             linearLayoutShell.setOnClickListener(view -> setVisibilityAndArrow());
+            btnCheckChallangeStatus.setOnClickListener(view -> checkChallengeStatus());
+        }
+
+        private void checkChallengeStatus() {
+            ChallengeModel challengeModel = challengeModels.get(getAdapterPosition());
+            String currDate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime());
+
+            if(challengeModel.getChallengeStartDay().compareTo(currDate) <= 0 && challengeModel.getChallengeEndDay().compareTo(currDate) >= 0){
+                int currPosition = challengeModel.getTimeDifference(challengeModel.getChallengeStartDay(), currDate);
+                if(!challengeModel.getChallangeStatus().get(currPosition)){
+                    System.out.println(challengeModel.getChallangeStatus());
+                    challengeModel.getChallangeStatus().set(currPosition, true);
+                    System.out.println(challengeModel.getChallangeStatus());
+                    Task<Void> markStatus = firebaseDatabase.
+                            getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid()+"/Challenges/"+challengeModel.getId()).setValue(challengeModel);
+                    markStatus.addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context, "Error"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    notifyDataSetChanged();
+                }else{
+                    Toast.makeText(context, "You have already checked", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+            }
         }
 
         public void setVisibilityAndArrow() {

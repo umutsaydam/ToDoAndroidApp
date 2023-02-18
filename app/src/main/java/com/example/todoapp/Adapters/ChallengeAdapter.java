@@ -31,7 +31,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
 
     @Override
     public void onBindViewHolder(@NonNull ChallengeAdapter.ChallengeHolder holder, int position) {
-        holder.imgStatus.setImageResource(R.drawable.challange_status_box_passive);
+        holder.imgStatus.setImageResource(status.get(position) ? R.drawable.challange_status_box_active : R.drawable.challange_status_box_passive);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.example.todoapp.Models;
 
 
+import android.annotation.SuppressLint;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class ChallengeModel {
    private String challengeEndDay;
    private String challengeDescription;
    private int challengeDay;
-   private List<Boolean> challangeStatus;
+   private List<Boolean> challengeStatus;
 
     public ChallengeModel() {
     }
@@ -32,20 +34,25 @@ public class ChallengeModel {
         setStatus();
     }
 
-    private void setStatus() {
+    public int getTimeDifference(String challengeStartDay, String challengeEndDay){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date s;
+        long diff = -1;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date s = sdf.parse(challengeStartDay);
+            s = sdf.parse(challengeStartDay);
             Date e = sdf.parse(challengeEndDay);
-            long diff = e.getTime() - s.getTime();
-            this.challengeDay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-            Boolean [] tmp = new Boolean[challengeDay+1];
-            Arrays.fill(tmp, false);
-            this.challangeStatus = new ArrayList<Boolean>(Arrays.asList(tmp));
-            System.out.println(this.challengeDay);
+            diff = e.getTime() - s.getTime();
         } catch (ParseException e) {
-            System.out.println(e.getMessage()+" try*****");
+            e.printStackTrace();
         }
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    private void setStatus() {
+            setChallengeDay(getTimeDifference(challengeStartDay, challengeEndDay)+1);
+            Boolean [] tmp = new Boolean[this.challengeDay];
+            Arrays.fill(tmp, false);
+            this.challengeStatus = new ArrayList<Boolean>(Arrays.asList(tmp));
     }
 
     public String getId() {
@@ -105,10 +112,10 @@ public class ChallengeModel {
     }
 
     public List<Boolean> getChallangeStatus() {
-        return challangeStatus;
+        return challengeStatus;
     }
 
     public void setChallangeStatus(List<Boolean> challangeStatus) {
-        this.challangeStatus = challangeStatus;
+        this.challengeStatus = challangeStatus;
     }
 }

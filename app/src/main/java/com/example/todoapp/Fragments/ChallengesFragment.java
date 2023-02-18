@@ -134,16 +134,18 @@ public class ChallengesFragment extends Fragment {
             String startChallengeDate = btnChallengeStartDay.getText().toString();
             String endChallengeDate = btnChallengeEndDay.getText().toString();
 
-            if(startChallengeDate.compareTo(endChallengeDate) < 0){
+
                 if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() && !btnChallengeStartDay.getText().equals(String.valueOf(R.string.select_a_date))&&
                         !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
-                    addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(), challengeCategory[0], challengeDescription);
+                    if(startChallengeDate.compareTo(endChallengeDate) < 0) {
+                        addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
+                                challengeCategory[0], challengeDescription);
+                    }else{
+                        Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
-            }
         });
 
         txtBackToChallenges.setOnClickListener(view1 -> bottomDialog.dismiss());
@@ -161,12 +163,9 @@ public class ChallengesFragment extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String[] date = {""};
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                date[0] = day+"/"+(month+1)+"/"+year;
-                button.setText(date[0]);
-            }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (datePicker, year1, month1, day1) -> {
+            date[0] = day1 +"/0"+(month1 +1)+"/"+ year1;
+            button.setText(date[0]);
         }, year, month, day);
 
         datePickerDialog.show();
