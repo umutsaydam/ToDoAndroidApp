@@ -102,6 +102,9 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
+                                if(challengeHaveDone(challengeModels.get(currPosition).getChallengeEndDay())){
+                                    Toast.makeText(context, "You have done the challenge!", Toast.LENGTH_SHORT).show();
+                                }
                             }else{
                                 Toast.makeText(context, "Error"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -114,6 +117,10 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             }else{
                 Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        private boolean challengeHaveDone(String challengeEndDay) {
+            return challengeEndDay.equals((String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime()));
         }
 
         public void setVisibilityAndArrow() {
