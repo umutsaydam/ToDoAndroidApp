@@ -18,7 +18,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,7 +35,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -181,8 +179,7 @@ public class ChallengesFragment extends Fragment {
                         System.out.println("added");
                         Toast.makeText(getContext(), "Challenge added", Toast.LENGTH_SHORT).show();
                     }else{
-                        System.out.println("hata");
-                        System.out.println(task.getException().getMessage());
+                        System.out.println("hata"+task.getException().getMessage());
                     }
                 });
         fetchChallenges();

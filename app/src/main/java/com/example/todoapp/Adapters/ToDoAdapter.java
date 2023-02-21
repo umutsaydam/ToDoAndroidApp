@@ -108,7 +108,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle(R.string.deleteToDoTitle);
             builder.setMessage(R.string.deleteToDoMessage);
-            builder.setPositiveButton(R.string.deleteToDoPossitiveMessage, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.deleteEventPossitiveMessage, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Task<Void> delete = firebaseDatabase
@@ -120,7 +120,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(context.getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
-                                // models.remove(getAdapterPosition());
                                 notifyDataSetChanged();
                             }else
                                 Toast.makeText(context.getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();

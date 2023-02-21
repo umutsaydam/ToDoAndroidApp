@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,7 +23,6 @@ import com.example.todoapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAdapter.ChallengeLayerHolder> {
     private ArrayList<ChallengeModel> challengeModels;
-    private Context context;
+    private final Context context;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
 
 
@@ -53,6 +53,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         holder.setStatus(challengeModels.get(position).getChallangeStatus());
         holder.txtInfoCategory.setText(challengeModels.get(position).getChallengeCategory());
         holder.txtInfoDescription.setText(challengeModels.get(position).getChallengeDescription());
+
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         RelativeLayout relativeLayout;
         ProgressBar progressBar;
         RecyclerView recyclerChallengeStatus;
-        Button btnCheckChallangeStatus;
+        Button btnCheckChallengeStatus;
         public ChallengeLayerHolder(@NonNull View itemView) {
             super(itemView);
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
@@ -79,10 +80,42 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             recyclerChallengeStatus = itemView.findViewById(R.id.recyclerChallengeStatus);
             txtInfoDescription = itemView.findViewById(R.id.txtInfoDescription);
             txtInfoCategory = itemView.findViewById(R.id.txtInfoCategory);
-            btnCheckChallangeStatus = itemView.findViewById(R.id.btnCheckChallangeStatus);
+            btnCheckChallengeStatus = itemView.findViewById(R.id.btnCheckChallangeStatus);
 
             linearLayoutShell.setOnClickListener(view -> setVisibilityAndArrow());
-            btnCheckChallangeStatus.setOnClickListener(view -> checkChallengeStatus());
+            linearLayoutShell.setOnLongClickListener(view -> {
+                showPopUpChallenge();
+                return false;
+            });
+            btnCheckChallengeStatus.setOnClickListener(view -> checkChallengeStatus());
+        }
+
+        private void showPopUpChallenge() {
+            PopupMenu  popupMenu = new PopupMenu(context, linearLayoutShell);
+            popupMenu.getMenuInflater().inflate(R.menu.challenge_popum_menu, popupMenu.getMenu());
+            popupMenu.show();
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                if(menuItem.getItemId() == R.id.challengeDelete){
+
+                    deleteChallenge(challengeModels.get(getAdapterPosition()).getId());
+                }
+                return false;
+            });
+        }
+
+        private void deleteChallenge(String challengeId) {
+            challengeModels.remove(getAdapterPosition());
+            Task<Void> deleteChallenge = firebaseDatabase.
+                    getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/Challenges/"+challengeId).
+                    removeValue();
+            deleteChallenge.addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            notifyDataSetChanged();
         }
 
         private void checkChallengeStatus() {
@@ -102,7 +135,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
                                 Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
-                                if(challengeHaveDone(challengeModels.get(currPosition).getChallengeEndDay())){
+                                if(challengeHaveDone(challengeModel.getChallengeEndDay())){
                                     Toast.makeText(context, "You have done the challenge!", Toast.LENGTH_SHORT).show();
                                 }
                             }else{

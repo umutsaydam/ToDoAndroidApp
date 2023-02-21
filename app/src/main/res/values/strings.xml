@@ -9,9 +9,9 @@
     <string name="later">Later</string>
     <string name="deleteToDoTitle">Delete To Do</string>
     <string name="deleteToDoMessage">This will delete. Are you sure this ?</string>
-    <string name="deleteToDoPossitiveMessage">Delete</string>
+    <string name="deleteEventPossitiveMessage">Delete</string>
     <string name="toDoMessageNegativeMessage">Cancel</string>
-    <string name="editToDoTitle">Edit To Do</string>
+    <string name="edit">Edit</string>
     <string name="editToDoPositiveMessage">Save</string>
     <string name="challenge">Challenges</string>
     <string name="add_challenge">Add A New Challenge !</string>
