@@ -34,7 +34,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
     private final Context context;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
 
-
     public ChallengeLayerAdapter(ArrayList<ChallengeModel> challengeModels, Context context) {
         this.challengeModels = challengeModels;
         this.context = context;
@@ -96,7 +95,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             popupMenu.show();
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 if(menuItem.getItemId() == R.id.challengeDelete){
-
                     deleteChallenge(challengeModels.get(getAdapterPosition()).getId());
                 }
                 return false;

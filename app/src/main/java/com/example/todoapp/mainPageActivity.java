@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.todoapp.Fragments.StatisticFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -44,6 +45,8 @@ public class mainPageActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_challengesFragment_to_mainPageFragment);
             }else if(navController.getCurrentDestination().getId() != R.id.challengesFragment && item.getItemId() == R.id.challengeMenu){
                 navController.navigate(R.id.action_mainPageFragment_to_challengesFragment);
+            }else if(navController.getCurrentDestination().getId() != R.id.statisticFragment && item.getItemId() == R.id.challengeMenu){
+                navController.navigate((R.id.action_mainPageFragment_to_statisticFragment));
             }else if(item.getItemId() == R.id.logout){
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(mainPageActivity.this, MainActivity.class));

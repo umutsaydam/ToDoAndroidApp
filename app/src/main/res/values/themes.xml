@@ -25,5 +25,6 @@
     <style name="TollbarStyle" parent="Theme.AppCompat">
         <item name="actionMenuTextColor">@color/white</item>
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/theme</item>
     </style>
 </resources>

@@ -22,5 +22,17 @@
         <action
             android:id="@+id/action_mainPageFragment_to_challengesFragment"
             app:destination="@id/challengesFragment" />
+        <action
+            android:id="@+id/action_mainPageFragment_to_statisticFragment"
+            app:destination="@id/statisticFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.todoapp.Fragments.StatisticFragment"
+        android:label="fragment_statistic"
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_statisticFragment_to_mainPageFragment"
+            app:destination="@id/mainPageFragment" />
     </fragment>
 </navigation>
