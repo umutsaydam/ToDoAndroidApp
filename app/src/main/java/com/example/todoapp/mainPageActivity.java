@@ -41,12 +41,25 @@ public class mainPageActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.mainPageNavigation);
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(item -> {
-            if(navController.getCurrentDestination().getId() != R.id.mainPageFragment && item.getItemId() == R.id.toDoMenu){
-                navController.navigate(R.id.action_challengesFragment_to_mainPageFragment);
-            }else if(navController.getCurrentDestination().getId() != R.id.challengesFragment && item.getItemId() == R.id.challengeMenu){
-                navController.navigate(R.id.action_mainPageFragment_to_challengesFragment);
-            }else if(navController.getCurrentDestination().getId() != R.id.statisticFragment && item.getItemId() == R.id.challengeMenu){
-                navController.navigate((R.id.action_mainPageFragment_to_statisticFragment));
+            int navId = navController.getCurrentDestination().getId();
+            if(navId != R.id.mainPageFragment && item.getItemId() == R.id.toDoMenu){
+                if(navId == R.id.statisticFragment){
+                    navController.navigate(R.id.action_statisticFragment_to_mainPageFragment);
+                }else if (navId == R.id.challengesFragment){
+                    navController.navigate(R.id.action_challengesFragment_to_mainPageFragment);
+                }
+            }else if(navId != R.id.challengesFragment && item.getItemId() == R.id.challengeMenu){
+                if(navId == R.id.statisticFragment){
+                    navController.navigate(R.id.action_statisticFragment_to_challengesFragment);
+                }else if (navId == R.id.mainPageFragment){
+                    navController.navigate(R.id.action_mainPageFragment_to_challengesFragment);
+                }
+            }else if(navId != R.id.statisticFragment && item.getItemId() == R.id.statisticMenu){
+                if(navId == R.id.challengesFragment){
+                    navController.navigate(R.id.action_challengesFragment_to_statisticFragment);
+                }else if (navId == R.id.mainPageFragment){
+                    navController.navigate(R.id.action_mainPageFragment_to_challengesFragment);
+                }
             }else if(item.getItemId() == R.id.logout){
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(mainPageActivity.this, MainActivity.class));

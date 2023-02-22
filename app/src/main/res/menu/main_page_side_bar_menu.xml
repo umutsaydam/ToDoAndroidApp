@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/toDoMenu" android:title="To do"/>
     <item android:id="@+id/challengeMenu" android:title="My challenges"/>
-    <item android:title="Test"/>
+    <item android:id="@+id/statisticMenu" android:title="My statistic"/>
     <item android:id="@+id/logout" android:title="Log out"/>
 </menu>

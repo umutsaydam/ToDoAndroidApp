@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_challengesFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/action_challengesFragment_to_statisticFragment"
+            app:destination="@id/statisticFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainPageFragment"
@@ -34,5 +37,8 @@
         <action
             android:id="@+id/action_statisticFragment_to_mainPageFragment"
             app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/action_statisticFragment_to_challengesFragment"
+            app:destination="@id/challengesFragment" />
     </fragment>
 </navigation>

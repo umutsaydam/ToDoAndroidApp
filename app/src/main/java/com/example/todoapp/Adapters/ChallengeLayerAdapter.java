@@ -52,7 +52,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         holder.setStatus(challengeModels.get(position).getChallangeStatus());
         holder.txtInfoCategory.setText(challengeModels.get(position).getChallengeCategory());
         holder.txtInfoDescription.setText(challengeModels.get(position).getChallengeDescription());
-
     }
 
     @Override

@@ -22,7 +22,6 @@
 
     <string-array name="dates">
         <item>Select date</item>
-        <item>Days</item>
         <item>Today</item>
         <item>Tomorrow</item>
         <item>Later</item>
