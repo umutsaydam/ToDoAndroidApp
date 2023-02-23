@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +68,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         ProgressBar progressBar;
         RecyclerView recyclerChallengeStatus;
         Button btnCheckChallengeStatus;
+        int a = 0;
         public ChallengeLayerHolder(@NonNull View itemView) {
             super(itemView);
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
@@ -127,17 +129,15 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                     System.out.println(challengeModel.getChallangeStatus());
                     Task<Void> markStatus = firebaseDatabase.
                             getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid()+"/Challenges/"+challengeModel.getId()).setValue(challengeModel);
-                    markStatus.addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
-                                if(challengeHaveDone(challengeModel.getChallengeEndDay())){
-                                    Toast.makeText(context, "You have done the challenge!", Toast.LENGTH_SHORT).show();
-                                }
-                            }else{
-                                Toast.makeText(context, "Error"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    markStatus.addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
+                            if(challengeHaveDone(challengeModel.getChallengeEndDay())){
+                                Toast.makeText(context, "You have done the challenge!", Toast.LENGTH_SHORT).show();
+                                increaseStatistic(challengeModel);
                             }
+                        }else{
+                            Toast.makeText(context, "Error"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                     notifyDataSetChanged();
@@ -147,6 +147,22 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             }else{
                 Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        private void increaseStatistic(ChallengeModel challengeModel) {
+            Task<Void> reference = firebaseDatabase
+                    .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/Statistic/")
+                    .child(challengeModel.getChallengeCategory()).setValue(ServerValue.increment(challengeModel.getChallengeDay()));
+            reference.addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(context, "Statistic updated", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
 
         private boolean challengeHaveDone(String challengeEndDay) {

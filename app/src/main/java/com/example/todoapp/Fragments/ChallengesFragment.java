@@ -135,7 +135,7 @@ public class ChallengesFragment extends Fragment {
 
                 if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() && !btnChallengeStartDay.getText().equals(String.valueOf(R.string.select_a_date))&&
                         !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
-                    if(startChallengeDate.compareTo(endChallengeDate) < 0) {
+                    if(startChallengeDate.compareTo(endChallengeDate) <= 0) {
                         addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
                                 challengeCategory[0], challengeDescription);
                     }else{
