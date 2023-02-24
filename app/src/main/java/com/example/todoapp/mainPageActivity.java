@@ -57,7 +57,7 @@ public class mainPageActivity extends AppCompatActivity {
                 if(navId == R.id.challengesFragment){
                     navController.navigate(R.id.action_challengesFragment_to_statisticFragment);
                 }else if (navId == R.id.mainPageFragment){
-                    navController.navigate(R.id.action_mainPageFragment_to_challengesFragment);
+                    navController.navigate(R.id.action_mainPageFragment_to_statisticFragment);
                 }
             }else if(item.getItemId() == R.id.logout){
                 FirebaseAuth.getInstance().signOut();
