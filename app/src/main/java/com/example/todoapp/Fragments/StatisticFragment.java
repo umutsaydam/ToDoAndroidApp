@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.todoapp.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -40,6 +41,8 @@ public class StatisticFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistic, container, false);
+        
+        ((Toolbar) getActivity().findViewById(R.id.mainPageToolbar)).setTitle("My statistics");
 
         txtNoStatistic = view.findViewById(R.id.txtNoStatistic);
         statisticPieChart = view.findViewById(R.id.statisticPieChart);
