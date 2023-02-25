@@ -1,10 +1,8 @@
 package com.example.todoapp.Adapters;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -15,15 +13,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.Models.ToDoModel;
 import com.example.todoapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -88,7 +86,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             });
 
             toDoPopup.setOnClickListener(view -> {
-                PopupMenu popupMenu =new PopupMenu(context.getApplicationContext(), toDoPopup);
+                PopupMenu popupMenu =new PopupMenu(context, toDoPopup);
                 MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.todo_popup_menu, popupMenu.getMenu());
                 popupMenu.show();
@@ -105,40 +103,29 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
         }
 
         private void deleteToDo() {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.dialogStyle);
             builder.setTitle(R.string.deleteToDoTitle);
             builder.setMessage(R.string.deleteToDoMessage);
-            builder.setPositiveButton(R.string.deleteEventPossitiveMessage, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Task<Void> delete = firebaseDatabase
-                            .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
-                            .child(timePeriod)
-                            .child(models.get(getAdapterPosition()).getId()).removeValue();
-                    delete.addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(context.getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
-                                notifyDataSetChanged();
-                            }else
-                                Toast.makeText(context.getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+            builder.setPositiveButton(R.string.deleteEventPossitiveMessage, (dialogInterface, i) -> {
+                Task<Void> delete = firebaseDatabase
+                        .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
+                        .child(timePeriod)
+                        .child(models.get(getAdapterPosition()).getId()).removeValue();
+                delete.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(context.getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+                    }else
+                        Toast.makeText(context.getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                });
             });
-            builder.setNegativeButton(R.string.toDoMessageNegativeMessage, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
+            builder.setNegativeButton(R.string.toDoMessageNegativeMessage, (dialogInterface, i) -> dialogInterface.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
         }
 
         private void updateToDo() {
-            Dialog dialog = new Dialog(activity);
+            Dialog dialog = new Dialog(activity, R.style.dialogStyle);
             dialog.setContentView(R.layout.edit_form);
             EditText editTxtFormToDo = dialog.findViewById(R.id.editTxtFormToDo);
             editTxtFormToDo.setText(toDoCheckBox.getText());
@@ -151,16 +138,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                     if (model.getId() != null){
                         Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod)
                                 .child(models.get(getAdapterPosition()).getId()).setValue(model);
-                        performUpdate.addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Toast.makeText(context.getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
-                                    notifyDataSetChanged();
-                                }else
-                                    Toast.makeText(context.getApplicationContext(), "Failed.", Toast.LENGTH_SHORT).show();
-                            }
+                        performUpdate.addOnCompleteListener(task -> {
+                            if (task.isSuccessful()){
+                                Toast.makeText(context.getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                notifyDataSetChanged();
+                            }else
+                                Toast.makeText(context.getApplicationContext(), "Failed.", Toast.LENGTH_SHORT).show();
                         });
                     }else{
                         Toast.makeText(context.getApplicationContext(), "NULL", Toast.LENGTH_SHORT).show();

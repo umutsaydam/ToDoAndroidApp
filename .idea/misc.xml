@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/bottom_sheet_style.xml" value="0.124" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/box_shape.xml" value="0.1785" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/button_style.xml" value="0.1785" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/popup_menu_style.xml" value="0.123" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/font-v26/general_font.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/font-v26/general_font_family.xml" value="0.284375" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/font/general_font.xml" value="0.2833333333333333" />
