@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.mainPageFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listLayersRecycler"
         android:layout_width="match_parent"
@@ -16,7 +15,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mainPageFloatingAction"

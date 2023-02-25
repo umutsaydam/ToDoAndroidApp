@@ -12,7 +12,8 @@
         android:text="@string/statistic"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:fontFamily="@font/roboto_regular"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/statisticPieChart"

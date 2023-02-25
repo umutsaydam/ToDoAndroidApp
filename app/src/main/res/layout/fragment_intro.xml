@@ -20,7 +20,8 @@
             android:text="To Do App"
             android:textColor="@color/white"
             android:textSize="50sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_regular"/>
 
     </RelativeLayout>
 

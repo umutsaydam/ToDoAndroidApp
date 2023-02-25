@@ -27,12 +27,14 @@
                 android:id="@+id/layerTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="22sp"/>
 
             <TextView
                 android:id="@+id/txtCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:padding="10dp"/>
 
@@ -62,9 +64,11 @@
                 android:id="@+id/recyclerChallengeStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/theme"
+                android:background="@drawable/box_shape"
                 android:overScrollMode="never"
-                android:padding="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="7dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="15" />
 
@@ -81,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category:"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:layout_below="@id/recyclerChallengeStatus"
                     android:layout_marginTop="15dp"
@@ -92,10 +96,12 @@
                     android:id="@+id/txtInfoCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/black"
                     android:layout_below="@id/txtCategory"
                     android:layout_marginTop="15dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginEnd="5dp"/>
             </LinearLayout>
 
@@ -112,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Description:"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textStyle="bold"
                     android:layout_below="@id/recyclerChallengeStatus"
                     android:layout_marginTop="15dp"
@@ -123,8 +129,10 @@
                     android:id="@+id/txtInfoDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:layout_below="@id/txtCategory"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_regular"
                     android:layout_marginTop="15dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"/>
@@ -132,11 +140,14 @@
 
             <Button
                 android:id="@+id/btnCheckChallangeStatus"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/descriptionInfoLinearLayout"
-                android:layout_marginTop="18dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/button_style"
+                android:minWidth="130dp"
                 android:text="@string/check_today"
                 android:textColor="@color/white" />
 

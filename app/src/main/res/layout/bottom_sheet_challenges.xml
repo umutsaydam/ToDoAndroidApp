@@ -15,7 +15,8 @@
                 android:text="@string/add_challenge"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_regular"/>
 
             <EditText
                 android:id="@+id/editTxtChallengeTitle"
@@ -27,7 +28,8 @@
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:layout_marginTop="35dp"
-                android:background="@drawable/input_shape"/>
+                android:background="@drawable/input_shape"
+                android:fontFamily="@font/roboto_regular"/>
 
         <Spinner
             android:id="@+id/spinnerChallengeCategory"
@@ -86,7 +88,8 @@
             android:padding="10dp"
             android:layout_marginTop="35dp"
             android:inputType="textMultiLine"
-            android:background="@drawable/input_shape"/>
+            android:background="@drawable/input_shape"
+            android:fontFamily="@font/roboto_regular"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,7 +109,8 @@
             android:text="Add a new challenge"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            />
 
         <TextView
             android:id="@+id/txtBackToChallenges"
@@ -115,6 +119,7 @@
             android:text="Back to list"
             android:textSize="18sp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto_light"/>
     </LinearLayout>
 </ScrollView>
