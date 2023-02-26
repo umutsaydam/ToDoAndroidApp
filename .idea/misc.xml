@@ -15,8 +15,8 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_main_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/bottom_sheet_challenges.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/bottom_sheet_main_page.xml" value="0.4" />
-        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/challenge_layer.xml" value="0.4" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/bottom_sheet_main_page.xml" value="0.264" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/challenge_layer.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/edit_form.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/fragment_challenges.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/fragment_forgot_password.xml" value="0.25416666666666665" />
@@ -28,6 +28,7 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/row_to_do.xml" value="0.4" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/status_box.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/to_do_layer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/menu/main_page_side_bar_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

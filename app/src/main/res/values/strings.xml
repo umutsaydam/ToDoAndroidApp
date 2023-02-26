@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ToDoApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_a_language">Select a language</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="today">Today</string>
@@ -13,12 +14,35 @@
     <string name="toDoMessageNegativeMessage">Cancel</string>
     <string name="edit">Edit</string>
     <string name="editToDoPositiveMessage">Save</string>
+    <string name="update">Update</string>
     <string name="challenge">Challenges</string>
-    <string name="add_challenge">Add A New Challenge !</string>
+    <string name="add_challenge">Add A New Challenge</string>
     <string name="check_today">Check Today</string>
     <string name="select_a_date">Select a date</string>
     <string name="category">Category</string>
     <string name="statistic">You have not finished any challenges</string>
+    <string name="add_a_new_challenge">Your challenge title</string>
+    <string name="date_from">From</string>
+    <string name="date_to">To</string>
+    <string name="exit">Exit</string>
+    <string name="add_a_task">Add A Task</string>
+    <string name="task_title">Task title</string>
+    <string name="time">Time</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email_address">Email address</string>
+    <string name="forgot_my_password">Forgot my password</string>
+    <string name="challenge_description">Challenge description</string>
+    <string name="send_email">Send an email</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="out_of_date">Out of date</string>
+    <string name="my_statistics">My statistics</string>
+    <string name="to_do_menu">To do</string>
+    <string name="my_challenges_menu">My challenges</string>
+    <string name="log_out">Log out</string>
+    <string name="dont_have_an_account">Do not have an account ?</string>
+    <string name="do_you_have_an_account">Do you have already a account ?</string>
 
     <string-array name="dates">
         <item>Select date</item>

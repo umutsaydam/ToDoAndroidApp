@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
                 android:ems="11"
-                android:hint="Your challenge title"
+                android:hint="@string/add_a_new_challenge"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:layout_marginTop="35dp"
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From"
+                android:text="@string/date_from"
                 android:textSize="18sp"
                 android:layout_marginHorizontal="15dp"/>
 
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="to"
+                android:text="@string/date_to"
                 android:textSize="18sp"
                 android:layout_marginHorizontal="15dp"/>
 
@@ -74,7 +74,7 @@
                 android:id="@+id/btnChallengeEndDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select a date"
+                android:text="@string/select_a_date"
                 style="?spinnerStyle"/>
         </LinearLayout>
 
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:ems="11"
-            android:hint="Challenge description"
+            android:hint="@string/challenge_description"
             android:padding="10dp"
             android:layout_marginTop="35dp"
             android:inputType="textMultiLine"
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:minWidth="250dp"
             android:background="@drawable/button_style"
-            android:text="Add a new challenge"
+            android:text="@string/add_challenge"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -116,7 +116,7 @@
             android:id="@+id/txtBackToChallenges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back to list"
+            android:text="@string/exit"
             android:textSize="18sp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"

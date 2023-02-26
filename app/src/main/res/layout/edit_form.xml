@@ -18,7 +18,7 @@
         android:layout_toLeftOf="@+id/btnUpdateToDo"
         android:background="@null"
         android:ems="6"
-        android:text="Cancel"
+        android:text="@string/toDoMessageNegativeMessage"
         android:textColor="@color/teal_700"
         android:textSize="15sp" />
 
@@ -31,7 +31,7 @@
         android:layout_marginEnd="25dp"
         android:background="@null"
         android:ems="6"
-        android:text="Update"
+        android:text="@string/update"
         android:textColor="@color/teal_700"
         android:textSize="15sp" />
 </RelativeLayout>

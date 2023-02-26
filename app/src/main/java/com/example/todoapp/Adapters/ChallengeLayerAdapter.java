@@ -34,10 +34,11 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
     private ArrayList<ChallengeModel> challengeModels;
     private final Context context;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
-
+    private String currDate;
     public ChallengeLayerAdapter(ArrayList<ChallengeModel> challengeModels, Context context) {
         this.challengeModels = challengeModels;
         this.context = context;
+        this.currDate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime());
     }
 
     @NonNull
@@ -49,10 +50,15 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
 
     @Override
     public void onBindViewHolder(@NonNull ChallengeLayerAdapter.ChallengeLayerHolder holder, int position) {
-        holder.layerTitle.setText(challengeModels.get(position).getChallengeTitle());
-        holder.setStatus(challengeModels.get(position).getChallangeStatus());
-        holder.txtInfoCategory.setText(challengeModels.get(position).getChallengeCategory());
-        holder.txtInfoDescription.setText(challengeModels.get(position).getChallengeDescription());
+        ChallengeModel challengeModel = challengeModels.get(position);
+        holder.layerTitle.setText(challengeModel.getChallengeTitle());
+        holder.setStatus(challengeModel.getChallangeStatus());
+        holder.txtInfoCategory.setText(challengeModel.getChallengeCategory());
+        holder.txtInfoDescription.setText(challengeModel.getChallengeDescription());
+        if(currDate.compareTo(challengeModel.getChallengeEndDay()) > 0){
+            holder.btnCheckChallengeStatus.setEnabled(false);
+            holder.btnCheckChallengeStatus.setText(R.string.out_of_date);
+        }
     }
 
     @Override
@@ -68,7 +74,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         ProgressBar progressBar;
         RecyclerView recyclerChallengeStatus;
         Button btnCheckChallengeStatus;
-        int a = 0;
         public ChallengeLayerHolder(@NonNull View itemView) {
             super(itemView);
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
@@ -119,8 +124,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
 
         private void checkChallengeStatus() {
             ChallengeModel challengeModel = challengeModels.get(getAdapterPosition());
-            String currDate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime());
-
             if(challengeModel.getChallengeStartDay().compareTo(currDate) <= 0 && challengeModel.getChallengeEndDay().compareTo(currDate) >= 0){
                 int currPosition = challengeModel.getTimeDifference(challengeModel.getChallengeStartDay(), currDate);
                 if(!challengeModel.getChallangeStatus().get(currPosition)){

@@ -17,12 +17,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_regular"
             android:paddingLeft="15dp"
-            android:text="Sign Up"
+            android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="35sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/roboto_regular"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="12"
-            android:hint="Name"
+            android:hint="@string/name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -49,9 +49,9 @@
             android:layout_below="@+id/editTxtUserName"
             android:layout_marginTop="18dp"
             android:ems="12"
-            android:hint="Email Adress"
-            android:inputType="textEmailAddress"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTxtPassword"
@@ -60,9 +60,9 @@
             android:layout_below="@+id/editTxtEmail"
             android:layout_marginTop="18dp"
             android:ems="12"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnSignUpSignUpFragment"
@@ -72,7 +72,7 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/button_style"
             android:ems="12"
-            android:text="SIgn Up"
+            android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -89,8 +89,8 @@
             android:id="@+id/txtDoNotHaveAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do you have already a account ?"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/do_you_have_an_account" />
 
         <TextView
             android:id="@+id/txtSignIn"
@@ -98,9 +98,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/txtDoNotHaveAccount"
-            android:text="Sign In"
-            android:textStyle="bold"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/sign_in"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </RelativeLayout>

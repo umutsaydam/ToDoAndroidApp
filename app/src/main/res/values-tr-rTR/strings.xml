@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToDoApp</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="today">Bugün</string>
+    <string name="todo">Yapılacaklar</string>
+    <string name="tomorrow">Yarın</string>
+    <string name="later">Daha sonra</string>
+    <string name="deleteToDoTitle">Ögeyi sil</string>
+    <string name="deleteToDoMessage">Bu öge silinecektir. Emin misiniz ?</string>
+    <string name="deleteEventPossitiveMessage">Sil</string>
+    <string name="toDoMessageNegativeMessage">İptal et</string>
+    <string name="edit">Düzenle</string>
+    <string name="editToDoPositiveMessage">Kaydet</string>
+    <string name="challenge">Meydan okumalar</string>
+    <string name="add_challenge">Yeni Bir Meydan Okuma Ekle</string>
+    <string name="check_today">Bugünü işaretle</string>
+    <string name="select_a_date">Bir tarih seç</string>
+    <string name="category">Kategori</string>
+    <string name="statistic">Henü bir meydan okumayı bitirmedin.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_a_language">Bir dil seçin</string>
+    <string name="add_a_new_challenge">Meydan okuma başlığı</string>
+
+    <string-array name="dates">
+        <item>Bir tarih seç</item>
+        <item>Bugün</item>
+        <item>Yarın</item>
+        <item>Daha sonra</item>
+    </string-array>
+
+    <string-array name="challengeCategory">
+        <item>Kategori</item>
+        <item>Kişisel gelişim</item>
+        <item>Spor</item>
+    </string-array>
+    <string name="date_to">Bitir</string>
+    <string name="challenge_description">Açıklama</string>
+    <string name="exit">Çıkış</string>
+    <string name="add_a_task">Bir Görev Ekle</string>
+    <string name="task_title">Görev başlığı</string>
+    <string name="time">Zaman</string>
+    <string name="date_from">Başlat</string>
+    <string name="update">Güncelle</string>
+    <string name="forgot_my_password">Şifremi unuttum</string>
+    <string name="email_address">Email adresi</string>
+    <string name="send_email">Mail gönder</string>
+    <string name="sign_in">Giriş yap</string>
+    <string name="sign_up">Kaydol</string>
+    <string name="name">İsim</string>
+    <string name="password">Şifre</string>
+    <string name="do_you_have_an_account">Zaten bir hesabın var mı ?</string>
+    <string name="out_of_date">Tarihi geçti</string>
+    <string name="dont_have_an_account">Bir hesabın yok mu ?</string>
+    <string name="my_statistics">İstatistiklerim</string>
+    <string name="to_do_menu">Yapılacaklar</string>
+    <string name="my_challenges_menu">Meydan okumalar</string>
+    <string name="log_out">Çıkış yap</string>
+</resources>

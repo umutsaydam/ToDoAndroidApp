@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/toDoMenu" android:title="To do"/>
-    <item android:id="@+id/challengeMenu" android:title="My challenges"/>
-    <item android:id="@+id/statisticMenu" android:title="My statistic"/>
-    <item android:id="@+id/logout" android:title="Log out"/>
+    <item android:id="@+id/toDoMenu" android:title="@string/to_do_menu"/>
+    <item android:id="@+id/challengeMenu" android:title="@string/my_challenges_menu"/>
+    <item android:id="@+id/statisticMenu" android:title="@string/my_statistics"/>
+    <item android:id="@+id/logout" android:title="@string/log_out"/>
 </menu>

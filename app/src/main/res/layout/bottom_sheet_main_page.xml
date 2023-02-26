@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Task"
+            android:text="@string/add_a_task"
             android:textSize="22sp"
             android:textStyle="bold"
             android:layout_marginTop="10dp"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:ems="11"
-            android:hint="Task title"
+            android:hint="@string/task_title"
             android:padding="10dp"
             android:layout_marginTop="35dp"
             android:background="@drawable/input_shape"
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Due Date"
+                android:text="@string/time"
                 android:textSize="18sp"
                 android:layout_marginHorizontal="15dp"
                 android:fontFamily="@font/roboto_regular"/>
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
                 android:minWidth="150dp"
-                android:contentDescription="Choose a date"
+                android:contentDescription="@string/select_a_date"
                 android:background="@drawable/input_shape"/>
         </LinearLayout>
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:minWidth="250dp"
             android:layout_height="wrap_content"
-            android:text="Add new task"
+            android:text="@string/add_a_task"
             android:background="@drawable/button_style"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -75,7 +75,7 @@
             android:id="@+id/txtBackToList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back to list"
+            android:text="@string/exit"
             android:textSize="18sp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_light"/>

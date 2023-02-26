@@ -42,7 +42,7 @@ public class StatisticFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistic, container, false);
 
-        ((Toolbar) getActivity().findViewById(R.id.mainPageToolbar)).setTitle("My statistics");
+        ((Toolbar) getActivity().findViewById(R.id.mainPageToolbar)).setTitle(getString(R.string.my_statistics));
 
         txtNoStatistic = view.findViewById(R.id.txtNoStatistic);
         statisticPieChart = view.findViewById(R.id.statisticPieChart);
@@ -82,7 +82,7 @@ public class StatisticFragment extends Fragment {
     }
 
     private void setStatisticChart(ArrayList<PieEntry> categoryStatistic) {
-        PieDataSet categoryDataSet = new PieDataSet(categoryStatistic, "Label");
+        PieDataSet categoryDataSet = new PieDataSet(categoryStatistic, "");
         categoryDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         categoryDataSet.setValueTextColor(Color.WHITE);
         categoryDataSet.setValueTextSize(16f);
@@ -91,7 +91,7 @@ public class StatisticFragment extends Fragment {
 
         statisticPieChart.setData(statisticData);
         statisticPieChart.getDescription().setEnabled(false);
-        statisticPieChart.setCenterText("Title");
+        statisticPieChart.setCenterText(getString(R.string.my_statistics));
         statisticPieChart.animate();
         statisticPieChart.setVisibility(View.VISIBLE);
     }

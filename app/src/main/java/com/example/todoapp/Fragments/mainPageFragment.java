@@ -55,9 +55,9 @@ public class mainPageFragment extends Fragment {
 
         RecyclerView listLayersRecycler = view.findViewById(R.id.listLayersRecycler);
         ArrayList<String> timesPeriods = new ArrayList<>();
-        timesPeriods.add("Today");
-        timesPeriods.add("Tomorrow");
-        timesPeriods.add("Later");
+        timesPeriods.add(getString(R.string.today));
+        timesPeriods.add(getString(R.string.tomorrow));
+        timesPeriods.add(getString(R.string.later));
         ToDoLayerAdapter adapter = new ToDoLayerAdapter(timesPeriods, getContext(), getActivity(), FirebaseAuth.getInstance());
         listLayersRecycler.setHasFixedSize(true);
         listLayersRecycler.setAdapter(adapter);
@@ -83,14 +83,14 @@ public class mainPageFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                spinnerDate[0] = "Select date";
+                spinnerDate[0] = getString(R.string.select_a_date);
             }
         });
 
         Button btnAddNewTask = dialog.findViewById(R.id.btnAddNewTask);
         btnAddNewTask.setOnClickListener(view1 -> {
             String toDoTitle = editTextTaskTitle.getText().toString();
-            if (!toDoTitle.isEmpty() && !spinnerDate[0].equals("Select date")){
+            if (!toDoTitle.isEmpty() && !spinnerDate[0].equals(getString(R.string.select_a_date))){
                 addNewTask(toDoTitle, spinnerDate[0]);
             }else{
                 Toast.makeText(getContext(), "Please fill the fields", Toast.LENGTH_SHORT).show();
