@@ -3,5 +3,6 @@
     <item android:id="@+id/toDoMenu" android:title="@string/to_do_menu"/>
     <item android:id="@+id/challengeMenu" android:title="@string/my_challenges_menu"/>
     <item android:id="@+id/statisticMenu" android:title="@string/my_statistics"/>
+    <item android:id="@+id/settingsMenu" android:title="@string/settings"/>
     <item android:id="@+id/logout" android:title="@string/log_out"/>
 </menu>

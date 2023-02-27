@@ -43,6 +43,12 @@
     <string name="log_out">Log out</string>
     <string name="dont_have_an_account">Do not have an account ?</string>
     <string name="do_you_have_an_account">Do you have already a account ?</string>
+    <string name="change_language">Change language</string>
+    <string name="change_theme">Change theme</string>
+    <string name="about_app_and_developer">About app and developer</string>
+    <string name="settings">Settings</string>
+    <string name="okay">Okay</string>
+    <string name="about_app_and_developer_message">Test</string>
 
     <string-array name="dates">
         <item>Select date</item>

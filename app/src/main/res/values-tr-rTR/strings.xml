@@ -22,19 +22,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="select_a_language">Bir dil seçin</string>
     <string name="add_a_new_challenge">Meydan okuma başlığı</string>
-
-    <string-array name="dates">
-        <item>Bir tarih seç</item>
-        <item>Bugün</item>
-        <item>Yarın</item>
-        <item>Daha sonra</item>
-    </string-array>
-
-    <string-array name="challengeCategory">
-        <item>Kategori</item>
-        <item>Kişisel gelişim</item>
-        <item>Spor</item>
-    </string-array>
     <string name="date_to">Bitir</string>
     <string name="challenge_description">Açıklama</string>
     <string name="exit">Çıkış</string>
@@ -57,4 +44,23 @@
     <string name="to_do_menu">Yapılacaklar</string>
     <string name="my_challenges_menu">Meydan okumalar</string>
     <string name="log_out">Çıkış yap</string>
+    <string name="change_language">Dili değiştir</string>
+    <string name="change_theme">Temayı değiştir</string>
+    <string name="about_app_and_developer">Uygulama ve geliştirici hakkında</string>
+    <string name="settings">Ayarlar</string>
+    <string name="okay">Tamam</string>
+    <string name="about_app_and_developer_message">Test</string>
+
+    <string-array name="dates">
+        <item>Bir tarih seç</item>
+        <item>Bugün</item>
+        <item>Yarın</item>
+        <item>Daha sonra</item>
+    </string-array>
+
+    <string-array name="challengeCategory">
+        <item>Kategori</item>
+        <item>Kişisel gelişim</item>
+        <item>Spor</item>
+    </string-array>
 </resources>
