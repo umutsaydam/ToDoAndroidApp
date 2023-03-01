@@ -35,8 +35,6 @@ public class introFragment extends Fragment {
         btnSignIn.setOnClickListener(this::goToSignIn);
 
         btnSignUp = view.findViewById(R.id.btnSignUp);
-        btnSignIn.setOnClickListener(this::goToSignIn);
-
         btnSignUp.setOnClickListener(this::goToSignUp);
 
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {

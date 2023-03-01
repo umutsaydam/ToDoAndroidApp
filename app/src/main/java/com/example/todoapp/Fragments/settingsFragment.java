@@ -2,16 +2,21 @@ package com.example.todoapp.Fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.example.todoapp.R;
 
@@ -19,6 +24,17 @@ import java.util.Locale;
 
 public class settingsFragment extends Fragment {
     private AlertDialog.Builder builder;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private boolean darkTheme;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        sharedPreferences = getActivity().getSharedPreferences("Settings.Theme", MODE_PRIVATE);
+        darkTheme = sharedPreferences.getBoolean("darkTheme", false);
+        editor = getActivity().getSharedPreferences("Settings.Theme", MODE_PRIVATE).edit();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +50,23 @@ public class settingsFragment extends Fragment {
         builder = new AlertDialog.Builder(getActivity(), R.style.dialogStyle);
 
         view.findViewById(R.id.btnChangeLang).setOnClickListener(this::changeLangDialog);
-        view.findViewById(R.id.btnChangeTheme).setOnClickListener(this::changeThemeDialog);
+
+        SwitchCompat switchCompat = view.findViewById(R.id.switchChangeTheme);
+        switchCompat.setChecked(darkTheme);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    editor.putBoolean("darkTheme", true);
+                    //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    editor.putBoolean("darkTheme", false);
+                   // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                editor.apply();
+            }
+        });
+
         view.findViewById(R.id.btnAboutAppAndDev).setOnClickListener(this::showAboutAppAndDev);
 
         return view;
@@ -49,6 +81,7 @@ public class settingsFragment extends Fragment {
     }
 
     private void changeThemeDialog(View view) {
+
     }
 
     private void changeLangDialog(View view) {
