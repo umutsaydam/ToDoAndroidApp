@@ -59,18 +59,12 @@ public class settingsFragment extends Fragment {
 
         SwitchCompat switchCompat = view.findViewById(R.id.switchChangeTheme);
         switchCompat.setChecked(darkTheme);
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    editor.putBoolean("darkTheme", true);
-                    //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }else{
-                    editor.putBoolean("darkTheme", false);
-                   // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                editor.apply();
-            }
+        switchCompat.setOnCheckedChangeListener((compoundButton, b) -> {
+            System.out.println("calisti ***/*/*/*/*/*/*/*/*/*");
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            editor.putBoolean("darkTheme", b);
+            editor.apply();
         });
 
         view.findViewById(R.id.btnAboutAppAndDev).setOnClickListener(this::showAboutAppAndDev);
@@ -80,7 +74,7 @@ public class settingsFragment extends Fragment {
 
     private void getUserNameSurname() {
         Task<DataSnapshot> getUsernameSurname = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference("UserActivities/"+FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                .getReference("UserActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                        userNameSurname.setText(task.getResult().getValue().toString());

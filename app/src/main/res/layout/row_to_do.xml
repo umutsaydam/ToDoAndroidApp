@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="@drawable/ic_todo_more"
+        android:layout_marginTop="6dp"
         android:contentDescription="@string/todo"
         android:minWidth="30dp"
         android:minHeight="30dp" />
