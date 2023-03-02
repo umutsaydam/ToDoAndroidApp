@@ -34,7 +34,7 @@
     <string name="forgot_my_password">Forgot my password</string>
     <string name="challenge_description">Challenge description</string>
     <string name="send_email">Send an email</string>
-    <string name="name">Name</string>
+    <string name="name_and_surname">Name surname</string>
     <string name="password">Password</string>
     <string name="out_of_date">Out of date</string>
     <string name="my_statistics">My statistics</string>
@@ -48,7 +48,8 @@
     <string name="about_app_and_developer">About app and developer</string>
     <string name="settings">Settings</string>
     <string name="okay">Okay</string>
-    <string name="about_app_and_developer_message">Test</string>
+    <string name="about_app_and_developer_message">This application does the activities of the user,
+        It is an application created to embody the goals.</string>
 
     <string-array name="dates">
         <item>Select date</item>

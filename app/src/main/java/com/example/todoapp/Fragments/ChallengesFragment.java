@@ -162,7 +162,7 @@ public class ChallengesFragment extends Fragment {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String[] date = {""};
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (datePicker, year1, month1, day1) -> {
-            date[0] = day1 +"/0"+(month1 +1)+"/"+ year1;
+            date[0] = (day1 < 10 ? "0"+day1 : day1) +"/0"+(month1 +1)+"/"+ year1;
             button.setText(date[0]);
         }, year, month, day);
 

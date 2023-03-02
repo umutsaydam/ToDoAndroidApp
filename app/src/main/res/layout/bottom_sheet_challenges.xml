@@ -13,23 +13,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_challenge"
+                style="@style/TEXT"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_regular"/>
 
-            <EditText
-                android:id="@+id/editTxtChallengeTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:ems="11"
-                android:hint="@string/add_a_new_challenge"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:layout_marginTop="35dp"
-                android:background="@drawable/input_shape"
-                android:fontFamily="@font/roboto_regular"/>
+        <EditText
+            android:id="@+id/editTxtChallengeTitle"
+            style="@style/TEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/input_shape"
+            android:ems="11"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/add_a_new_challenge"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColorHint="@color/hint_color" />
 
         <Spinner
             android:id="@+id/spinnerChallengeCategory"
@@ -37,6 +40,7 @@
             android:layout_height="wrap_content"
             android:minHeight="50dp"
             android:minWidth="230dp"
+            style="@style/TEXT"
             android:layout_marginTop="25dp"
             android:contentDescription="@string/category"
             android:background="@drawable/input_shape"/>
@@ -53,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_from"
+                style="@style/TEXT"
                 android:textSize="18sp"
                 android:layout_marginHorizontal="15dp"/>
 
@@ -60,6 +65,7 @@
                 android:id="@+id/btnChallengeStartDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/hint_color"
                 android:text="@string/select_a_date"
                 style="?spinnerStyle"/>
 
@@ -67,6 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_to"
+                style="@style/TEXT"
                 android:textSize="18sp"
                 android:layout_marginHorizontal="15dp"/>
 
@@ -75,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_a_date"
+                android:textColor="@color/hint_color"
                 style="?spinnerStyle"/>
         </LinearLayout>
 
@@ -86,10 +94,12 @@
             android:ems="11"
             android:hint="@string/challenge_description"
             android:padding="10dp"
+            style="@style/TEXT"
             android:layout_marginTop="35dp"
             android:inputType="textMultiLine"
             android:background="@drawable/input_shape"
-            android:fontFamily="@font/roboto_regular"/>
+            android:fontFamily="@font/roboto_regular"
+            android:textColorHint="@color/hint_color" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,13 +110,13 @@
 
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddNewChallenge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="250dp"
-            android:background="@drawable/button_style"
             android:text="@string/add_challenge"
+            style="@style/themeBtn"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="20dp"
@@ -117,7 +127,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exit"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
             android:textSize="18sp"
+            style="@style/TEXT"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/roboto_light"/>

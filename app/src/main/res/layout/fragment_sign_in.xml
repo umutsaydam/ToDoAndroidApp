@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BACKGROUND"
     tools:context=".Fragments.signInFragment">
 
     <RelativeLayout
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="12"
+            style="@style/TEXT"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress" />
@@ -49,6 +51,7 @@
             android:layout_below="@+id/editTxtEmail"
             android:layout_marginTop="18dp"
             android:ems="12"
+            style="@style/TEXT"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/password"
             android:inputType="textPassword" />
@@ -61,6 +64,7 @@
             android:layout_marginStart="105dp"
             android:layout_marginTop="10dp"
             android:alpha="0.7"
+            style="@style/TEXT"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/forgot_my_password"
             android:textSize="15sp" />
@@ -90,6 +94,7 @@
             android:id="@+id/txtDoNotHaveAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TEXT"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/dont_have_an_account" />
 
@@ -98,6 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            style="@style/TEXT"
             android:layout_toEndOf="@+id/txtDoNotHaveAccount"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/sign_up"

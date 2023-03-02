@@ -10,8 +10,13 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/theme</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="dialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:background">@color/popup_bg_color</item>
+        <item name="dialogCornerRadius">7dp</item>
     </style>
 
     <style name="TEXT">
@@ -19,7 +24,7 @@
     </style>
 
     <style name="BACKGROUND">
-        <item name="android:background">#000000</item>
+        <item name="android:background">#282828</item>
     </style>
 
     <style name="BUTTON">
@@ -27,4 +32,36 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="themeBtn">
+        <item name="android:background">@drawable/button_style</item>
+    </style>
+
+    <style name="SettingsButton">
+        <item name="android:background">#282828</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="recyclerChallenge">
+        <item name="android:background">@drawable/box_shape</item>
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_menu_style</item>
+    </style>
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:statusBarColor">@color/theme</item>
+    </style>
+    <style name="BottomSheetStyleTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="TollbarStyle" parent="Theme.AppCompat">
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
 </resources>

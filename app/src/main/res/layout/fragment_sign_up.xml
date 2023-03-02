@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BACKGROUND"
     tools:context=".Fragments.signInFragment">
 
     <RelativeLayout
@@ -32,25 +33,28 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signInLogoLayout"
         android:gravity="center"
+
         android:minHeight="400dp">
 
         <EditText
-            android:id="@+id/editTxtUserName"
+            android:id="@+id/editTxtNameSurname"
+            style="@style/TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="12"
-            android:hint="@string/name"
+            android:hint="@string/name_and_surname"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editTxtEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTxtUserName"
+            android:layout_below="@+id/editTxtNameSurname"
             android:layout_marginTop="18dp"
             android:ems="12"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/email_address"
+            style="@style/TEXT"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -62,6 +66,7 @@
             android:ems="12"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/password"
+            style="@style/TEXT"
             android:inputType="textPassword" />
 
         <Button
@@ -90,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
+            style="@style/TEXT"
             android:text="@string/do_you_have_an_account" />
 
         <TextView
@@ -100,6 +106,7 @@
             android:layout_toEndOf="@+id/txtDoNotHaveAccount"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/sign_in"
+            style="@style/TEXT"
             android:textStyle="bold" />
     </RelativeLayout>
 

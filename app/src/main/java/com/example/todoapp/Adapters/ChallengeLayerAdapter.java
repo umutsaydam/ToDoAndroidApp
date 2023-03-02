@@ -124,6 +124,8 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
 
         private void checkChallengeStatus() {
             ChallengeModel challengeModel = challengeModels.get(getAdapterPosition());
+            System.out.println(challengeModel.getChallengeStartDay()+" "+ currDate +" "+ challengeModel.getChallengeEndDay());
+            System.out.println(challengeModel.getChallengeStartDay().compareTo(currDate) +" <= 0 ? && "+ challengeModel.getChallengeEndDay().compareTo(currDate));
             if(challengeModel.getChallengeStartDay().compareTo(currDate) <= 0 && challengeModel.getChallengeEndDay().compareTo(currDate) >= 0){
                 int currPosition = challengeModel.getTimeDifference(challengeModel.getChallengeStartDay(), currDate);
                 if(!challengeModel.getChallangeStatus().get(currPosition)){

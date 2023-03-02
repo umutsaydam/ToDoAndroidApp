@@ -19,6 +19,7 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/input_shape.xml" value="0.1675" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/logo_background_shape.xml" value="0.1675" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/main_activity_buttons_background.xml" value="0.1675" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/navigation_corner.xml" value="0.212" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/popup_menu_style.xml" value="0.123" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/setting_button_shape.xml" value="0.1675" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/drawable/splash.xml" value="0.1675" />
@@ -27,9 +28,9 @@
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/font/general_font.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/font/general_font_family.xml" value="0.2833333333333333" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_main_page.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_main_page.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/bottom_sheet_challenges.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/bottom_sheet_challenges.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/bottom_sheet_main_page.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/challenge_layer.xml" value="0.264" />
         <entry key="..\:/Users/Umut/AndroidStudioProjects/ToDoApp/app/src/main/res/layout/edit_form.xml" value="0.25416666666666665" />

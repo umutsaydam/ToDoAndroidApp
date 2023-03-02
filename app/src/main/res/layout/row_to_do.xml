@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <CheckBox
         android:id="@+id/toDoCheckBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_weight="1"
+        android:text="test"
         android:fontFamily="@font/roboto_regular"
         android:layout_toStartOf="@+id/toDoPopup"
         android:textSize="18sp"/>
@@ -19,9 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_margin="8dp"
         android:background="@drawable/ic_todo_more"
         android:contentDescription="@string/todo"
         android:minWidth="30dp"
         android:minHeight="30dp" />
-</RelativeLayout>
+</LinearLayout>

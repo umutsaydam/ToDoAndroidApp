@@ -8,14 +8,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 public class SplashScreen extends AppCompatActivity {
-    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.SplashTheme);
-        sharedPreferences = getSharedPreferences("Settings.Theme", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("Settings.Theme", MODE_PRIVATE);
 
         if(sharedPreferences.getBoolean("darkTheme", false)){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
@@ -23,4 +24,10 @@ public class SplashScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BACKGROUND"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ChallengesFragment">
 
@@ -25,5 +26,6 @@
         android:backgroundTint="@color/theme"
         android:src="@drawable/ic_baseline_add_24"
         android:contentDescription="@string/app_name"
+        app:borderWidth="0dp"
         android:onClick="addNewChallenge"/>
 </RelativeLayout>

@@ -20,12 +20,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.Executor;
 
 public class signUpFragment extends Fragment {
     private TextView txtSignIn;
-    private EditText editTxtUserName, editTxtEmail, editTxtPassword;
+    private EditText editTxtNameSurname, editTxtEmail, editTxtPassword;
     private Button btnSignUpSignUpFragment;
 
     @Override
@@ -34,7 +35,7 @@ public class signUpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         txtSignIn = view.findViewById(R.id.txtSignIn);
-        editTxtUserName = view.findViewById(R.id.editTxtUserName);
+        editTxtNameSurname = view.findViewById(R.id.editTxtNameSurname);
         editTxtEmail = view.findViewById(R.id.editTxtEmail);
         editTxtPassword = view.findViewById(R.id.editTxtPassword);
 
@@ -66,24 +67,37 @@ public class signUpFragment extends Fragment {
     }
 
     public void performSignUp(View view) {
-        String name = editTxtUserName.getText().toString();
+        String name = editTxtNameSurname.getText().toString();
         String password = editTxtPassword.getText().toString();
         String email = editTxtEmail.getText().toString();
         
         if(!name.isEmpty() && !password.isEmpty() && !email.isEmpty()){
             FirebaseAuth auth = FirebaseAuth.getInstance();
-            
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment);
+
+                        Task<Void> setUsernameSurname = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
+                                .getReference("UserActivities/"+auth.getUid()).child("nameAndSurname").setValue(name);
+                        setUsernameSurname.addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(getContext(), ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }else{
                         Toast.makeText(getContext(), "Something went wrong "+task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-            
+
+
         }else{
             Toast.makeText(getContext(), "Fill the fields", Toast.LENGTH_SHORT).show();
         }

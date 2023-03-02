@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
@@ -17,21 +16,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.example.todoapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
 public class settingsFragment extends Fragment {
     private AlertDialog.Builder builder;
-    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private boolean darkTheme;
+    private TextView userNameSurname;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        sharedPreferences = getActivity().getSharedPreferences("Settings.Theme", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("Settings.Theme", MODE_PRIVATE);
         darkTheme = sharedPreferences.getBoolean("darkTheme", false);
         editor = getActivity().getSharedPreferences("Settings.Theme", MODE_PRIVATE).edit();
     }
@@ -47,7 +52,8 @@ public class settingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        builder = new AlertDialog.Builder(getActivity(), R.style.dialogStyle);
+        userNameSurname = view.findViewById(R.id.userNameSurname);
+        getUserNameSurname();
 
         view.findViewById(R.id.btnChangeLang).setOnClickListener(this::changeLangDialog);
 
@@ -72,7 +78,18 @@ public class settingsFragment extends Fragment {
         return view;
     }
 
+    private void getUserNameSurname() {
+        Task<DataSnapshot> getUsernameSurname = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
+                .getReference("UserActivities/"+FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                       userNameSurname.setText(task.getResult().getValue().toString());
+                    }
+                });
+    }
+
     private void showAboutAppAndDev(View view) {
+        builder = new AlertDialog.Builder(getActivity(), R.style.dialogStyle);
         builder.setTitle(R.string.about_app_and_developer);
         builder.setMessage(R.string.about_app_and_developer_message);
         builder.setPositiveButton(R.string.okay, (dialogInterface, i) -> dialogInterface.dismiss());
@@ -80,11 +97,8 @@ public class settingsFragment extends Fragment {
         dialog.show();
     }
 
-    private void changeThemeDialog(View view) {
-
-    }
-
     private void changeLangDialog(View view) {
+        builder = new AlertDialog.Builder(getActivity(), R.style.dialogStyle);
         builder.setTitle(R.string.change_language);
         final String [] langs = {"EN", "TR"};
         builder.setSingleChoiceItems(langs, -1, (dialogInterface, i) -> {

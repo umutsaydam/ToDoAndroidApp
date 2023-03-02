@@ -35,7 +35,7 @@
     <string name="send_email">Mail gönder</string>
     <string name="sign_in">Giriş yap</string>
     <string name="sign_up">Kaydol</string>
-    <string name="name">İsim</string>
+    <string name="name_and_surname">Ad soyad</string>
     <string name="password">Şifre</string>
     <string name="do_you_have_an_account">Zaten bir hesabın var mı ?</string>
     <string name="out_of_date">Tarihi geçti</string>
@@ -49,7 +49,10 @@
     <string name="about_app_and_developer">Uygulama ve geliştirici hakkında</string>
     <string name="settings">Ayarlar</string>
     <string name="okay">Tamam</string>
-    <string name="about_app_and_developer_message">Test</string>
+    <string name="about_app_and_developer_message">
+        Bu uygulama kullanıcının yaptığı aktiviteleri,
+        hedefleri somutlaştırması için oluşturulmuş bir uygulamadır.
+    </string>
 
     <string-array name="dates">
         <item>Bir tarih seç</item>

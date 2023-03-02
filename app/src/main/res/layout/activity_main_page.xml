@@ -38,6 +38,7 @@
         android:id="@+id/mainPageNavigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/main_page_side_bar_menu"
-        android:layout_gravity="start"/>
+        android:background="@drawable/navigation_corner"
+        android:layout_gravity="start"
+        app:menu="@menu/main_page_side_bar_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>
