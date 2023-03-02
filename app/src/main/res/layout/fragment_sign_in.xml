@@ -36,10 +36,10 @@
 
         <EditText
             android:id="@+id/editTxtEmail"
+            style="@style/TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="12"
-            style="@style/TEXT"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress" />
