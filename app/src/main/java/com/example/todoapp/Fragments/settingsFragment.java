@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.todoapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,9 +61,7 @@ public class settingsFragment extends Fragment {
         SwitchCompat switchCompat = view.findViewById(R.id.switchChangeTheme);
         switchCompat.setChecked(darkTheme);
         switchCompat.setOnCheckedChangeListener((compoundButton, b) -> {
-            System.out.println("calisti ***/*/*/*/*/*/*/*/*/*");
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            Toast.makeText(getContext(), R.string.will_be_active_after_restarting, Toast.LENGTH_SHORT).show();
             editor.putBoolean("darkTheme", b);
             editor.apply();
         });
@@ -95,7 +94,8 @@ public class settingsFragment extends Fragment {
         builder = new AlertDialog.Builder(getActivity(), R.style.dialogStyle);
         builder.setTitle(R.string.change_language);
         final String [] langs = {"EN", "TR"};
-        builder.setSingleChoiceItems(langs, -1, (dialogInterface, i) -> {
+
+        builder.setSingleChoiceItems(langs, Locale.getDefault().toString().equals("en_US") ? 0 : 1, (dialogInterface, i) -> {
             if(!Locale.getDefault().getCountry().equals(langs[i])){
                 Locale locale = new Locale(langs[i]);
                 Locale.setDefault(locale);

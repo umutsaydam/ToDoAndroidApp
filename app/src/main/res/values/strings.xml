@@ -48,6 +48,7 @@
     <string name="about_app_and_developer">About app and developer</string>
     <string name="settings">Settings</string>
     <string name="okay">Okay</string>
+    <string name="will_be_active_after_restarting">Theme will be active after restarting the app</string>
     <string name="about_app_and_developer_message">This application does the activities of the user,
         It is an application created to embody the goals.</string>
 

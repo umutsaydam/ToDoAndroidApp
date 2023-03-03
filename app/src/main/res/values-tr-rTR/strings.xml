@@ -66,4 +66,5 @@
         <item>Kişisel gelişim</item>
         <item>Spor</item>
     </string-array>
+    <string name="will_be_active_after_restarting">Tema uygulamayı tekrar başlatılınca aktif edilecek.</string>
 </resources>
