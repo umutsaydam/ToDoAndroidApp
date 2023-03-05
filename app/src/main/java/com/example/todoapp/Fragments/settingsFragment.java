@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,7 +94,8 @@ public class settingsFragment extends Fragment {
         builder.setTitle(R.string.change_language);
         final String [] langs = {"EN", "TR"};
 
-        builder.setSingleChoiceItems(langs, Locale.getDefault().toString().equals("en_US") ? 0 : 1, (dialogInterface, i) -> {
+        String currLang = Locale.getDefault().toString();
+        builder.setSingleChoiceItems(langs, (currLang.equals("en_US") || currLang.equals("en")) ? 0 : 1, (dialogInterface, i) -> {
             if(!Locale.getDefault().getCountry().equals(langs[i])){
                 Locale locale = new Locale(langs[i]);
                 Locale.setDefault(locale);
