@@ -29,6 +29,7 @@
     <string name="task_title">Task title</string>
     <string name="time">Time</string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_up">Sign up</string>
     <string name="email_address">Email address</string>
     <string name="forgot_my_password">Forgot my password</string>

@@ -73,7 +73,7 @@ public class settingsFragment extends Fragment {
 
     private void getUserNameSurname() {
         Task<DataSnapshot> getUsernameSurname = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference("UserActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                        userNameSurname.setText(task.getResult().getValue().toString());
