@@ -33,6 +33,7 @@
     <string name="sign_up">Sign up</string>
     <string name="email_address">Email address</string>
     <string name="forgot_my_password">Forgot my password</string>
+    <string name="sent_email_repassword">Email has been sent. Please check your mail box.</string>
     <string name="challenge_description">Challenge description</string>
     <string name="send_email">Send an email</string>
     <string name="name_and_surname">Name surname</string>
