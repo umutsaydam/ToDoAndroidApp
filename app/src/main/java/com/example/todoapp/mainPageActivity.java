@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,10 @@ public class mainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            startActivity(new Intent(mainPageActivity.this, MainActivity.class));
+        }
 
         Toolbar toolbar = findViewById(R.id.mainPageToolbar);
         toolbar.setTitle(R.string.todo);
@@ -76,6 +81,7 @@ public class mainPageActivity extends AppCompatActivity {
             }else if(item.getItemId() == R.id.logout){
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(mainPageActivity.this, MainActivity.class));
+                finish();
             }
             drawer.close();
             return false;
@@ -88,6 +94,7 @@ public class mainPageActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         }else{
             super.onBackPressed();
+            Toast.makeText(this, "Basildi", Toast.LENGTH_SHORT).show();
         }
     }
 }

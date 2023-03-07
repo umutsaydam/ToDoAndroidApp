@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,12 @@ public class SplashScreen extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+        Intent intent;
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            intent = new Intent(SplashScreen.this, mainPageActivity.class);
+        }else{
+            intent = new Intent(SplashScreen.this, MainActivity.class);
+        }
         startActivity(intent);
         finish();
     }

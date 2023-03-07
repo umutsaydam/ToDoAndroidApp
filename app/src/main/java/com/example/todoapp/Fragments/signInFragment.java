@@ -100,6 +100,7 @@ public class signInFragment extends Fragment {
                                             .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
                                             .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid())
                                             .child("nameAndSurname").setValue(user.getDisplayName());
+                                    getActivity().finish();
                                 }else{
                                     System.out.println("Error 106 signIn with Google");
                                 }

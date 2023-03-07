@@ -3,12 +3,10 @@ package com.example.todoapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
 
@@ -25,10 +23,6 @@ public class MainActivity extends AppCompatActivity {
             showLanguageDialog();
         else
         setLocale(lan);
-
-        if(FirebaseAuth.getInstance().getCurrentUser() !=null){
-            startActivity(new Intent(MainActivity.this, mainPageActivity.class));
-        }
     }
 
     private void showLanguageDialog() {
@@ -56,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-        editor.putString("Lang", lang);
+        editor.putString("Lang", lang.isEmpty() ? "EN": lang);
         editor.apply();
     }
 
