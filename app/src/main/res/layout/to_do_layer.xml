@@ -35,9 +35,12 @@
                     android:id="@+id/txtCompleted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    style="@style/TEXT"
-                    android:padding="10dp"/>
+                    android:textSize="16sp"
+                    android:background="@drawable/count_of_events_bg"
+                    android:gravity="center"
+                    android:layout_marginStart="11dp"
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -60,6 +63,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txtNoToDo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"
+                    android:fontFamily="@font/roboto_regular"/>
+
 
                 <ProgressBar
                     android:id="@+id/progressBar"

@@ -58,7 +58,7 @@ public class mainPageFragment extends Fragment {
         timesPeriods.add(getString(R.string.today));
         timesPeriods.add(getString(R.string.tomorrow));
         timesPeriods.add(getString(R.string.later));
-        ToDoLayerAdapter adapter = new ToDoLayerAdapter(timesPeriods, getContext(), getActivity(), FirebaseAuth.getInstance());
+        ToDoLayerAdapter adapter = new ToDoLayerAdapter(timesPeriods, getContext(), getActivity(), mAuth);
         listLayersRecycler.setHasFixedSize(true);
         listLayersRecycler.setAdapter(adapter);
     }
@@ -88,7 +88,9 @@ public class mainPageFragment extends Fragment {
         });
 
         Button btnAddNewTask = dialog.findViewById(R.id.btnAddNewTask);
+        assert btnAddNewTask != null;
         btnAddNewTask.setOnClickListener(view1 -> {
+            assert editTextTaskTitle != null;
             String toDoTitle = editTextTaskTitle.getText().toString();
             if (!toDoTitle.isEmpty() && !spinnerDate[0].equals(getString(R.string.select_a_date))){
                 addNewTask(toDoTitle, spinnerDate[0]);
@@ -97,6 +99,7 @@ public class mainPageFragment extends Fragment {
             }
         });
         TextView txtBackToList = dialog.findViewById(R.id.txtBackToList);
+        assert txtBackToList != null;
         txtBackToList.setOnClickListener(view1 -> dialog.dismiss());
 
         dialog.show();
@@ -107,7 +110,7 @@ public class mainPageFragment extends Fragment {
 
     public void addNewTask(String toDoTitle, String  spinnerDate){
         DatabaseReference reference = FirebaseDatabase.getInstance(instance)
-                .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance()
+                .getReference("UsersActivitiesCurrent/"+ mAuth
                         .getUid()+"/ToDo/"+spinnerDate+"/").push();
         reference.setValue(new ToDoModel(reference.getKey(), toDoTitle, false, getDate())).addOnCompleteListener(task -> {
             if (task.isSuccessful())
@@ -119,10 +122,6 @@ public class mainPageFragment extends Fragment {
 
     public String getDate(){
         Date date = Calendar.getInstance().getTime();
-        String formattedDate = (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
-        return formattedDate;
+        return (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
     }
-
-
-
 }

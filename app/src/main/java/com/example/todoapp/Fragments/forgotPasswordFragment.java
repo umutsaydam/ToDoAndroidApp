@@ -39,15 +39,13 @@ public class forgotPasswordFragment extends Fragment {
         btnSendEmail.setOnClickListener(view1 -> {
             String mail = editTxtEmail.getText().toString();
             if(!mail.isEmpty()){
-                FirebaseAuth.getInstance().sendPasswordResetEmail(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getContext(), R.string.sent_email_repassword, Toast.LENGTH_SHORT).show();
-                            Navigation.findNavController(view).navigate(R.id.action_forgotPasswordFragment_to_signInFragment);
-                        }else{
-                            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                        }
+                FirebaseAuth.getInstance().useAppLanguage();
+                FirebaseAuth.getInstance().sendPasswordResetEmail(mail).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Toast.makeText(getContext(), R.string.sent_email_repassword, Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.action_forgotPasswordFragment_to_signInFragment);
+                    }else{
+                        Toast.makeText(getContext(), R.string.couldnt_send, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

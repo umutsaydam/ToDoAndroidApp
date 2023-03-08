@@ -16,13 +16,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences preferences = getSharedPreferences("Settings", MainActivity.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("Settings.Lang", MainActivity.MODE_PRIVATE);
         String lan = preferences.getString("Lang", "");
-
+        System.out.println(lan+" ****");
         if (lan.equals(""))
             showLanguageDialog();
         else
-        setLocale(lan);
+            setLocale(lan);
     }
 
     private void showLanguageDialog() {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration config = new Configuration();
         config.setLocale(locale);
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("Settings.Lang", MODE_PRIVATE).edit();
         editor.putString("Lang", lang.isEmpty() ? "EN": lang);
         editor.apply();
     }

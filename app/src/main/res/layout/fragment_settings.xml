@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/SettingsButton"
+            android:textAllCaps="false"
             android:text="@string/change_language"/>
 
         <androidx.appcompat.widget.SwitchCompat
@@ -69,6 +70,7 @@
             android:id="@+id/btnAboutAppAndDev"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             style="@style/SettingsButton"
             android:text="@string/about_app_and_developer"/>
     </LinearLayout>

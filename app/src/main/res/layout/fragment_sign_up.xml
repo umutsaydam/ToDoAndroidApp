@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signInLogoLayout"
         android:gravity="center"
-
         android:minHeight="400dp">
 
         <EditText
@@ -77,6 +76,7 @@
             android:layout_marginTop="25dp"
             android:background="@drawable/button_style"
             android:ems="12"
+            android:textAllCaps="false"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -84,10 +84,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/signInContentLayout"
+        android:layout_alignParentBottom="true"
         android:gravity="center|bottom"
-        android:minHeight="150dp"
         android:paddingBottom="20dp">
 
         <TextView

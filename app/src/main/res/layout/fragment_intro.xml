@@ -39,6 +39,7 @@
                 android:layout_marginTop="83dp"
                 android:background="@drawable/button_style"
                 android:ems="12"
+                android:textAllCaps="false"
                 android:text="@string/sign_in"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -51,6 +52,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/button_style"
+                android:textAllCaps="false"
                 android:ems="12"
                 android:text="@string/sign_up"
                 android:textColor="@color/white"

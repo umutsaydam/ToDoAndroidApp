@@ -67,7 +67,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
 
     public class ToDoLayerHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayoutShell;
-        TextView txtCompleted, layerTitle;
+        TextView txtCompleted, layerTitle, txtNoToDo;
         ImageView imgArrow;
         RelativeLayout relativeLayout;
         ProgressBar progressBar;
@@ -79,6 +79,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
             txtCompleted = itemView.findViewById(R.id.txtCompleted);
             layerTitle = itemView.findViewById(R.id.layerTitle);
+            txtNoToDo = itemView.findViewById(R.id.txtNoToDo);
             imgArrow = itemView.findViewById(R.id.imgArrow);
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
             progressBar = itemView.findViewById(R.id.progressBar);
@@ -108,10 +109,10 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                 FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/ToDo/").child(timePeriod).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        txtCompleted.setText(snapshot.getChildrenCount() == 0 ? "" : String.valueOf(snapshot.getChildrenCount()));
                         progressBar.setVisibility(snapshot.getChildrenCount()==0 ? View.GONE : View.VISIBLE);
                         if (snapshot.exists()){
                             models.clear();
+                            txtNoToDo.setVisibility(View.GONE);
                             int counter = 0;
                             for(DataSnapshot data: snapshot.getChildren()){
                                 System.out.println(timePeriod+" "+data.getValue(ToDoModel.class).getDate());
@@ -125,6 +126,8 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                                             .child(data.getValue(ToDoModel.class).getId()).removeValue();
                                 }
                             }
+                            setCompleted((int) (snapshot.getChildrenCount()-counter));
+
                             ScaleAnimation scaleAnimation = new ScaleAnimation((int)(((double) counter/(double) snapshot.getChildrenCount())*100), 100, 0,0);
                             scaleAnimation.setDuration(10);
                             progressBar.setAnimation(scaleAnimation);
@@ -132,8 +135,12 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                             adapter.notifyDataSetChanged();
                         }else{
                             models.clear();
+                            txtNoToDo.setText(timePeriod+""+ context.getResources().getString(R.string.no_to_do));
+                            txtNoToDo.setVisibility(View.VISIBLE);
+                            setCompleted(0);
                             Toast.makeText(context, timePeriod+": no data ", Toast.LENGTH_SHORT).show();
                         }
+                        System.out.println("data : "+ snapshot.getChildrenCount());
                     }
 
                     @Override
@@ -141,6 +148,15 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                         Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        }
+
+        private void setCompleted(int num){
+            if(num == 0){
+                txtCompleted.setVisibility(View.GONE);
+            }else{
+                txtCompleted.setVisibility(View.VISIBLE);
+                txtCompleted.setText(String.valueOf(num));
             }
         }
 
@@ -162,9 +178,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
 
         public String getDate(){
             Date date = Calendar.getInstance().getTime();
-            String formattedDate = (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
-
-            return formattedDate;
+            return (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
         }
     }
 }

@@ -12,6 +12,7 @@
     <color name="theme">#FF2B38</color>
     <color name="btnThemeColor">#8F33FF</color>
     <color name="gray_200">#A5A5A5</color>
+    <color name="dialog_button_color">#FFFFFF</color>
     <color name="hint_color">#E1E1E1</color>
     <color name="popup_bg_color">#282828</color>
     <color name="bottom_sheet_background">#3C3C3C</color>

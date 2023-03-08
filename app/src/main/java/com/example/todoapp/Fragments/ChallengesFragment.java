@@ -39,10 +39,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ChallengesFragment extends Fragment {
-    private RecyclerView challangeLayerRecycler;
     private ArrayList<ChallengeModel> challengeModels;
     private FirebaseAuth mAuth;
     private ChallengeLayerAdapter adapter;
+    private TextView txtNoChallenges;
     private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,11 +59,13 @@ public class ChallengesFragment extends Fragment {
         addChallengeFloatingBtn.setOnClickListener(this::newChallenge);
         mAuth = FirebaseAuth.getInstance();
 
+        txtNoChallenges = view.findViewById(R.id.txtNoChallenges);
+
         challengeModels = new ArrayList<>();
-        challangeLayerRecycler = view.findViewById(R.id.challangeLayerRecycler);
+        RecyclerView challengeLayerRecycler = view.findViewById(R.id.challangeLayerRecycler);
         adapter = new ChallengeLayerAdapter(challengeModels, getContext());
-        challangeLayerRecycler.setHasFixedSize(false);
-        challangeLayerRecycler.setAdapter(adapter);
+        challengeLayerRecycler.setHasFixedSize(false);
+        challengeLayerRecycler.setAdapter(adapter);
         fetchChallenges();
         return view;
     }
@@ -80,6 +82,7 @@ public class ChallengesFragment extends Fragment {
                     }
                 }else{
                     System.out.println("no data");
+                    txtNoChallenges.setVisibility(View.VISIBLE);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -112,8 +115,10 @@ public class ChallengesFragment extends Fragment {
         });
 
         Button btnChallengeStartDay = bottomDialog.findViewById(R.id.btnChallengeStartDay);
+        assert btnChallengeStartDay != null;
         btnChallengeStartDay.setOnClickListener(this::getChallengeDateInfo);
         Button btnChallengeEndDay = bottomDialog.findViewById(R.id.btnChallengeEndDay);
+        assert btnChallengeEndDay != null;
         btnChallengeEndDay.setOnClickListener(this::getChallengeDateInfo);
         EditText editTxtChallengeDescription = bottomDialog.findViewById(R.id.editTxtChallengeDescription);
         Button btnAddNewChallenge = bottomDialog.findViewById(R.id.btnAddNewChallenge);
@@ -125,8 +130,11 @@ public class ChallengesFragment extends Fragment {
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerChallengeCategory.setAdapter(adapterCategory);
 
+        assert btnAddNewChallenge != null;
         btnAddNewChallenge.setOnClickListener(view1 -> {
+            assert editTxtChallengeTitle != null;
             String challengeTitle = editTxtChallengeTitle.getText().toString();
+            assert editTxtChallengeDescription != null;
             String challengeDescription = editTxtChallengeDescription.getText().toString();
 
             String startChallengeDate = btnChallengeStartDay.getText().toString();
@@ -146,6 +154,7 @@ public class ChallengesFragment extends Fragment {
                 }
         });
 
+        assert txtBackToChallenges != null;
         txtBackToChallenges.setOnClickListener(view1 -> bottomDialog.dismiss());
 
         bottomDialog.show();
@@ -179,7 +188,7 @@ public class ChallengesFragment extends Fragment {
                         System.out.println("added");
                         Toast.makeText(getContext(), "Challenge added", Toast.LENGTH_SHORT).show();
                     }else{
-                        System.out.println("hata"+task.getException().getMessage());
+                        System.out.println("Error. "+task.getException().getMessage());
                     }
                 });
         fetchChallenges();

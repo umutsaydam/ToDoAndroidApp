@@ -25,12 +25,12 @@
     <string name="date_to">Bitir</string>
     <string name="challenge_description">Açıklama</string>
     <string name="exit">Çıkış</string>
-    <string name="add_a_task">Bir Görev Ekle</string>
+    <string name="add_a_task">Bir görev ekle</string>
     <string name="task_title">Görev başlığı</string>
     <string name="time">Zaman</string>
     <string name="date_from">Başlat</string>
     <string name="update">Güncelle</string>
-    <string name="forgot_my_password">Şifremi unuttum</string>
+    <string name="forgot_my_password">Şifremi unuttum.</string>
     <string name="email_address">Email adresi</string>
     <string name="send_email">Mail gönder</string>
     <string name="sign_in">Giriş yap</string>
@@ -69,4 +69,8 @@
     <string name="will_be_active_after_restarting">Tema uygulamayı tekrar başlatılınca aktif edilecek.</string>
     <string name="sign_in_with_google">Google ile giriş yap</string>
     <string name="sent_email_repassword">Email gönderildi. Lütfen mail kutunuzu kontrol ediniz.</string>
+    <string name="couldnt_send">Gönderilemedi.</string>
+    <string name="forgot_my_password_title">Şifremi unuttum</string>
+    <string name="challenge_doesnt_exist">Herhangi bir meydan okumanız yok.</string>
+    <string name="no_to_do">, yapılacak bir şey yok.</string>
 </resources>

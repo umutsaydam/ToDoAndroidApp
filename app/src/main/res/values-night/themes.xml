@@ -17,6 +17,12 @@
     <style name="dialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:background">@color/popup_bg_color</item>
         <item name="dialogCornerRadius">7dp</item>
+        <item name="buttonBarPositiveButtonStyle">@style/ButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/ButtonStyle</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.AppCompat.ButtonBar.AlertDialog">
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="TEXT">

@@ -112,21 +112,23 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAddNewChallenge"
+            style="@style/themeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="250dp"
-            android:text="@string/add_challenge"
-            style="@style/themeBtn"
-            android:textColor="@color/white"
-            android:textStyle="bold"
             android:layout_marginTop="20dp"
-            />
+            android:minWidth="250dp"
+            android:textAllCaps="false"
+            android:text="@string/add_challenge"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtBackToChallenges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/exit"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
             android:textSize="18sp"

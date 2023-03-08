@@ -9,6 +9,7 @@
     <string name="tomorrow">Tomorrow</string>
     <string name="later">Later</string>
     <string name="deleteToDoTitle">Delete To Do</string>
+    <string name="no_to_do">, no to do.</string>
     <string name="deleteToDoMessage">This will delete. Are you sure this ?</string>
     <string name="deleteEventPossitiveMessage">Delete</string>
     <string name="toDoMessageNegativeMessage">Cancel</string>
@@ -16,6 +17,7 @@
     <string name="editToDoPositiveMessage">Save</string>
     <string name="update">Update</string>
     <string name="challenge">Challenges</string>
+    <string name="challenge_doesnt_exist">You have not any create challenges.</string>
     <string name="add_challenge">Add A New Challenge</string>
     <string name="check_today">Check Today</string>
     <string name="select_a_date">Select a date</string>
@@ -25,17 +27,19 @@
     <string name="date_from">From</string>
     <string name="date_to">To</string>
     <string name="exit">Exit</string>
-    <string name="add_a_task">Add A Task</string>
+    <string name="add_a_task">Add a task</string>
     <string name="task_title">Task title</string>
     <string name="time">Time</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_up">Sign up</string>
     <string name="email_address">Email address</string>
-    <string name="forgot_my_password">Forgot my password</string>
+    <string name="forgot_my_password">Forgot my password.</string>
+    <string name="forgot_my_password_title">Forgot my password</string>
     <string name="sent_email_repassword">Email has been sent. Please check your mail box.</string>
     <string name="challenge_description">Challenge description</string>
     <string name="send_email">Send an email</string>
+    <string name="couldnt_send">Could not send.</string>
     <string name="name_and_surname">Name surname</string>
     <string name="password">Password</string>
     <string name="out_of_date">Out of date</string>

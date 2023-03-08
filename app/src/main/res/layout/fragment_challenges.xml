@@ -7,6 +7,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ChallengesFragment">
 
+    <TextView
+        android:id="@+id/txtNoChallenges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge_doesnt_exist"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:fontFamily="@font/roboto_regular"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/challangeLayerRecycler"
         android:layout_width="match_parent"
