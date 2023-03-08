@@ -26,13 +26,13 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/signInContentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/signInLogoLayout"
         android:gravity="center"
-        android:minHeight="500dp">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/editTxtEmail"
@@ -60,8 +60,7 @@
             android:id="@+id/txtForgotMyPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTxtPassword"
-            android:layout_marginStart="105dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
             android:alpha="0.7"
             style="@style/TEXT"
@@ -106,12 +105,12 @@
                 android:textColor="@color/white"
                 android:layout_toRightOf="@+id/googleLogo"/>
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/signInRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signInContentLayout"
         android:gravity="center|bottom"
         android:paddingBottom="20dp"
         android:layout_alignParentBottom="true">
@@ -135,5 +134,4 @@
             android:text="@string/sign_up"
             android:textStyle="bold" />
     </RelativeLayout>
-
 </RelativeLayout>

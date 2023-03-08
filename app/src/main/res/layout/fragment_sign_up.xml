@@ -27,87 +27,84 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/signInContentLayout"
+    <LinearLayout
+        android:id="@+id/signUpLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/signInLogoLayout"
-        android:gravity="center"
-        android:minHeight="400dp">
+        android:layout_above="@+id/signUpRelativeLayout"
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <EditText
-            android:id="@+id/editTxtNameSurname"
-            style="@style/TEXT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="12"
-            android:hint="@string/name_and_surname"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/editTxtNameSurname"
+                style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:hint="@string/name_and_surname"
+                android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editTxtEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editTxtNameSurname"
-            android:layout_marginTop="18dp"
-            android:ems="12"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/email_address"
-            style="@style/TEXT"
-            android:inputType="textEmailAddress" />
+            <EditText
+                android:id="@+id/editTxtEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:ems="12"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/email_address"
+                style="@style/TEXT"
+                android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/editTxtPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editTxtEmail"
-            android:layout_marginTop="18dp"
-            android:ems="12"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/password"
-            style="@style/TEXT"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/editTxtPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:ems="12"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/password"
+                style="@style/TEXT"
+                android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/btnSignUpSignUpFragment"
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btnSignUpSignUpFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button_style"
+                android:ems="12"
+                android:textAllCaps="false"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/signUpRelativeLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTxtPassword"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/button_style"
-            android:ems="12"
-            android:textAllCaps="false"
-            android:text="@string/sign_up"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:layout_alignParentBottom="true"
+            android:gravity="center|bottom"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/txtDoNotHaveAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                style="@style/TEXT"
+                android:text="@string/do_you_have_an_account" />
+
+            <TextView
+                android:id="@+id/txtSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/txtDoNotHaveAccount"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/sign_in"
+                style="@style/TEXT"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/signInContentLayout"
-        android:layout_alignParentBottom="true"
-        android:gravity="center|bottom"
-        android:paddingBottom="20dp">
-
-        <TextView
-            android:id="@+id/txtDoNotHaveAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            style="@style/TEXT"
-            android:text="@string/do_you_have_an_account" />
-
-        <TextView
-            android:id="@+id/txtSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/txtDoNotHaveAccount"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/sign_in"
-            style="@style/TEXT"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-</RelativeLayout>
