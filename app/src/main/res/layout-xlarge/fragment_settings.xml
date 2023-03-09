@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/BACKGROUND"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.settingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/BACKGROUND"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="220dp"
+            android:gravity="center"
+            android:background="@color/theme">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:innerRadius="0dp"
+                android:shape="ring"
+                app:cardCornerRadius="50dp"
+                android:layout_centerHorizontal="true">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/ic_baseline_person_24"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/userNameSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardViewProfile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChangeLang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:padding="5dp"
+            style="@style/SettingsButton"
+            android:textAllCaps="false"
+            android:text="@string/change_language"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchChangeTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="55dp"
+            android:padding="5dp"
+            style="@style/SettingsButton"
+            android:text="@string/change_theme"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAboutAppAndDev"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textAlignment="viewStart"
+            android:padding="5dp"
+            style="@style/SettingsButton"
+            android:text="@string/about_app_and_developer"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_gravity="center_vertical"
         android:fontFamily="@font/roboto_regular"
         android:textSize="18sp"/>
 
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_todo_more"
-        android:layout_marginTop="6dp"
+        android:layout_gravity="center_vertical"
         android:contentDescription="@string/todo"
         android:minWidth="30dp"
         android:minHeight="30dp" />

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewToday"
+    style="@style/BACKGROUND"
+    android:layout_margin="8dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="7dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutShell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/layerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TEXT"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/txtCompleted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TEXT"
+                android:textSize="18sp"
+                android:padding="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:padding="8dp">
+                <ImageView
+                    android:id="@+id/imgArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_arrow_right"
+                    android:contentDescription="@string/todo" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerChallengeStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/recyclerChallenge"
+                android:overScrollMode="never"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="7dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="15" />
+
+            <LinearLayout
+                android:id="@+id/categoryInfoLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/recyclerChallengeStatus"
+                android:gravity="end"
+                android:padding="8dp">
+                <TextView
+                    android:id="@+id/txtCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/recyclerChallengeStatus"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"/>
+
+                <TextView
+                    android:id="@+id/txtInfoCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_regular"
+                    style="@style/TEXT"
+                    android:layout_below="@id/txtCategory"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="5dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/descriptionInfoLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/categoryInfoLinearLayout"
+                android:gravity="end"
+                android:padding="8dp">
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/challenge_description"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/recyclerChallengeStatus"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"/>
+
+                <TextView
+                    android:id="@+id/txtInfoDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_below="@id/txtCategory"
+                    style="@style/TEXT"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCheckChallangeStatus"
+                style="@style/themeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descriptionInfoLinearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:textAllCaps="false"
+                android:minWidth="130dp"
+                android:text="@string/check_today"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

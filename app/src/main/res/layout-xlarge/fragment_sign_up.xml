@@ -18,8 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:fontFamily="@font/roboto_regular"
             android:paddingLeft="15dp"
-            android:text="@string/sign_in"
+            android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold" />
@@ -27,21 +28,34 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/signInContentLayout"
+        android:id="@+id/signUpLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/signUpRelativeLayout"
         android:layout_below="@+id/signInLogoLayout"
         android:gravity="center"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTxtNameSurname"
+            style="@style/TEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_shape"
+            android:ems="13"
+            android:hint="@string/name_and_surname"
+            android:inputType="textPersonName"
+            android:padding="15dp" />
 
         <EditText
             android:id="@+id/editTxtEmail"
             style="@style/TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             android:background="@drawable/input_shape"
             android:padding="15dp"
-            android:ems="12"
+            android:ems="13"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress" />
@@ -53,81 +67,56 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:background="@drawable/input_shape"
-            android:padding="15dp"
-            android:ems="12"
+            android:ems="13"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/password"
-            android:inputType="textPassword" />
-
-        <TextView
-            android:id="@+id/txtForgotMyPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="10dp"
-            android:alpha="0.7"
-            android:paddingStart="15dp"
-            android:paddingBottom="15dp"
-            style="@style/TEXT"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/forgot_my_password"
-            android:textSize="15sp" />
+            android:inputType="textPassword"
+            android:padding="15dp" />
 
         <Button
-            android:id="@+id/btnSignInToMainPage"
+            android:id="@+id/btnSignUpSignUpFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_style"
+            android:ems="13"
+            android:padding="16dp"
+            android:text="@string/sign_up"
             android:textAllCaps="false"
-            android:ems="12"
-            android:text="@string/sign_in"
             android:textColor="@color/white"
             android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btnSignInGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="13dp"
-            android:layout_marginTop="18dp"
-            android:ems="12"
-            android:textAllCaps="false"
-            android:text="@string/sign_in_with_google"
-            android:drawableStart="@drawable/google_icon"
-            android:background="@drawable/button_style"
-            android:textColor="@color/white"
-            android:textSize="18sp"/>
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/signInRelativeLayout"
+        android:id="@+id/signUpRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:gravity="center|bottom"
-        android:paddingBottom="20dp"
-        android:layout_alignParentBottom="true">
+        android:paddingBottom="20dp">
 
         <TextView
             android:id="@+id/txtDoNotHaveAccount"
-            style="@style/TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/dont_have_an_account" />
+            android:textSize="17sp"
+            style="@style/TEXT"
+            android:paddingTop="15dp"
+            android:text="@string/do_you_have_an_account" />
 
         <TextView
-            android:id="@+id/txtSignUp"
+            android:id="@+id/txtSignIn"
+            style="@style/TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            style="@style/TEXT"
             android:layout_toEndOf="@+id/txtDoNotHaveAccount"
             android:fontFamily="@font/roboto_regular"
             android:paddingTop="15dp"
             android:paddingEnd="15dp"
-            android:text="@string/sign_up"
+            android:text="@string/sign_in"
+            android:textSize="17sp"
             android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>

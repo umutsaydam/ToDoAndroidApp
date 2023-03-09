@@ -48,12 +48,7 @@ public class signUpFragment extends Fragment {
         });
 
         txtSignIn = view.findViewById(R.id.txtSignIn);
-        txtSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment);
-            }
-        });
+        txtSignIn.setOnClickListener(view1 -> Navigation.findNavController(view1).navigate(R.id.action_signUpFragment_to_signInFragment));
 
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
