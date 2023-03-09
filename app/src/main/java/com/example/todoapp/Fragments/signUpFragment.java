@@ -80,7 +80,7 @@ public class signUpFragment extends Fragment {
                         Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment);
 
                         Task<Void> setUsernameSurname = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                                .getReference("UserActivitiesCurrent/"+auth.getUid()).child("nameAndSurname").setValue(name);
+                                .getReference("UsersActivitiesCurrent/"+auth.getUid()).child("nameAndSurname").setValue(name);
                         setUsernameSurname.addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

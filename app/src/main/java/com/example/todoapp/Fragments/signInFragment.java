@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +36,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class signInFragment extends Fragment {
     private EditText editTxtEmail, editTxtPassword;
-    private RelativeLayout signInGoogleLayout;
+    private Button btnSignInGoogle;
     private FirebaseAuth auth;
     private GoogleSignInClient client;
 
@@ -63,8 +62,8 @@ public class signInFragment extends Fragment {
                 .requestEmail()
                 .build();
         client = GoogleSignIn.getClient(getContext(), options);
-        signInGoogleLayout = view.findViewById(R.id.signInGoogleLayout);
-        signInGoogleLayout.setOnClickListener(view14 -> {
+        btnSignInGoogle = view.findViewById(R.id.btnSignInGoogle);
+        btnSignInGoogle.setOnClickListener(view14 -> {
             Intent intent = new Intent(client.getSignInIntent());
             someActivity.launch(intent);
         });
@@ -94,7 +93,7 @@ public class signInFragment extends Fragment {
                             auth.signInWithCredential(credential).addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()){
                                     FirebaseUser user = auth.getCurrentUser();
-                                    Navigation.findNavController(signInGoogleLayout)
+                                    Navigation.findNavController(btnSignInGoogle)
                                             .navigate(R.id.action_signInFragment_to_mainPageActivity);
                                     Task<Void> database = FirebaseDatabase
                                             .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
