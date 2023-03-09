@@ -53,6 +53,8 @@
             android:id="@+id/btnChangeLang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:padding="5dp"
             style="@style/SettingsButton"
             android:textAllCaps="false"
             android:text="@string/change_language"/>
@@ -62,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="55dp"
-            android:padding="10dp"
+            android:padding="5dp"
             style="@style/SettingsButton"
             android:text="@string/change_theme"/>
 
@@ -71,6 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
+            android:textAlignment="viewStart"
+            android:padding="5dp"
             style="@style/SettingsButton"
             android:text="@string/about_app_and_developer"/>
     </LinearLayout>
