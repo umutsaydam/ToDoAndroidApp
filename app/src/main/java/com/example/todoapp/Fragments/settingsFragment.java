@@ -96,7 +96,8 @@ public class settingsFragment extends Fragment {
         builder.setTitle(R.string.change_language);
         final String [] langs = {"EN", "TR"};
         sharedPreferences = getActivity().getSharedPreferences("Settings.Lang", MODE_PRIVATE);
-        builder.setSingleChoiceItems(langs, sharedPreferences.getString("Lang", "EN") == "EN" ? 0 : 1, (dialogInterface, i) -> {
+        System.out.println(sharedPreferences.getString("Lang", "EN**"));
+        builder.setSingleChoiceItems(langs, sharedPreferences.getString("Lang", "EN").equals("EN") ? 0 : 1, (dialogInterface, i) -> {
             if(!Locale.getDefault().getCountry().equals(langs[i])){
                 Locale locale = new Locale(langs[i]);
                 Locale.setDefault(locale);
