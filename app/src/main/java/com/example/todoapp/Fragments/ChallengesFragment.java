@@ -76,6 +76,7 @@ public class ChallengesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     challengeModels.clear();
+                    txtNoChallenges.setVisibility(View.INVISIBLE);
                     System.out.println("data exist");
                     for(DataSnapshot data : snapshot.getChildren()){
                         challengeModels.add(data.getValue(ChallengeModel.class));
