@@ -78,7 +78,7 @@ public class mainPageFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerDate[0] = adapterView.getItemAtPosition(i).toString();
+                spinnerDate[0] = getContext().getResources().getStringArray(R.array.datesForDB)[i];
             }
 
             @Override

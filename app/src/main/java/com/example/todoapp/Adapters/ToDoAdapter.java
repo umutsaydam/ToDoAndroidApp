@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
     private final ArrayList<ToDoModel> models;
@@ -35,12 +36,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
     private final String timePeriod;
     private final Activity activity;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
-
+    private String [] datesForDB;
+    private String currDateDB;
     public ToDoAdapter(ArrayList<ToDoModel> models, Context context, String timePeriod, Activity activity) {
         this.models = models;
         this.context = context;
         this.timePeriod = timePeriod;
         this.activity = activity;
+        this.datesForDB = context.getResources().getStringArray(R.array.datesForDB);
     }
 
     @NonNull
@@ -52,10 +55,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ToDoAdapter.ToDoHolder holder, int position) {
-        holder.toDoCheckBox.setChecked(models.get(position).isSelected());
-        holder.toDoCheckBox.setText(models.get(position).getContent());
-        holder.toDoCheckBox.setPaintFlags(models.get(position).isSelected() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
-        holder.toDoCheckBox.setTypeface(holder.toDoCheckBox.getTypeface(), models.get(position).isSelected() ? Typeface.BOLD_ITALIC : Typeface.BOLD);
+        ToDoModel model = models.get(position);
+        currDateDB = Arrays.asList(datesForDB).get(Arrays.asList(context.getResources().getStringArray(R.array.dates)).indexOf(timePeriod));
+        holder.toDoCheckBox.setChecked(model.isSelected());
+        holder.toDoCheckBox.setText(model.getContent());
+        holder.toDoCheckBox.setPaintFlags(model.isSelected() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
+        holder.toDoCheckBox.setTypeface(holder.toDoCheckBox.getTypeface(), model.isSelected() ? Typeface.BOLD_ITALIC : Typeface.BOLD);
    }
 
     @Override
@@ -75,7 +80,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                 model.setSelected(!model.isSelected());
 
                 assert FirebaseAuth.getInstance().getUid() !=null;
-                DatabaseReference reference = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod);
+                DatabaseReference reference = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(currDateDB);
 
                 reference.child(model.getId()).setValue(model);
                 toDoCheckBox.setChecked(model.isSelected());
@@ -109,7 +114,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             builder.setPositiveButton(R.string.deleteEventPossitiveMessage, (dialogInterface, i) -> {
                 Task<Void> delete = firebaseDatabase
                         .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
-                        .child(timePeriod)
+                        .child(currDateDB)
                         .child(models.get(getAdapterPosition()).getId()).removeValue();
                 delete.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -136,7 +141,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                     ToDoModel model = models.get(getAdapterPosition());
                     model.setContent(editTxtFormToDo.getText().toString());
                     if (model.getId() != null){
-                        Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod)
+                        Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(currDateDB)
                                 .child(models.get(getAdapterPosition()).getId()).setValue(model);
                         performUpdate.addOnCompleteListener(task -> {
                             if (task.isSuccessful()){

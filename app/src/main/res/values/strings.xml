@@ -65,6 +65,13 @@
         <item>Later</item>
     </string-array>
 
+    <string-array name="datesForDB">
+        <item>Select date</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Later</item>
+    </string-array>
+
     <string-array name="challengeCategory">
         <item>Category</item>
         <item>self-improvement</item>

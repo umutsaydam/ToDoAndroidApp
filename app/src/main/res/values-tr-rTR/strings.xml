@@ -61,6 +61,13 @@
         <item>Daha sonra</item>
     </string-array>
 
+    <string-array name="datesForDB">
+        <item>Select date</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Later</item>
+    </string-array>
+
     <string-array name="challengeCategory">
         <item>Kategori</item>
         <item>Kişisel gelişim</item>
