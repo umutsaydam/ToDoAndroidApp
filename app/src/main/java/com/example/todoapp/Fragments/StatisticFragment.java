@@ -1,5 +1,6 @@
 package com.example.todoapp.Fragments;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -26,12 +27,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StatisticFragment extends Fragment {
     private TextView txtNoStatistic;
     private PieChart statisticPieChart;
-    private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
     private ArrayList<PieEntry> categoryStatistic;
+    private boolean diffLang = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +50,20 @@ public class StatisticFragment extends Fragment {
         txtNoStatistic = view.findViewById(R.id.txtNoStatistic);
         statisticPieChart = view.findViewById(R.id.statisticPieChart);
         categoryStatistic = new ArrayList<>();
-        fetchStatisticData();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        if (getContext().getSharedPreferences("Settings.Lang", Context.MODE_PRIVATE).getString("Lang", "EN").equals("TR")){
+            diffLang = true;
+        }
+        fetchStatisticData();
     }
 
     private void fetchStatisticData() {
+        String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
         FirebaseDatabase.getInstance(instance)
                 .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid())
                 .child("Statistic").addValueEventListener(new ValueEventListener() {
@@ -67,7 +73,8 @@ public class StatisticFragment extends Fragment {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                                 categoryStatistic.add(new PieEntry(((Long)dataSnapshot.getValue()).floatValue(), dataSnapshot.getKey()));
                             }
-                            setStatisticChart(categoryStatistic);
+                            if(getContext() != null)
+                                setStatisticChart(!diffLang ? categoryStatistic : changeLang(categoryStatistic));
                         }else{
                             txtNoStatistic.setVisibility(View.VISIBLE);
                             System.out.println("no statistic data");
@@ -81,6 +88,19 @@ public class StatisticFragment extends Fragment {
                 });
     }
 
+    private ArrayList<PieEntry> changeLang(ArrayList<PieEntry> categoryStatistic) {
+        if (getContext() != null){
+            String [] statisticCategory = getActivity().getResources().getStringArray(R.array.challengeCategory);
+            String [] statisticCategoryByDefLang = getContext().getResources().getStringArray(R.array.challengeCategoryForDB);
+
+            for (int i = 0; i < categoryStatistic.size(); i++) {
+                System.out.println(categoryStatistic.get(i).getLabel()+" /*/*/*/");
+                categoryStatistic.get(i).setLabel(Arrays.asList(statisticCategory).get(Arrays.asList(statisticCategoryByDefLang).indexOf(categoryStatistic.get(i).getLabel())));
+            }
+        }
+        return categoryStatistic;
+    }
+
     private void setStatisticChart(ArrayList<PieEntry> categoryStatistic) {
         PieDataSet categoryDataSet = new PieDataSet(categoryStatistic, "");
         categoryDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -91,7 +111,7 @@ public class StatisticFragment extends Fragment {
 
         statisticPieChart.setData(statisticData);
         statisticPieChart.getDescription().setEnabled(false);
-        statisticPieChart.setCenterText(getString(R.string.my_statistics));
+        statisticPieChart.setCenterText(getContext().getString(R.string.my_statistics));
         statisticPieChart.animate();
         statisticPieChart.setVisibility(View.VISIBLE);
     }

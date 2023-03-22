@@ -1,6 +1,7 @@
 package com.example.todoapp.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,10 +37,24 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
     private final Context context;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
     private String currDate;
+    private String [] challengeCategoryByLang;
+    private SharedPreferences sharedPreferences;
+    private boolean langIsDiff; // if true then user are using another language
     public ChallengeLayerAdapter(ArrayList<ChallengeModel> challengeModels, Context context) {
         this.challengeModels = challengeModels;
         this.context = context;
         this.currDate = (String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime());
+        checkLang();
+    }
+
+    private void checkLang() {
+        sharedPreferences = context.getSharedPreferences("Settings.Lang", Context.MODE_PRIVATE);
+        if (sharedPreferences.getString("Lang", "EN").equals("TR")){
+            this.challengeCategoryByLang = context.getResources().getStringArray(R.array.challengeCategory);
+            langIsDiff = true;
+        }else{
+            langIsDiff = false;
+        }
     }
 
     @NonNull
@@ -53,7 +69,11 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         ChallengeModel challengeModel = challengeModels.get(position);
         holder.layerTitle.setText(challengeModel.getChallengeTitle());
         holder.setStatus(challengeModel.getChallangeStatus());
-        holder.txtInfoCategory.setText(challengeModel.getChallengeCategory());
+        if (langIsDiff){
+            holder.txtInfoCategory.setText(Arrays.asList(challengeCategoryByLang).get(Arrays.asList(context.getResources().getStringArray(R.array.challengeCategoryForDB)).indexOf(challengeModel.getChallengeCategory())));
+        }else{
+            holder.txtInfoCategory.setText(challengeModel.getChallengeCategory());
+        }
         holder.txtInfoDescription.setText(challengeModel.getChallengeDescription());
         if(currDate.compareTo(challengeModel.getChallengeEndDay()) > 0){
             holder.btnCheckChallengeStatus.setEnabled(false);

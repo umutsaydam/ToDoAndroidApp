@@ -77,4 +77,10 @@
         <item>self-improvement</item>
         <item>Sport</item>
     </string-array>
+
+    <string-array name="challengeCategoryForDB">
+        <item>Category</item>
+        <item>self-improvement</item>
+        <item>Sport</item>
+    </string-array>
 </resources>

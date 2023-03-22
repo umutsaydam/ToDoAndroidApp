@@ -106,12 +106,12 @@ public class ChallengesFragment extends Fragment {
         spinnerChallengeCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                challengeCategory[0] = adapterView.getItemAtPosition(i).toString();
+                challengeCategory[0] = getContext().getResources().getStringArray(R.array.challengeCategoryForDB)[i];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                challengeCategory[0] = String.valueOf(R.string.category);
+                challengeCategory[0] = getContext().getResources().getStringArray(R.array.challengeCategoryForDB)[0];
             }
         });
 
@@ -142,7 +142,8 @@ public class ChallengesFragment extends Fragment {
             String endChallengeDate = btnChallengeEndDay.getText().toString();
 
 
-                if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() && !btnChallengeStartDay.getText().equals(String.valueOf(R.string.select_a_date))&&
+                if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() &&
+                        !btnChallengeStartDay.getText().equals(getContext().getResources().getStringArray(R.array.challengeCategoryForDB)[0]) &&
                         !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
                     if(startChallengeDate.compareTo(endChallengeDate) <= 0) {
                         addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),

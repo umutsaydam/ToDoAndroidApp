@@ -73,6 +73,13 @@
         <item>Kişisel gelişim</item>
         <item>Spor</item>
     </string-array>
+
+    <string-array name="challengeCategoryForDB">
+        <item>Category</item>
+        <item>self-improvement</item>
+        <item>Sport</item>
+    </string-array>
+
     <string name="will_be_active_after_restarting">Tema uygulamayı tekrar başlatılınca aktif edilecek.</string>
     <string name="sign_in_with_google">Google ile giriş yap</string>
     <string name="sent_email_repassword">Email gönderildi. Lütfen mail kutunuzu kontrol ediniz.</string>
