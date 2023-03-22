@@ -59,14 +59,14 @@
         It is an application created to embody the goals.</string>
 
     <string-array name="dates">
-        <item>Select date</item>
+        <item>Select a date</item>
         <item>Today</item>
         <item>Tomorrow</item>
         <item>Later</item>
     </string-array>
 
     <string-array name="datesForDB">
-        <item>Select date</item>
+        <item>Select a date</item>
         <item>Today</item>
         <item>Tomorrow</item>
         <item>Later</item>

@@ -83,7 +83,7 @@ public class mainPageFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                spinnerDate[0] = getString(R.string.select_a_date);
+                spinnerDate[0] = getContext().getResources().getStringArray(R.array.datesForDB)[0];
             }
         });
 
@@ -92,7 +92,7 @@ public class mainPageFragment extends Fragment {
         btnAddNewTask.setOnClickListener(view1 -> {
             assert editTextTaskTitle != null;
             String toDoTitle = editTextTaskTitle.getText().toString();
-            if (!toDoTitle.isEmpty() && !spinnerDate[0].equals(getString(R.string.select_a_date))){
+            if (!toDoTitle.isEmpty() && !spinnerDate[0].equals(getContext().getResources().getStringArray(R.array.datesForDB)[0])){
                 addNewTask(toDoTitle, spinnerDate[0]);
             }else{
                 Toast.makeText(getContext(), "Please fill the fields", Toast.LENGTH_SHORT).show();
