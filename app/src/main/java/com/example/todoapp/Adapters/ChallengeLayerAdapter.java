@@ -1,5 +1,6 @@
 package com.example.todoapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -27,9 +28,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAdapter.ChallengeLayerHolder> {
@@ -75,7 +79,8 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             holder.txtInfoCategory.setText(challengeModel.getChallengeCategory());
         }
         holder.txtInfoDescription.setText(challengeModel.getChallengeDescription());
-        if(currDate.compareTo(challengeModel.getChallengeEndDay()) > 0){
+
+        if(holder.getConvertedToDate(currDate).after(holder.getConvertedToDate(challengeModel.getChallengeEndDay()))){
             holder.btnCheckChallengeStatus.setEnabled(false);
             holder.btnCheckChallengeStatus.setText(R.string.out_of_date);
         }
@@ -115,6 +120,17 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             btnCheckChallengeStatus.setOnClickListener(view -> checkChallengeStatus());
         }
 
+        @SuppressLint("SimpleDateFormat")
+        public Date getConvertedToDate(String strDate){
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("dd/MM/yy").parse(strDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return date;
+        }
+
         private void showPopUpChallenge() {
             PopupMenu  popupMenu = new PopupMenu(context, linearLayoutShell);
             popupMenu.getMenuInflater().inflate(R.menu.challenge_popum_menu, popupMenu.getMenu());
@@ -144,9 +160,10 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
 
         private void checkChallengeStatus() {
             ChallengeModel challengeModel = challengeModels.get(getAdapterPosition());
-            System.out.println(challengeModel.getChallengeStartDay()+" "+ currDate +" "+ challengeModel.getChallengeEndDay());
-            System.out.println(challengeModel.getChallengeStartDay().compareTo(currDate) +" <= 0 ? && "+ challengeModel.getChallengeEndDay().compareTo(currDate));
-            if(challengeModel.getChallengeStartDay().compareTo(currDate) <= 0 && challengeModel.getChallengeEndDay().compareTo(currDate) >= 0){
+            Date curDate = getConvertedToDate(currDate);
+            Date startOfChallenge = getConvertedToDate(challengeModel.getChallengeStartDay());
+            Date endOfChallenge = getConvertedToDate(challengeModel.getChallengeEndDay());
+            if(currDate.equals(challengeModel.getChallengeEndDay()) || currDate.equals(challengeModel.getChallengeStartDay()) ||curDate.after(startOfChallenge) && curDate.before(endOfChallenge)){
                 int currPosition = challengeModel.getTimeDifference(challengeModel.getChallengeStartDay(), currDate);
                 if(!challengeModel.getChallangeStatus().get(currPosition)){
                     System.out.println(challengeModel.getChallangeStatus());
