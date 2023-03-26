@@ -35,8 +35,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ChallengesFragment extends Fragment {
     private ArrayList<ChallengeModel> challengeModels;
@@ -144,12 +147,20 @@ public class ChallengesFragment extends Fragment {
 
                 if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() &&
                         !btnChallengeStartDay.getText().equals(getString(R.string.select_a_date)) &&
-                        !btnChallengeEndDay.getText().equals(R.string.select_a_date) && !challengeCategory[0].equals(getString(R.string.category))){
-                    if(startChallengeDate.compareTo(endChallengeDate) <= 0) {
-                        addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
-                                challengeCategory[0], challengeDescription);
-                    }else{
-                        Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
+                        !btnChallengeEndDay.getText().equals(getString(R.string.select_a_date)) && !challengeCategory[0].equals(getString(R.string.category))){
+
+                    try {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                        Date startDate = simpleDateFormat.parse(startChallengeDate);
+                        Date endDate = simpleDateFormat.parse(endChallengeDate);
+                        if(startChallengeDate.equals(endChallengeDate) || startDate.before(endDate)) {
+                            addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
+                                    challengeCategory[0], challengeDescription);
+                        }else{
+                            Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
                 }else{
                     Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
