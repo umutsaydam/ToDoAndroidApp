@@ -111,7 +111,7 @@ public class ChallengesFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                challengeCategory[0] = getContext().getResources().getStringArray(R.array.challengeCategoryForDB)[0];
+                challengeCategory[0] = getString(R.string.category);
             }
         });
 
@@ -143,8 +143,8 @@ public class ChallengesFragment extends Fragment {
 
 
                 if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() &&
-                        !btnChallengeStartDay.getText().equals(getContext().getResources().getStringArray(R.array.challengeCategoryForDB)[0]) &&
-                        !btnChallengeEndDay.getText().equals(String.valueOf(R.string.category)) && !challengeCategory[0].equals("Category")){
+                        !btnChallengeStartDay.getText().equals(getString(R.string.select_a_date)) &&
+                        !btnChallengeEndDay.getText().equals(R.string.select_a_date) && !challengeCategory[0].equals(getString(R.string.category))){
                     if(startChallengeDate.compareTo(endChallengeDate) <= 0) {
                         addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
                                 challengeCategory[0], challengeDescription);
