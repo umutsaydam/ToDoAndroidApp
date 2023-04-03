@@ -1,5 +1,6 @@
 package com.example.todoapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -33,14 +34,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDoLayerHolder> {
     private final ArrayList<String> timesPeriods;
     private final Context context;
     private final Activity activity;
     private final FirebaseAuth mAuth;
-    private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
-    private String [] datesForDB;
+    private final String [] datesForDB;
     private String currDateDB;
     public ToDoLayerAdapter(ArrayList<String> timesPeriods, Context context, Activity activity, FirebaseAuth mAuth) {
         this.timesPeriods = timesPeriods;
@@ -59,9 +60,10 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
 
     @Override
     public void onBindViewHolder(@NonNull ToDoLayerAdapter.ToDoLayerHolder holder, int position) {
-        currDateDB = Arrays.asList(datesForDB).get(Arrays.asList(context.getResources().getStringArray(R.array.dates)).indexOf(timesPeriods.get(position)));
+        currDateDB = Arrays.asList(datesForDB)
+                .get(Arrays.asList(context.getResources().getStringArray(R.array.dates)).indexOf(timesPeriods.get(position)));
         holder.layerTitle.setText(timesPeriods.get(position));
-        holder.getData(timesPeriods.get(position));
+        holder.getData(currDateDB);
     }
 
     @Override
@@ -79,7 +81,6 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
 
         public ToDoLayerHolder(@NonNull View itemView) {
             super(itemView);
-
             linearLayoutShell = itemView.findViewById(R.id.linearLayoutShell);
             txtCompleted = itemView.findViewById(R.id.txtCompleted);
             layerTitle = itemView.findViewById(R.id.layerTitle);
@@ -103,13 +104,15 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
         }
 
         public void getData(String timePeriod){
+            System.out.println(timePeriod);
             ArrayList<ToDoModel> models = new ArrayList<>();
             recyclerToDoList.setHasFixedSize(false);
-            System.out.println(timePeriod+" <<");
+            System.out.println(timePeriod+" <<"+ currDateDB);
             ToDoAdapter adapter = new ToDoAdapter(models, context, timePeriod, activity);
             recyclerToDoList.setAdapter(adapter);
 
             if (mAuth.getUid() != null){
+                String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
                 FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/ToDo/").child(currDateDB).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -119,15 +122,23 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                             txtNoToDo.setVisibility(View.GONE);
                             int counter = 0;
                             for(DataSnapshot data: snapshot.getChildren()){
-                                System.out.println(timePeriod+" "+data.getValue(ToDoModel.class).getDate());
-                                if (isOutOfDate(data.getValue(ToDoModel.class).getDate())){
-                                    models.add(data.getValue(ToDoModel.class));
-                                    counter += data.getValue(ToDoModel.class).isSelected() ? 1 : 0;
-                                }else{
+                                ToDoModel model = data.getValue(ToDoModel.class);
+                                assert model != null;
+                                if (isOutOfDate(model.getDate()) && model.isSelected()){
                                     Task<Void> deleteToDo = FirebaseDatabase
                                             .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                                            .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid()+"/ToDo/").child(currDateDB)
-                                            .child(data.getValue(ToDoModel.class).getId()).removeValue();
+                                            .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
+                                            .child(currDateDB).child(model.getId()).removeValue();
+                                    deleteToDo.addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()){
+                                            Toast.makeText(context, "silindi", Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(context, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }else{
+                                    models.add(model);
+                                    counter += model.isSelected() ? 1 : 0;
                                 }
                             }
                             setCompleted((int) (snapshot.getChildrenCount()-counter));
@@ -139,12 +150,11 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                             adapter.notifyDataSetChanged();
                         }else{
                             models.clear();
-                            txtNoToDo.setText(timePeriod+""+ context.getResources().getString(R.string.no_to_do));
+                            txtNoToDo.setText(timePeriod+", "+ context.getResources().getString(R.string.no_to_do));
                             txtNoToDo.setVisibility(View.VISIBLE);
                             setCompleted(0);
                             Toast.makeText(context, currDateDB+": no data ", Toast.LENGTH_SHORT).show();
                         }
-                        System.out.println("data : "+ snapshot.getChildrenCount());
                     }
 
                     @Override
@@ -165,19 +175,19 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
         }
 
         public boolean isOutOfDate(String toDoDate) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
             try {
                 String [] toDosDate = toDoDate.split("/");
                 String [] currentDate = getDate().split("/");
-                if (format.parse(currentDate[0]).after(format.parse(toDosDate[0]))){
-                    System.out.println("false");
-                    return false;
+                if (Objects.requireNonNull(format.parse(currentDate[0])).after(format.parse(toDosDate[0]))){
+                    System.out.println("true");
+                    return true;
                 }
             } catch (ParseException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("true");
-            return true;
+            System.out.println("false");
+            return false;
         }
 
         public String getDate(){
