@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.Models.ChallengeModel;
@@ -73,6 +74,13 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         ChallengeModel challengeModel = challengeModels.get(position);
         holder.layerTitle.setText(challengeModel.getChallengeTitle());
         holder.setStatus(challengeModel.getChallangeStatus());
+
+        if (challengeModel.getChallangeStatus().size() < 31){
+            holder.recyclerChallengeStatus.setLayoutManager(new GridLayoutManager(context, 15, GridLayoutManager.VERTICAL, false));
+        }else{
+            holder.recyclerChallengeStatus.setLayoutManager(new GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false));
+        }
+
         if (langIsDiff){
             holder.txtInfoCategory.setText(Arrays.asList(challengeCategoryByLang).get(Arrays.asList(context.getResources().getStringArray(R.array.challengeCategoryForDB)).indexOf(challengeModel.getChallengeCategory())));
         }else{
@@ -108,6 +116,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
             progressBar = itemView.findViewById(R.id.progressBar);
             recyclerChallengeStatus = itemView.findViewById(R.id.recyclerChallengeStatus);
+
             txtInfoDescription = itemView.findViewById(R.id.txtInfoDescription);
             txtInfoCategory = itemView.findViewById(R.id.txtInfoCategory);
             btnCheckChallengeStatus = itemView.findViewById(R.id.btnCheckChallangeStatus);
@@ -163,7 +172,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             Date curDate = getConvertedToDate(currDate);
             Date startOfChallenge = getConvertedToDate(challengeModel.getChallengeStartDay());
             Date endOfChallenge = getConvertedToDate(challengeModel.getChallengeEndDay());
-            if(currDate.equals(challengeModel.getChallengeEndDay()) || currDate.equals(challengeModel.getChallengeStartDay()) ||curDate.after(startOfChallenge) && curDate.before(endOfChallenge)){
+            if(currDate.equals(challengeModel.getChallengeEndDay()) || currDate.equals(challengeModel.getChallengeStartDay()) || curDate.after(startOfChallenge) && curDate.before(endOfChallenge)){
                 int currPosition = challengeModel.getTimeDifference(challengeModel.getChallengeStartDay(), currDate);
                 if(!challengeModel.getChallangeStatus().get(currPosition)){
                     System.out.println(challengeModel.getChallangeStatus());
