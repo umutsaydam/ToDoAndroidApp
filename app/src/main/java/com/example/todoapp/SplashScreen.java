@@ -30,9 +30,13 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         Intent intent;
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+        sharedPreferences = getSharedPreferences("Settings.introSlider", MODE_PRIVATE);
+        if(!sharedPreferences.getBoolean("introSlider", false)){
+            intent = new Intent(SplashScreen.this, IntroSliderActivity.class);
+        }else if (FirebaseAuth.getInstance().getCurrentUser() != null){
             intent = new Intent(SplashScreen.this, mainPageActivity.class);
-        }else{
+        }
+        else{
             intent = new Intent(SplashScreen.this, MainActivity.class);
         }
         startActivity(intent);

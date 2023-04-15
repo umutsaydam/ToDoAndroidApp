@@ -57,6 +57,7 @@
     <string name="will_be_active_after_restarting">Theme will be active after restarting the app</string>
     <string name="about_app_and_developer_message">This application does the activities of the user,
         It is an application created to embody the goals.</string>
+    <string name="next">Next</string>
 
     <string-array name="dates">
         <item>Select a date</item>

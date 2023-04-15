@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("Settings.Lang", MainActivity.MODE_PRIVATE);
         String lan = preferences.getString("Lang", "");
-        System.out.println(lan+" ****");
         if (lan.equals(""))
             showLanguageDialog();
         else
