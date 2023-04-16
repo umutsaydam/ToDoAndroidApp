@@ -1,5 +1,6 @@
 package com.example.todoapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -15,8 +16,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class mainPageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
@@ -34,6 +38,17 @@ public class mainPageActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.todo);
         setSupportActionBar(toolbar);
 
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Reminding")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "DONE !";
+                        if (!task.isSuccessful()){
+                            msg = "FAILED !";
+                        }
+                    }
+                });
 
         drawer = findViewById(R.id.mainPageActivityDrawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
