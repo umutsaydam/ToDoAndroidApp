@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.Models.ChallengeModel;
 import com.example.todoapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,12 +37,11 @@ import java.util.Date;
 import java.util.List;
 
 public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAdapter.ChallengeLayerHolder> {
-    private ArrayList<ChallengeModel> challengeModels;
+    private final ArrayList<ChallengeModel> challengeModels;
     private final Context context;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
-    private String currDate;
+    private final String currDate;
     private String [] challengeCategoryByLang;
-    private SharedPreferences sharedPreferences;
     private boolean langIsDiff; // if true then user are using another language
     public ChallengeLayerAdapter(ArrayList<ChallengeModel> challengeModels, Context context) {
         this.challengeModels = challengeModels;
@@ -53,7 +51,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
     }
 
     private void checkLang() {
-        sharedPreferences = context.getSharedPreferences("Settings.Lang", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Settings.Lang", Context.MODE_PRIVATE);
         if (sharedPreferences.getString("Lang", "EN").equals("TR")){
             this.challengeCategoryByLang = context.getResources().getStringArray(R.array.challengeCategory);
             langIsDiff = true;
@@ -82,13 +80,15 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         }
 
         if (langIsDiff){
-            holder.txtInfoCategory.setText(Arrays.asList(challengeCategoryByLang).get(Arrays.asList(context.getResources().getStringArray(R.array.challengeCategoryForDB)).indexOf(challengeModel.getChallengeCategory())));
+            holder.txtInfoCategory.setText(Arrays.asList(challengeCategoryByLang).get(Arrays.asList(context.getResources()
+                    .getStringArray(R.array.challengeCategoryForDB)).indexOf(challengeModel.getChallengeCategory())));
         }else{
             holder.txtInfoCategory.setText(challengeModel.getChallengeCategory());
         }
         holder.txtInfoDescription.setText(challengeModel.getChallengeDescription());
 
-        if(holder.getConvertedToDate(currDate).after(holder.getConvertedToDate(challengeModel.getChallengeEndDay()))){
+         if((challengeModel.getChallengeEndDay().equals(currDate) && challengeModel.getChallangeStatus().get(challengeModel.getChallangeStatus().size()-1)) ||
+                 holder.getConvertedToDate(currDate).after(holder.getConvertedToDate(challengeModel.getChallengeEndDay()))){
             holder.btnCheckChallengeStatus.setEnabled(false);
             holder.btnCheckChallengeStatus.setText(R.string.out_of_date);
         }
@@ -172,7 +172,8 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             Date curDate = getConvertedToDate(currDate);
             Date startOfChallenge = getConvertedToDate(challengeModel.getChallengeStartDay());
             Date endOfChallenge = getConvertedToDate(challengeModel.getChallengeEndDay());
-            if(currDate.equals(challengeModel.getChallengeEndDay()) || currDate.equals(challengeModel.getChallengeStartDay()) || curDate.after(startOfChallenge) && curDate.before(endOfChallenge)){
+            if(currDate.equals(challengeModel.getChallengeEndDay()) || currDate.equals(challengeModel.getChallengeStartDay()) ||
+                    curDate.after(startOfChallenge) && curDate.before(endOfChallenge)){
                 int currPosition = challengeModel.getTimeDifference(challengeModel.getChallengeStartDay(), currDate);
                 if(!challengeModel.getChallangeStatus().get(currPosition)){
                     System.out.println(challengeModel.getChallangeStatus());
@@ -204,19 +205,17 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             Task<Void> reference = firebaseDatabase
                     .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/Statistic/")
                     .child(challengeModel.getChallengeCategory()).setValue(ServerValue.increment(challengeModel.getChallengeDay()));
-            reference.addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()){
-                        Toast.makeText(context, "Statistic updated", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(context, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+            reference.addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    Toast.makeText(context, "Statistic updated", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
         private boolean challengeHaveDone(String challengeEndDay) {
+            System.out.println(challengeEndDay+" "+(String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime()));
             return challengeEndDay.equals((String) android.text.format.DateFormat.format("dd/MM/yyyy", Calendar.getInstance().getTime()));
         }
 
