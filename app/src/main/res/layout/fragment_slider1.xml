@@ -2,26 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/theme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.slider1Fragment">
 
-    <TextView
+    <ImageView
+        android:id="@+id/imgToDoLayer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Slider-1"
-        android:textSize="25sp"
+        android:layout_height="500dp"
+        android:src="@drawable/ic_to_do_layer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
     <ImageView
+        android:id="@+id/imgTest"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:src="@drawable/ic_test"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_to_do_add_btn"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

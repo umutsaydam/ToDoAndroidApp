@@ -1,0 +1,73 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+  <aapt:attr name="android:drawable">
+    <vector
+        android:name="vector"
+        android:width="110dp"
+        android:height="111dp"
+        android:viewportWidth="110"
+        android:viewportHeight="111">
+      <path
+          android:name="path"
+          android:pathData="M 54.5 26 C 46.679 26 39.171 29.11 33.64 34.64 C 28.11 40.171 25 47.679 25 55.5 C 25 63.321 28.11 70.829 33.64 76.36 C 39.171 81.89 46.679 85 54.5 85 C 62.321 85 69.829 81.89 75.36 76.36 C 80.89 70.829 84 63.321 84 55.5 C 84 47.679 80.89 40.171 75.36 34.64 C 69.829 29.11 62.321 26 54.5 26 Z"
+          android:fillColor="#fe2a39"
+          android:strokeWidth="1"/>
+      <path
+          android:name="path_2"
+          android:pathData="M 54.5 28 C 47.209 28 40.21 30.899 35.055 36.055 C 29.899 41.21 27 48.209 27 55.5 C 27 62.791 29.899 69.79 35.055 74.945 C 40.21 80.101 47.209 83 54.5 83 C 61.791 83 68.79 80.101 73.945 74.945 C 79.101 69.79 82 62.791 82 55.5 C 82 48.209 79.101 41.21 73.945 36.055 C 68.79 30.899 61.791 28 54.5 28 Z"
+          android:fillColor="#fe2a39"
+          android:strokeColor="#ff6570"
+          android:strokeWidth="3"/>
+      <path
+          android:name="path_1"
+          android:pathData="M 69 58 L 57 58 L 57 70 L 53 70 L 53 58 L 41 58 L 41 54 L 53 54 L 53 42 L 57 42 L 57 54 L 69 54 L 69 58 Z"
+          android:fillColor="#ffffff"
+          android:strokeWidth="1"/>
+    </vector>
+  </aapt:attr>
+  <target android:name="path_2">
+    <aapt:attr name="android:animation">
+      <set>
+        <objectAnimator
+            android:propertyName="strokeWidth"
+            android:duration="500"
+            android:repeatCount="infinite"
+            android:repeatMode="reverse"
+            android:valueFrom="3"
+            android:valueTo="10"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        <objectAnimator
+            android:propertyName="strokeWidth"
+            android:startOffset="500"
+            android:duration="500"
+            android:repeatCount="infinite"
+            android:repeatMode="reverse"
+            android:valueFrom="10"
+            android:valueTo="3"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        <objectAnimator
+            android:propertyName="fillAlpha"
+            android:duration="500"
+            android:repeatCount="infinite"
+            android:repeatMode="reverse"
+            android:valueFrom="1"
+            android:valueTo="0.5"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        <objectAnimator
+            android:propertyName="fillAlpha"
+            android:startOffset="500"
+            android:duration="500"
+            android:repeatCount="infinite"
+            android:repeatMode="reverse"
+            android:valueFrom="0.5"
+            android:valueTo="1"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/fast_out_slow_in"/>
+      </set>
+    </aapt:attr>
+  </target>
+</animated-vector>
