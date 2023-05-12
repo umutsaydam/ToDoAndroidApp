@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.todoapp"
@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    implementation 'com.airbnb.android:lottie:6.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
     testImplementation 'junit:junit:4.13.2'

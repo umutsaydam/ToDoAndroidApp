@@ -49,6 +49,13 @@
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
+    <style name="SliderText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
     <style name="recyclerChallenge">
         <item name="android:background">@drawable/box_shape</item>
     </style>

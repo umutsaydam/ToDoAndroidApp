@@ -52,6 +52,13 @@
     
         <!--    Test end       -->
 
+    <style name="SliderText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
     <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
         <item name="android:popupBackground">@drawable/popup_menu_style</item>
     </style>

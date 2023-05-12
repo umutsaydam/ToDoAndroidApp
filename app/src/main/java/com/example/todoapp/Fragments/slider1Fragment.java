@@ -13,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.todoapp.R;
 
 public class slider1Fragment extends Fragment {
-    Context context;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,20 +27,7 @@ public class slider1Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slider1, container, false);
 
-        context = getContext();
-
-        ImageView  imageView = view.findViewById(R.id.imgTest);
-        startAnim(R.drawable.ic_to_do_add_btn, imageView);
-
-        ImageView imageView1 = view.findViewById(R.id.imgToDoLayer);
-        startAnim(R.drawable.ic_to_do_layer,  imageView1);
         return view;
-    }
-
-    public void startAnim(int drawableImg, ImageView img){
-        AnimatedVectorDrawableCompat animatedVectorDrawable = AnimatedVectorDrawableCompat.create(context, drawableImg);
-        Animatable animatable = (Animatable) img.getDrawable();
-        animatable.start();
     }
 
 }

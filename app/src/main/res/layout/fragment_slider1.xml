@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/theme"
@@ -7,25 +8,26 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.slider1Fragment">
 
-    <ImageView
-        android:id="@+id/imgToDoLayer"
-        android:layout_width="wrap_content"
-        android:layout_height="500dp"
-        android:src="@drawable/ic_to_do_layer"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_rawRes="@raw/task"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintBottom_toTopOf="@+id/txtSlider1"/>
 
-    <ImageView
-        android:id="@+id/imgTest"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_to_do_add_btn"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="25dp"
+    <TextView
+        android:id="@+id/txtSlider1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_your_to_do"
+        style="@style/SliderText"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="@+id/animationView"
+        app:layout_constraintStart_toStartOf="@+id/animationView"
+        app:layout_constraintTop_toBottomOf="@+id/animationView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
