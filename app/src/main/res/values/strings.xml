@@ -29,6 +29,7 @@
     <string name="add_a_new_challenge">Your challenge title</string>
     <string name="date_from">From</string>
     <string name="date_to">To</string>
+    <string name="done">Done !</string>
     <string name="exit">Exit</string>
     <string name="add_a_task">Add a task</string>
     <string name="task_title">Task title</string>

@@ -92,4 +92,5 @@
     <string name="watch_your_personal_growth">Kişisel gelişimini takip et.</string>
     <string name="set_your_to_do">Yapılacak listeni oluştur !</string>
     <string name="create_a_goal_and_check_it_every_day">Bir hedef oluştur ve her gün işaretle !</string>
+    <string name="done">Bitti !</string>
 </resources>
