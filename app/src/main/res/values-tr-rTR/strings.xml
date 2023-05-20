@@ -93,4 +93,8 @@
     <string name="set_your_to_do">Yapılacak listeni oluştur !</string>
     <string name="create_a_goal_and_check_it_every_day">Bir hedef oluştur ve her gün işaretle !</string>
     <string name="done">Bitti !</string>
+    <string name="thank_you">Teşekkür ederim</string>
+    <string name="have_done_challange">Meydan okumayı tamamladın !</string>
+    <string name="congratulations">Tebrikler !</string>
+    <string name="statistic_has_updated">İstatistiklerin güncellendi. İstatistiklerini kontrol et!</string>
 </resources>

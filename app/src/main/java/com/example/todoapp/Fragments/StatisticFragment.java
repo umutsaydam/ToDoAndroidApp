@@ -56,7 +56,7 @@ public class StatisticFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (getContext().getSharedPreferences("Settings.Lang", Context.MODE_PRIVATE).getString("Lang", "EN").equals("TR")){
+        if (getContext().getSharedPreferences("Settings.Lang", Context.MODE_PRIVATE).getString("Lang", "EN").equals("TR")) {
             diffLang = true;
         }
         fetchStatisticData();
@@ -65,17 +65,17 @@ public class StatisticFragment extends Fragment {
     private void fetchStatisticData() {
         String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
         FirebaseDatabase.getInstance(instance)
-                .getReference("UsersActivitiesCurrent/"+ FirebaseAuth.getInstance().getUid())
+                .getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid())
                 .child("Statistic").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                categoryStatistic.add(new PieEntry(((Long)dataSnapshot.getValue()).floatValue(), dataSnapshot.getKey()));
+                        if (snapshot.exists()) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                categoryStatistic.add(new PieEntry(((Long) dataSnapshot.getValue()).floatValue(), dataSnapshot.getKey()));
                             }
-                            if(getContext() != null)
+                            if (getContext() != null)
                                 setStatisticChart(!diffLang ? categoryStatistic : changeLang(categoryStatistic));
-                        }else{
+                        } else {
                             txtNoStatistic.setVisibility(View.VISIBLE);
                             System.out.println("no statistic data");
                         }
@@ -83,19 +83,20 @@ public class StatisticFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                            System.out.println(error.getMessage());
+                        System.out.println(error.getMessage());
                     }
                 });
     }
 
     private ArrayList<PieEntry> changeLang(ArrayList<PieEntry> categoryStatistic) {
-        if (getContext() != null){
-            String [] statisticCategory = getActivity().getResources().getStringArray(R.array.challengeCategory);
-            String [] statisticCategoryByDefLang = getContext().getResources().getStringArray(R.array.challengeCategoryForDB);
+        if (getContext() != null) {
+            String[] statisticCategory = getActivity().getResources().getStringArray(R.array.challengeCategory);
+            String[] statisticCategoryByDefLang = getContext().getResources().getStringArray(R.array.challengeCategoryForDB);
 
             for (int i = 0; i < categoryStatistic.size(); i++) {
-                System.out.println(categoryStatistic.get(i).getLabel()+" /*/*/*/");
-                categoryStatistic.get(i).setLabel(Arrays.asList(statisticCategory).get(Arrays.asList(statisticCategoryByDefLang).indexOf(categoryStatistic.get(i).getLabel())));
+                int ind = Arrays.asList(statisticCategoryByDefLang).indexOf(categoryStatistic.get(i).getLabel());
+                if (ind != -1)
+                    categoryStatistic.get(i).setLabel(Arrays.asList(statisticCategory).get(ind));
             }
         }
         return categoryStatistic;

@@ -17,6 +17,15 @@
         android:visibility="gone"
         android:fontFamily="@font/roboto_regular"/>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/confettiAnim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_rawRes="@raw/confetti"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/challangeLayerRecycler"
         android:layout_width="match_parent"
