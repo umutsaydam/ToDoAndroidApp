@@ -52,7 +52,7 @@
             android:layout_below="@+id/textView2"/>
 
         <Button
-            android:id="@+id/btnSignInToMainPage"
+            android:id="@+id/btnThankYou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_style"

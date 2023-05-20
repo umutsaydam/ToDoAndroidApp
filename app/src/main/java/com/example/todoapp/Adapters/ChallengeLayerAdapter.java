@@ -209,16 +209,10 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         }
 
         private void showCongMessage() {
-//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-//            alertDialog.setView(R.layout.cong_message_pop_up);
-//            alertDialog.
-//            alertDialog.setPositiveButton(R.string.okay, (dialogInterface, i) -> dialogInterface.dismiss());
-//
-//            alertDialog.show();
-
             Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.cong_message_pop_up);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().findViewById(R.id.btnThankYou).setOnClickListener(view -> dialog.dismiss());
             dialog.show();
         }
 
