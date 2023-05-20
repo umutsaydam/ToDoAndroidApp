@@ -1,7 +1,6 @@
 package com.example.todoapp.Adapters;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -92,7 +91,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
         }
         holder.txtInfoDescription.setText(challengeModel.getChallengeDescription());
 
-        if ((challengeModel.getChallengeEndDay().equals(currDate) && challengeModel.getChallangeStatus().get(challengeModel.getChallangeStatus().size() - 1)) ||
+        if ((!challengeModel.getChallengeEndDay().equals(currDate) && challengeModel.getChallangeStatus().get(challengeModel.getChallangeStatus().size() - 1)) ||
                 holder.getConvertedToDate(currDate).after(holder.getConvertedToDate(challengeModel.getChallengeEndDay()))) {
             holder.btnCheckChallengeStatus.setEnabled(false);
             holder.btnCheckChallengeStatus.setText(R.string.out_of_date);
@@ -212,7 +211,9 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.cong_message_pop_up);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
             dialog.getWindow().findViewById(R.id.btnThankYou).setOnClickListener(view -> dialog.dismiss());
+
             dialog.show();
         }
 
