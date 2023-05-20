@@ -3,6 +3,7 @@ package com.example.todoapp.Adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,9 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
     private final Context context;
     private final Activity activity;
     private final FirebaseAuth mAuth;
-    private final String [] datesForDB;
+    private final String[] datesForDB;
     private String currDateDB;
+
     public ToDoLayerAdapter(ArrayList<String> timesPeriods, Context context, Activity activity, FirebaseAuth mAuth) {
         this.timesPeriods = timesPeriods;
         this.context = context;
@@ -55,7 +57,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
     @Override
     public ToDoLayerAdapter.ToDoLayerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.to_do_layer, parent, false);
-        return  new ToDoLayerHolder(view);
+        return new ToDoLayerHolder(view);
     }
 
     @Override
@@ -103,58 +105,53 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
             imgArrow.setRotation(relativeLayout.getVisibility() == View.VISIBLE ? 90 : 0);
         }
 
-        public void getData(String timePeriod, String langTimePeriod){
+        public void getData(String timePeriod, String langTimePeriod) {
             System.out.println(timePeriod);
             ArrayList<ToDoModel> models = new ArrayList<>();
             recyclerToDoList.setHasFixedSize(false);
-            System.out.println(timePeriod+" <<"+ currDateDB);
             ToDoAdapter adapter = new ToDoAdapter(models, context, timePeriod, activity);
             recyclerToDoList.setAdapter(adapter);
 
-            if (mAuth.getUid() != null){
+            if (mAuth.getUid() != null) {
                 String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
-                FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/ToDo/").child(currDateDB).addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/" + mAuth.getUid() + "/ToDo/").child(currDateDB).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        progressBar.setVisibility(snapshot.getChildrenCount()==0 ? View.GONE : View.VISIBLE);
-                        if (snapshot.exists()){
+                        progressBar.setVisibility(snapshot.getChildrenCount() == 0 ? View.GONE : View.VISIBLE);
+                        if (snapshot.exists()) {
                             models.clear();
                             txtNoToDo.setVisibility(View.GONE);
                             int counter = 0;
-                            for(DataSnapshot data: snapshot.getChildren()){
+                            for (DataSnapshot data : snapshot.getChildren()) {
                                 ToDoModel model = data.getValue(ToDoModel.class);
+
                                 assert model != null;
-                                if (isOutOfDate(model.getDate()) && model.isSelected()){
-                                    System.out.println(timePeriod + "/*/*/*");
-                                    Task<Void> deleteToDo = FirebaseDatabase
-                                            .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                                            .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
-                                            .child(timePeriod).child(model.getId()).removeValue();
-                                    deleteToDo.addOnCompleteListener(task -> {
-                                        if (task.isSuccessful()){
-                                            Toast.makeText(context, "silindi", Toast.LENGTH_SHORT).show();
-                                        }else{
-                                            Toast.makeText(context, ""+task.getException(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }else{
+                                if (timePeriod.equals(datesForDB[1]) && isOutOfDate(model.getDate()) && model.isSelected()) {
+                                    deleteToDo(model, timePeriod);
+                                } else if (timePeriod.equals(datesForDB[2]) &&
+                                        ((getDate().split("/"))[0].equals(model.getDate().split("/")[0]) || isOutOfDate(model.getDate()))) {
+                                    deleteToDo(model, timePeriod);
+                                    if (!model.isSelected()) {
+                                        moveToDo(model);
+                                    }
+                                } else {
                                     models.add(model);
                                     counter += model.isSelected() ? 1 : 0;
                                 }
                             }
-                            setCompleted((int) (snapshot.getChildrenCount()-counter));
+                            setCompleted((int) (snapshot.getChildrenCount() - counter));
 
-                            ScaleAnimation scaleAnimation = new ScaleAnimation((int)(((double) counter/(double) snapshot.getChildrenCount())*100), 100, 0,0);
+                            ScaleAnimation scaleAnimation = new ScaleAnimation((int) (((double) counter / (double) snapshot.getChildrenCount()) * 100), 100, 0, 0);
                             scaleAnimation.setDuration(10);
                             progressBar.setAnimation(scaleAnimation);
-                            progressBar.setProgress( (int)(((double) counter/(double) snapshot.getChildrenCount())*100));
+                            progressBar.setProgress((int) (((double) counter / (double) snapshot.getChildrenCount()) * 100));
                             adapter.notifyDataSetChanged();
-                        }else{
+                        } else {
                             models.clear();
-                            txtNoToDo.setText(langTimePeriod+""+ context.getResources().getString(R.string.no_to_do));
+                            txtNoToDo.setText(langTimePeriod + "" + context.getResources().getString(R.string.no_to_do));
                             txtNoToDo.setVisibility(View.VISIBLE);
                             setCompleted(0);
-                            Toast.makeText(context, currDateDB+": no data ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, currDateDB + ": no data ", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -166,10 +163,36 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
             }
         }
 
-        private void setCompleted(int num){
-            if(num == 0){
+        private void moveToDo(ToDoModel model) {
+            Task<Void> moveToDo = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/ToDo/")
+                    .child("Today").child(model.getId()).setValue(model).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(context, "tasindi", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
+        private void deleteToDo(ToDoModel model, String timePeriod) {
+            Task<Void> deleteToDo = FirebaseDatabase
+                    .getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/ToDo/")
+                    .child(timePeriod).child(model.getId()).removeValue();
+            deleteToDo.addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(context, "silindi", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "" + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        private void setCompleted(int num) {
+            if (num == 0) {
                 txtCompleted.setVisibility(View.GONE);
-            }else{
+            } else {
                 txtCompleted.setVisibility(View.VISIBLE);
                 txtCompleted.setText(String.valueOf(num));
             }
@@ -178,9 +201,9 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
         public boolean isOutOfDate(String toDoDate) {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
             try {
-                String [] toDosDate = toDoDate.split("/");
-                String [] currentDate = getDate().split("/");
-                if (Objects.requireNonNull(format.parse(currentDate[0])).after(format.parse(toDosDate[0]))){
+                String[] toDosDate = toDoDate.split("/");
+                String[] currentDate = getDate().split("/");
+                if (Objects.requireNonNull(format.parse(currentDate[0])).after(format.parse(toDosDate[0]))) {
                     System.out.println("true is outofdate");
                     return true;
                 }
@@ -191,7 +214,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
             return false;
         }
 
-        public String getDate(){
+        public String getDate() {
             Date date = Calendar.getInstance().getTime();
             return (String) android.text.format.DateFormat.format("yyyy.MM.dd'/'HH:mm:ss", date);
         }
