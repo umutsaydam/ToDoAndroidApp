@@ -1,7 +1,6 @@
 package com.example.todoapp.Fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,11 +9,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,19 +60,26 @@ public class mainPageFragment extends Fragment {
         timesPeriods.add(getString(R.string.today));
         timesPeriods.add(getString(R.string.tomorrow));
         timesPeriods.add(getString(R.string.later));
+        assert getContext() != null;
         ToDoLayerAdapter adapter = new ToDoLayerAdapter(timesPeriods, getContext(), getActivity(), mAuth);
         listLayersRecycler.setHasFixedSize(true);
         listLayersRecycler.setAdapter(adapter);
     }
 
     public void floatingAction(View view) {
-        BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetStyleTheme);
-        dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        dialog.setContentView(R.layout.bottom_sheet_main_page);
+        assert getContext() != null;
+        BottomSheetDialog bottomDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetStyleTheme);
+        BottomSheetBehavior<View> bottomSheetBehavior;
 
-        EditText editTextTaskTitle = dialog.findViewById(R.id.editTextTaskTitle);
+        View bottomView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_main_page, null);
+        bottomDialog.setContentView(bottomView);
+
+        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomView.getParent());
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        EditText editTextTaskTitle = bottomDialog.findViewById(R.id.editTextTaskTitle);
         final String[] spinnerDate = new String[1];
-        Spinner spinner = dialog.findViewById(R.id.spinnerDate);
+        Spinner spinner = bottomDialog.findViewById(R.id.spinnerDate);
         String[] dates = getResources().getStringArray(R.array.dates);
         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, dates);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -91,7 +96,7 @@ public class mainPageFragment extends Fragment {
             }
         });
 
-        Button btnAddNewTask = dialog.findViewById(R.id.btnAddNewTask);
+        Button btnAddNewTask = bottomDialog.findViewById(R.id.btnAddNewTask);
         assert btnAddNewTask != null;
         btnAddNewTask.setOnClickListener(view1 -> {
             assert editTextTaskTitle != null;
@@ -102,14 +107,12 @@ public class mainPageFragment extends Fragment {
                 Toast.makeText(getContext(), "Please fill the fields", Toast.LENGTH_SHORT).show();
             }
         });
-        TextView txtBackToList = dialog.findViewById(R.id.txtBackToList);
+        TextView txtBackToList = bottomDialog.findViewById(R.id.txtBackToList);
         assert txtBackToList != null;
-        txtBackToList.setOnClickListener(view1 -> dialog.dismiss());
+        txtBackToList.setOnClickListener(view1 -> bottomDialog.dismiss());
 
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+        bottomDialog.show();
     }
 
     public void addNewTask(String toDoTitle, String spinnerDate) {
