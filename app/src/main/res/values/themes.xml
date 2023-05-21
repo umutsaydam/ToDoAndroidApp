@@ -73,7 +73,7 @@
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:background">@drawable/popup_menu_style</item>
     </style>
 
     <style name="TollbarStyle" parent="Theme.AppCompat">

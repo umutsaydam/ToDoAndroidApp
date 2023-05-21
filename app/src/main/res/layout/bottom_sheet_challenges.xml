@@ -1,140 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bottom_sheet_style">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imgBottomShape"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:src="@drawable/bottom_sheet_shape"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="42dp">
+
             <TextView
+                android:id="@+id/txtTitle"
+                style="@style/TEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_regular"
                 android:text="@string/add_challenge"
-                style="@style/TEXT"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/roboto_regular"/>
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/editTxtChallengeTitle"
-            style="@style/TEXT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/input_shape"
-            android:ems="11"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/add_a_new_challenge"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:padding="10dp"
-            android:textColorHint="@color/hint_color" />
+            <EditText
+                android:id="@+id/editTxtChallengeTitle"
+                style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/input_shape"
+                android:ems="11"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/add_a_new_challenge"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:padding="10dp"
+                android:textColorHint="@color/hint_color"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/txtTitle"/>
 
-        <Spinner
-            android:id="@+id/spinnerChallengeCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="50dp"
-            android:minWidth="230dp"
-            style="@style/TEXT"
-            android:layout_marginTop="25dp"
-            android:contentDescription="@string/category"
-            android:background="@drawable/input_shape"/>
+            <Spinner
+                android:id="@+id/spinnerChallengeCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:minWidth="230dp"
+                style="@style/TEXT"
+                android:layout_marginTop="25dp"
+                android:contentDescription="@string/category"
+                android:background="@drawable/input_shape"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/editTxtChallengeTitle"/>
 
-        <LinearLayout
-            android:id="@+id/mainPageDateSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="25dp">
+            <LinearLayout
+                android:id="@+id/mainPageDateSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/spinnerChallengeCategory">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_from"
+                    style="@style/TEXT"
+                    android:textSize="18sp"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <Button
+                    android:id="@+id/btnChallengeStartDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/hint_color"
+                    android:text="@string/select_a_date"
+                    style="?spinnerStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_to"
+                    style="@style/TEXT"
+                    android:textSize="18sp"
+                    android:layout_marginHorizontal="15dp"/>
+
+                <Button
+                    android:id="@+id/btnChallengeEndDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_a_date"
+                    android:textColor="@color/hint_color"
+                    style="?spinnerStyle"/>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTxtChallengeDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:ems="11"
+                android:hint="@string/challenge_description"
+                android:padding="10dp"
+                style="@style/TEXT"
+                android:layout_marginTop="35dp"
+                android:inputType="textMultiLine"
+                android:background="@drawable/input_shape"
+                android:fontFamily="@font/roboto_regular"
+                android:textColorHint="@color/hint_color"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/mainPageDateSpinner"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAddNewChallenge"
+                style="@style/themeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTxtChallengeDescription"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:minWidth="250dp"
+                android:text="@string/add_challenge"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date_from"
+                android:id="@+id/txtBackToChallenges"
                 style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnAddNewChallenge"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/roboto_light"
+                android:paddingStart="25dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="7dp"
+                android:text="@string/exit"
                 android:textSize="18sp"
-                android:layout_marginHorizontal="15dp"/>
-
-            <Button
-                android:id="@+id/btnChallengeStartDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/hint_color"
-                android:text="@string/select_a_date"
-                style="?spinnerStyle"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date_to"
-                style="@style/TEXT"
-                android:textSize="18sp"
-                android:layout_marginHorizontal="15dp"/>
-
-            <Button
-                android:id="@+id/btnChallengeEndDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_a_date"
-                android:textColor="@color/hint_color"
-                style="?spinnerStyle"/>
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/editTxtChallengeDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:ems="11"
-            android:hint="@string/challenge_description"
-            android:padding="10dp"
-            style="@style/TEXT"
-            android:layout_marginTop="35dp"
-            android:inputType="textMultiLine"
-            android:background="@drawable/input_shape"
-            android:fontFamily="@font/roboto_regular"
-            android:textColorHint="@color/hint_color" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="25dp">
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAddNewChallenge"
-            style="@style/themeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:minWidth="250dp"
-            android:textAllCaps="false"
-            android:text="@string/add_challenge"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtBackToChallenges"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/exit"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
-            android:textSize="18sp"
-            style="@style/TEXT"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/roboto_light"/>
-    </LinearLayout>
-</ScrollView>
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

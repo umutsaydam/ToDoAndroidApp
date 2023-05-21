@@ -1,20 +1,18 @@
 package com.example.todoapp.Fragments;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,6 +24,7 @@ import android.widget.Toast;
 import com.example.todoapp.Adapters.ChallengeLayerAdapter;
 import com.example.todoapp.Models.ChallengeModel;
 import com.example.todoapp.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +46,7 @@ public class ChallengesFragment extends Fragment {
     private ChallengeLayerAdapter adapter;
     private TextView txtNoChallenges;
     private final String instance = "https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,17 +74,17 @@ public class ChallengesFragment extends Fragment {
     }
 
     private void fetchChallenges() {
-        FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance(instance).getReference("UsersActivitiesCurrent/" + mAuth.getUid() + "/Challenges/").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
                     challengeModels.clear();
                     txtNoChallenges.setVisibility(View.INVISIBLE);
                     System.out.println("data exist");
-                    for(DataSnapshot data : snapshot.getChildren()){
+                    for (DataSnapshot data : snapshot.getChildren()) {
                         challengeModels.add(data.getValue(ChallengeModel.class));
                     }
-                }else{
+                } else {
                     System.out.println("no data");
                     txtNoChallenges.setVisibility(View.VISIBLE);
                 }
@@ -100,12 +100,23 @@ public class ChallengesFragment extends Fragment {
 
     public void newChallenge(View view) {
         BottomSheetDialog bottomDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetStyleTheme);
-        bottomDialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        bottomDialog.setContentView(R.layout.bottom_sheet_challenges);
+        BottomSheetBehavior<View> bottomSheetBehavior;
+
+        View bottomView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_challenges, null);
+        bottomDialog.setContentView(bottomView);
+
+        bottomSheetBehavior = BottomSheetBehavior.from((View) bottomView.getParent());
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        CoordinatorLayout coordinatorLayout = bottomDialog.findViewById(R.id.coordinatorLayout);
+        assert coordinatorLayout != null;
+        coordinatorLayout.setMinimumHeight(Resources.getSystem().getDisplayMetrics().heightPixels);
+
 
         EditText editTxtChallengeTitle = bottomDialog.findViewById(R.id.editTxtChallengeTitle);
         Spinner spinnerChallengeCategory = bottomDialog.findViewById(R.id.spinnerChallengeCategory);
-        String [] challengeCategory = {String.valueOf(R.string.category)};
+        String[] challengeCategory = {String.valueOf(R.string.category)};
+        assert spinnerChallengeCategory != null;
         spinnerChallengeCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -129,7 +140,7 @@ public class ChallengesFragment extends Fragment {
         TextView txtBackToChallenges = bottomDialog.findViewById(R.id.txtBackToChallenges);
 
         ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(), R.array.challengeCategory,
-                android.R.layout.simple_spinner_item );
+                android.R.layout.simple_spinner_item);
 
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerChallengeCategory.setAdapter(adapterCategory);
@@ -145,35 +156,32 @@ public class ChallengesFragment extends Fragment {
             String endChallengeDate = btnChallengeEndDay.getText().toString();
 
 
-                if(!challengeTitle.isEmpty() && !challengeDescription.isEmpty() &&
-                        !btnChallengeStartDay.getText().equals(getString(R.string.select_a_date)) &&
-                        !btnChallengeEndDay.getText().equals(getString(R.string.select_a_date)) && !challengeCategory[0].equals(getString(R.string.category))){
+            if (!challengeTitle.isEmpty() && !challengeDescription.isEmpty() &&
+                    !btnChallengeStartDay.getText().equals(getString(R.string.select_a_date)) &&
+                    !btnChallengeEndDay.getText().equals(getString(R.string.select_a_date)) && !challengeCategory[0].equals(getString(R.string.category))) {
 
-                    try {
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
-                        Date startDate = simpleDateFormat.parse(startChallengeDate);
-                        Date endDate = simpleDateFormat.parse(endChallengeDate);
-                        if(startChallengeDate.equals(endChallengeDate) || startDate.before(endDate)) {
-                            addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
-                                    challengeCategory[0], challengeDescription);
-                        }else{
-                            Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                try {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy");
+                    Date startDate = simpleDateFormat.parse(startChallengeDate);
+                    Date endDate = simpleDateFormat.parse(endChallengeDate);
+                    if (startChallengeDate.equals(endChallengeDate) || startDate.before(endDate)) {
+                        addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
+                                challengeCategory[0], challengeDescription);
+                    } else {
+                        Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
+            } else {
+                Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         assert txtBackToChallenges != null;
         txtBackToChallenges.setOnClickListener(view1 -> bottomDialog.dismiss());
 
         bottomDialog.show();
-        bottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        bottomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
     private void getChallengeDateInfo(View view) {
@@ -184,7 +192,7 @@ public class ChallengesFragment extends Fragment {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String[] date = {""};
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (datePicker, year1, month1, day1) -> {
-            date[0] = (day1 < 10 ? "0"+day1 : day1) +"/0"+(month1 +1)+"/"+ year1;
+            date[0] = (day1 < 10 ? "0" + day1 : day1) + "/0" + (month1 + 1) + "/" + year1;
             button.setText(date[0]);
         }, year, month, day);
 
@@ -193,18 +201,18 @@ public class ChallengesFragment extends Fragment {
 
     private void addNewChallenge(String title, String challengeStartDate, String challengeEndDate, String category, String description) {
         DatabaseReference reference = FirebaseDatabase.getInstance(instance)
-                .getReference("UsersActivitiesCurrent/"+mAuth.getUid()+"/Challenges/").push();
+                .getReference("UsersActivitiesCurrent/" + mAuth.getUid() + "/Challenges/").push();
 
         reference.setValue(new ChallengeModel(reference.getKey(), title, category, challengeStartDate, challengeEndDate, description))
                 .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         System.out.println("added");
                         Toast.makeText(getContext(), "Challenge added", Toast.LENGTH_SHORT).show();
-                    }else{
-                        System.out.println("Error. "+task.getException().getMessage());
+                    } else {
+                        System.out.println("Error. " + task.getException().getMessage());
                     }
                 });
         fetchChallenges();
-        System.out.println(challengeModels.size()+" size");
+        System.out.println(challengeModels.size() + " size");
     }
 }

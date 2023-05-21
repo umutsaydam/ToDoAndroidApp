@@ -17,4 +17,5 @@
     <color name="popup_bg_color">#282828</color>
     <color name="bottom_sheet_background">#3C3C3C</color>
     <color name="splash_bg">#FF2B38</color>
+    <color name="bottom_shape">#E2E2E2</color>
 </resources>

@@ -17,4 +17,5 @@
     <color name="hint_color">#FF018786</color>
     <color name="bottom_sheet_background">#FFFFFF</color>
     <color name="splash_bg">#FF2B38</color>
+    <color name="bottom_shape">#E2E2E2</color>
 </resources>
