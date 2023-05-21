@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/input_shape"
-            android:ems="13"
+            android:ems="18"
             android:hint="@string/name_and_surname"
             android:inputType="textPersonName"
             android:padding="15dp" />
@@ -55,7 +55,7 @@
             android:layout_marginTop="18dp"
             android:background="@drawable/input_shape"
             android:padding="15dp"
-            android:ems="13"
+            android:ems="18"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress" />
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:background="@drawable/input_shape"
-            android:ems="13"
+            android:ems="18"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/password"
             android:inputType="textPassword"
@@ -77,9 +77,9 @@
             android:id="@+id/btnSignUpSignUpFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/button_style"
-            android:ems="13"
+            android:ems="18"
             android:padding="16dp"
             android:text="@string/sign_up"
             android:textAllCaps="false"
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_regular"
-            android:textSize="17sp"
+            android:textSize="20sp"
             style="@style/TEXT"
             android:paddingTop="15dp"
             android:text="@string/do_you_have_an_account" />
@@ -116,7 +116,7 @@
             android:paddingTop="15dp"
             android:paddingEnd="15dp"
             android:text="@string/sign_in"
-            android:textSize="17sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>
