@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,6 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
             holder.txtInfoCategory.setText(challengeModel.getChallengeCategory());
         }
         holder.txtInfoDescription.setText(challengeModel.getChallengeDescription());
-
         if ((!challengeModel.getChallengeEndDay().equals(currDate) && challengeModel.getChallangeStatus().get(challengeModel.getChallangeStatus().size() - 1)) ||
                 holder.getConvertedToDate(currDate).after(holder.getConvertedToDate(challengeModel.getChallengeEndDay()))) {
             holder.btnCheckChallengeStatus.setEnabled(false);
