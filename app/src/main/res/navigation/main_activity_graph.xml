@@ -6,39 +6,18 @@
     app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/introFragment"
-        android:name="com.example.todoapp.Fragments.introFragment"
-        android:label="fragment_intro"
-        tools:layout="@layout/fragment_intro">
-        <action
-            android:id="@+id/action_introFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
-        <action
-            android:id="@+id/action_introFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_introFragment_to_mainPageActivity2"
-            app:destination="@id/mainPageActivity" />
-    </fragment>
-    <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.todoapp.Fragments.signUpFragment"
-        android:label="signUpFragment" >
-        <action
-            android:id="@+id/action_signUpFragment_to_introFragment"
-            app:destination="@id/introFragment" />
+        android:label="signUpFragment">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment"/>
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.todoapp.Fragments.signInFragment"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" >
-        <action
-            android:id="@+id/action_signInFragment_to_introFragment"
-            app:destination="@id/introFragment" />
+        tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />
@@ -52,7 +31,7 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.example.todoapp.Fragments.forgotPasswordFragment"
-        android:label="forgotPasswordFragment" >
+        android:label="forgotPasswordFragment">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
