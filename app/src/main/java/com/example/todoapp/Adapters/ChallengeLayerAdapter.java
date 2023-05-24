@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,9 +163,9 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                     removeValue();
             deleteChallenge.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+context.getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+context.getResources().getString(R.string.couldnt_delete) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
             notifyDataSetChanged();
@@ -188,9 +187,9 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                             getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/Challenges/" + challengeModel.getId()).setValue(challengeModel);
                     markStatus.addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, "Checked", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, ""+context.getResources().getString(R.string.checked), Toast.LENGTH_SHORT).show();
                             if (challengeHaveDone(challengeModel.getChallengeEndDay())) {
-                                Toast.makeText(context, "You have done the challenge!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, ""+context.getResources().getString(R.string.challenge_completed), Toast.LENGTH_SHORT).show();
                                 showCongMessage();
                                 increaseStatistic(challengeModel);
                             }
@@ -200,10 +199,10 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                     });
                     notifyDataSetChanged();
                 } else {
-                    Toast.makeText(context, "You have already checked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+context.getResources().getString(R.string.have_checked), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -223,7 +222,7 @@ public class ChallengeLayerAdapter extends RecyclerView.Adapter<ChallengeLayerAd
                     .child(challengeModel.getChallengeCategory()).setValue(ServerValue.increment(challengeModel.getChallengeDay()));
             reference.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(context, "Statistic updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+context.getResources().getString(R.string.statistic_has_updated), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

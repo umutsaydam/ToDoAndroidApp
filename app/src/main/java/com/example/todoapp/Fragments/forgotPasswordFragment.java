@@ -2,9 +2,7 @@ package com.example.todoapp.Fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -15,14 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.todoapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class forgotPasswordFragment extends Fragment {
     private EditText editTxtEmail;
-    private Button btnSendEmail;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +30,7 @@ public class forgotPasswordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
         
         editTxtEmail = view.findViewById(R.id.editTxtEmail);
-        btnSendEmail = view.findViewById(R.id.btnSendEmail);
+        Button btnSendEmail = view.findViewById(R.id.btnSendEmail);
         btnSendEmail.setOnClickListener(view1 -> {
             String mail = editTxtEmail.getText().toString();
             if(!mail.isEmpty()){

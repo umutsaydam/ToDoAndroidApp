@@ -41,6 +41,7 @@ public class ChallengeModel {
         try {
             s = sdf.parse(challengeStartDay);
             Date e = sdf.parse(challengeEndDay);
+            assert e != null && s!= null;
             diff = e.getTime() - s.getTime();
         } catch (ParseException e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class ChallengeModel {
             setChallengeDay(getTimeDifference(challengeStartDay, challengeEndDay)+1);
             Boolean [] tmp = new Boolean[this.challengeDay];
             Arrays.fill(tmp, false);
-            this.challengeStatus = new ArrayList<Boolean>(Arrays.asList(tmp));
+            this.challengeStatus = new ArrayList<>(Arrays.asList(tmp));
     }
 
     public String getId() {

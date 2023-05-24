@@ -1,19 +1,14 @@
 package com.example.todoapp.Fragments;
 
-import android.content.Context;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.example.todoapp.R;
 
 public class slider1Fragment extends Fragment {

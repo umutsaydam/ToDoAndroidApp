@@ -104,7 +104,7 @@ public class mainPageFragment extends Fragment {
             if (!toDoTitle.isEmpty() && !spinnerDate[0].equals(getContext().getResources().getStringArray(R.array.datesForDB)[0])) {
                 addNewTask(toDoTitle, spinnerDate[0]);
             } else {
-                Toast.makeText(getContext(), "Please fill the fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.fill_fields), Toast.LENGTH_SHORT).show();
             }
         });
         TextView txtBackToList = bottomDialog.findViewById(R.id.txtBackToList);
@@ -123,7 +123,7 @@ public class mainPageFragment extends Fragment {
         reference.setValue(new ToDoModel(reference.getKey(), toDoTitle, false,
                 spinnerDate.equals(getResources().getStringArray(R.array.datesForDB)[1]) ? getDate() : increaseDay(spinnerDate))).addOnCompleteListener(task -> {
             if (task.isSuccessful())
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(getContext(), "" + task.getException(), Toast.LENGTH_SHORT).show();
         });

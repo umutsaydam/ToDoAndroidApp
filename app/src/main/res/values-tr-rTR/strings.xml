@@ -97,4 +97,14 @@
     <string name="have_done_challange">Meydan okumayı tamamladın !</string>
     <string name="congratulations">Tebrikler !</string>
     <string name="statistic_has_updated">İstatistiklerin güncellendi. İstatistiklerini kontrol et!</string>
+    <string name="success">Başarılı</string>
+    <string name="couldnt_delete">Silinemedi</string>
+    <string name="checked">İşaretlendi</string>
+    <string name="have_checked">Zaten işaretlendi</string>
+    <string name="coludnt_delete">Silinemedi</string>
+    <string name="updated">Güncellendi</string>
+    <string name="couldnt_updated">Güncellenemedi</string>
+    <string name="dates_incorrect">Tarihler hatalı</string>
+    <string name="fill_fields">Lütfen alanları doldurun</string>
+    <string name="challenge_added">Meydan okumanız eklendi</string>
 </resources>

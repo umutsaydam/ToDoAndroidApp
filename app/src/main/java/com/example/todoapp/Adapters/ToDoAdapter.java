@@ -35,6 +35,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
     private final String timePeriod;
     private final Activity activity;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/");
+
     public ToDoAdapter(ArrayList<ToDoModel> models, Context context, String timePeriod, Activity activity) {
         this.models = models;
         this.context = context;
@@ -56,7 +57,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
         holder.toDoCheckBox.setText(model.getContent());
         holder.toDoCheckBox.setPaintFlags(model.isSelected() ? Paint.STRIKE_THRU_TEXT_FLAG : 0);
         holder.toDoCheckBox.setTypeface(holder.toDoCheckBox.getTypeface(), model.isSelected() ? Typeface.BOLD_ITALIC : Typeface.BOLD);
-   }
+    }
 
     @Override
     public int getItemCount() {
@@ -66,6 +67,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
     public class ToDoHolder extends RecyclerView.ViewHolder {
         CheckBox toDoCheckBox;
         ImageView toDoPopup;
+
         public ToDoHolder(@NonNull View itemView) {
             super(itemView);
             toDoCheckBox = itemView.findViewById(R.id.toDoCheckBox);
@@ -74,8 +76,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
                 ToDoModel model = models.get(getAdapterPosition());
                 model.setSelected(!model.isSelected());
 
-                assert FirebaseAuth.getInstance().getUid() !=null;
-                DatabaseReference reference = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod);
+                assert FirebaseAuth.getInstance().getUid() != null;
+                DatabaseReference reference = firebaseDatabase.getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/ToDo/").child(timePeriod);
 
                 reference.child(model.getId()).setValue(model);
                 toDoCheckBox.setChecked(model.isSelected());
@@ -86,14 +88,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             });
 
             toDoPopup.setOnClickListener(view -> {
-                PopupMenu popupMenu =new PopupMenu(context, toDoPopup);
+                PopupMenu popupMenu = new PopupMenu(context, toDoPopup);
                 MenuInflater inflater = popupMenu.getMenuInflater();
                 inflater.inflate(R.menu.todo_popup_menu, popupMenu.getMenu());
                 popupMenu.show();
                 popupMenu.setOnMenuItemClickListener(menuItem -> {
-                    if (menuItem.getItemId() == R.id.toDoPopupDelete){
+                    if (menuItem.getItemId() == R.id.toDoPopupDelete) {
                         deleteToDo();
-                    }else if (menuItem.getItemId() == R.id.toDoPopupEdit){
+                    } else if (menuItem.getItemId() == R.id.toDoPopupEdit) {
                         updateToDo();
                     }
                     return false;
@@ -108,15 +110,15 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             builder.setMessage(R.string.deleteToDoMessage);
             builder.setPositiveButton(R.string.deleteEventPossitiveMessage, (dialogInterface, i) -> {
                 Task<Void> delete = firebaseDatabase
-                        .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/")
+                        .getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/ToDo/")
                         .child(timePeriod)
                         .child(models.get(getAdapterPosition()).getId()).removeValue();
                 delete.addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(context.getApplicationContext(), "Deleted.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), ""+context.getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
                         notifyDataSetChanged();
-                    }else
-                        Toast.makeText(context.getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(context.getApplicationContext(), ""+context.getResources().getString(R.string.couldnt_delete), Toast.LENGTH_SHORT).show();
                 });
             });
             builder.setNegativeButton(R.string.toDoMessageNegativeMessage, (dialogInterface, i) -> dialogInterface.dismiss());
@@ -131,22 +133,22 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoHolder> {
             editTxtFormToDo.setText(toDoCheckBox.getText());
             Button btnUpdateToDo = dialog.findViewById(R.id.btnUpdateToDo);
             Button btnCancelToDo = dialog.findViewById(R.id.btnCancelToDo);
-            if (editTxtFormToDo.getText() != null){
+            if (editTxtFormToDo.getText() != null) {
                 btnUpdateToDo.setOnClickListener(view -> {
                     ToDoModel model = models.get(getAdapterPosition());
                     model.setContent(editTxtFormToDo.getText().toString());
-                    if (model.getId() != null){
-                        Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()+"/ToDo/").child(timePeriod)
+                    if (model.getId() != null) {
+                        Task<Void> performUpdate = firebaseDatabase.getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/ToDo/").child(timePeriod)
                                 .child(models.get(getAdapterPosition()).getId()).setValue(model);
                         performUpdate.addOnCompleteListener(task -> {
-                            if (task.isSuccessful()){
-                                Toast.makeText(context.getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(context.getApplicationContext(), ""+context.getResources().getString(R.string.updated), Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                                 notifyDataSetChanged();
-                            }else
-                                Toast.makeText(context.getApplicationContext(), "Failed.", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(context.getApplicationContext(), ""+context.getResources().getString(R.string.update), Toast.LENGTH_SHORT).show();
                         });
-                    }else{
+                    } else {
                         Toast.makeText(context.getApplicationContext(), "NULL", Toast.LENGTH_SHORT).show();
                     }
                 });

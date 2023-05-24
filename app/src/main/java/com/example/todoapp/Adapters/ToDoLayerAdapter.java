@@ -151,7 +151,6 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                             txtNoToDo.setText(langTimePeriod + "" + context.getResources().getString(R.string.no_to_do));
                             txtNoToDo.setVisibility(View.VISIBLE);
                             setCompleted(0);
-                            Toast.makeText(context, currDateDB + ": no data ", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -168,7 +167,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                     .getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid() + "/ToDo/")
                     .child("Today").child(model.getId()).setValue(model).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(context, "tasindi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, ""+context.getResources().getString(R.string.updated), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(context, "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
@@ -182,7 +181,7 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                     .child(timePeriod).child(model.getId()).removeValue();
             deleteToDo.addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(context, "silindi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+context.getResources().getString(R.string.success), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "" + task.getException(), Toast.LENGTH_SHORT).show();
                 }
@@ -204,13 +203,11 @@ public class ToDoLayerAdapter extends RecyclerView.Adapter<ToDoLayerAdapter.ToDo
                 String[] toDosDate = toDoDate.split("/");
                 String[] currentDate = getDate().split("/");
                 if (Objects.requireNonNull(format.parse(currentDate[0])).after(format.parse(toDosDate[0]))) {
-                    System.out.println("true is outofdate");
                     return true;
                 }
             } catch (ParseException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println("false");
             return false;
         }
 

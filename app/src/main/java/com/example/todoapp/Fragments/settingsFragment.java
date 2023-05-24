@@ -75,10 +75,10 @@ public class settingsFragment extends Fragment {
 
     private void getUserNameSurname() {
         Task<DataSnapshot> getUsernameSurname = FirebaseDatabase.getInstance("https://todoapp-32d07-default-rtdb.europe-west1.firebasedatabase.app/")
-                .getReference("UsersActivitiesCurrent/"+FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(task -> {
-                   if(task.isSuccessful()){
-                       userNameSurname.setText(task.getResult().getValue().toString());
-                   }
+                .getReference("UsersActivitiesCurrent/" + FirebaseAuth.getInstance().getUid()).child("nameAndSurname").get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        userNameSurname.setText(task.getResult().getValue().toString());
+                    }
                 });
     }
 
@@ -94,11 +94,11 @@ public class settingsFragment extends Fragment {
     private void changeLangDialog(View view) {
         builder = new AlertDialog.Builder(getActivity(), R.style.dialogStyle);
         builder.setTitle(R.string.change_language);
-        final String [] langs = {"EN", "TR"};
+        final String[] langs = {"EN", "TR"};
         sharedPreferences = getActivity().getSharedPreferences("Settings.Lang", MODE_PRIVATE);
-        System.out.println(sharedPreferences.getString("Lang", "EN**"));
+
         builder.setSingleChoiceItems(langs, sharedPreferences.getString("Lang", "EN").equals("EN") ? 0 : 1, (dialogInterface, i) -> {
-            if(!Locale.getDefault().getCountry().equals(langs[i])){
+            if (!Locale.getDefault().getCountry().equals(langs[i])) {
                 Locale locale = new Locale(langs[i]);
                 Locale.setDefault(locale);
                 Configuration configuration = new Configuration();

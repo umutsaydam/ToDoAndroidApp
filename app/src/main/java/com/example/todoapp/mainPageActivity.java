@@ -15,12 +15,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -28,12 +25,13 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class mainPageActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(mainPageActivity.this, MainActivity.class));
         }
 
@@ -43,13 +41,10 @@ public class mainPageActivity extends AppCompatActivity {
 
 
         FirebaseMessaging.getInstance().subscribeToTopic("Reminding")
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "DONE !";
-                        if (!task.isSuccessful()){
-                            msg = "FAILED !";
-                        }
+                .addOnCompleteListener(task -> {
+                    String msg = "DONE !";
+                    if (!task.isSuccessful()) {
+                        msg = "FAILED !";
                     }
                 });
 
@@ -59,44 +54,45 @@ public class mainPageActivity extends AppCompatActivity {
         toggle.syncState();
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2);
+        assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
         NavigationView navigationView = findViewById(R.id.mainPageNavigation);
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(item -> {
             int navId = navController.getCurrentDestination().getId();
-            if(navId != R.id.mainPageFragment && item.getItemId() == R.id.toDoMenu){
-                if(navId == R.id.statisticFragment){
+            if (navId != R.id.mainPageFragment && item.getItemId() == R.id.toDoMenu) {
+                if (navId == R.id.statisticFragment) {
                     navController.navigate(R.id.action_statisticFragment_to_mainPageFragment);
-                }else if (navId == R.id.challengesFragment){
+                } else if (navId == R.id.challengesFragment) {
                     navController.navigate(R.id.action_challengesFragment_to_mainPageFragment);
-                }else if(navId == R.id.settingsFragment){
+                } else if (navId == R.id.settingsFragment) {
                     navController.navigate(R.id.action_settingsFragment_to_mainPageFragment);
                 }
-            }else if(navId != R.id.challengesFragment && item.getItemId() == R.id.challengeMenu){
-                if(navId == R.id.statisticFragment){
+            } else if (navId != R.id.challengesFragment && item.getItemId() == R.id.challengeMenu) {
+                if (navId == R.id.statisticFragment) {
                     navController.navigate(R.id.action_statisticFragment_to_challengesFragment);
-                }else if (navId == R.id.mainPageFragment){
+                } else if (navId == R.id.mainPageFragment) {
                     navController.navigate(R.id.action_mainPageFragment_to_challengesFragment);
-                }else if(navId == R.id.settingsFragment){
+                } else if (navId == R.id.settingsFragment) {
                     navController.navigate(R.id.action_settingsFragment_to_challengesFragment);
                 }
-            }else if(navId != R.id.statisticFragment && item.getItemId() == R.id.statisticMenu){
-                if(navId == R.id.challengesFragment){
+            } else if (navId != R.id.statisticFragment && item.getItemId() == R.id.statisticMenu) {
+                if (navId == R.id.challengesFragment) {
                     navController.navigate(R.id.action_challengesFragment_to_statisticFragment);
-                }else if (navId == R.id.mainPageFragment){
+                } else if (navId == R.id.mainPageFragment) {
                     navController.navigate(R.id.action_mainPageFragment_to_statisticFragment);
-                }else if(navId == R.id.settingsFragment){
+                } else if (navId == R.id.settingsFragment) {
                     navController.navigate(R.id.action_settingsFragment_to_statisticFragment);
                 }
-            }else if (navId != R.id.settingsFragment && item.getItemId() == R.id.settingsMenu){
+            } else if (navId != R.id.settingsFragment && item.getItemId() == R.id.settingsMenu) {
                 if (navId == R.id.mainPageFragment) {
                     navController.navigate(R.id.action_mainPageFragment_to_settingsFragment);
-                }else if(navId == R.id.challengesFragment){
+                } else if (navId == R.id.challengesFragment) {
                     navController.navigate(R.id.action_challengesFragment_to_settingsFragment);
-                }else if(navId == R.id.statisticFragment){
+                } else if (navId == R.id.statisticFragment) {
                     navController.navigate(R.id.action_statisticFragment_to_settingsFragment);
                 }
-            }else if(item.getItemId() == R.id.logout){
+            } else if (item.getItemId() == R.id.logout) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(mainPageActivity.this, MainActivity.class));
                 finish();
@@ -130,7 +126,7 @@ public class mainPageActivity extends AppCompatActivity {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                Toast.makeText(mainPageActivity.this, ""+loadAdError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainPageActivity.this, "" + loadAdError.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -157,9 +153,9 @@ public class mainPageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

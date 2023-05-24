@@ -80,7 +80,6 @@ public class ChallengesFragment extends Fragment {
                 if (snapshot.exists()) {
                     challengeModels.clear();
                     txtNoChallenges.setVisibility(View.INVISIBLE);
-                    System.out.println("data exist");
                     for (DataSnapshot data : snapshot.getChildren()) {
                         challengeModels.add(data.getValue(ChallengeModel.class));
                     }
@@ -107,6 +106,7 @@ public class ChallengesFragment extends Fragment {
 
         bottomSheetBehavior = BottomSheetBehavior.from((View) bottomView.getParent());
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
 
         CoordinatorLayout coordinatorLayout = bottomDialog.findViewById(R.id.coordinatorLayout);
         assert coordinatorLayout != null;
@@ -168,13 +168,13 @@ public class ChallengesFragment extends Fragment {
                         addNewChallenge(challengeTitle, btnChallengeStartDay.getText().toString(), btnChallengeEndDay.getText().toString(),
                                 challengeCategory[0], challengeDescription);
                     } else {
-                        Toast.makeText(getContext(), "Dates are incorrect.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.dates_incorrect), Toast.LENGTH_SHORT).show();
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             } else {
-                Toast.makeText(getContext(), "Please fill the areas.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.fill_fields), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -207,12 +207,11 @@ public class ChallengesFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         System.out.println("added");
-                        Toast.makeText(getContext(), "Challenge added", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.challenge_added), Toast.LENGTH_SHORT).show();
                     } else {
                         System.out.println("Error. " + task.getException().getMessage());
                     }
                 });
         fetchChallenges();
-        System.out.println(challengeModels.size() + " size");
     }
 }
